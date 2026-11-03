@@ -4,7 +4,7 @@
 (function () {
   const $ = (s, el = document) => el.querySelector(s);
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-  const leer = (hint) => `<span class="leer">${esc(hint || "noch nicht geschrieben")}</span>`;
+  const leer = (hint) => `<span class="leer">${esc(hint || "")}</span>`;
   const fig = (id) => SF.roster.find((f) => f.id === id);
   const view = $("#view");
 
@@ -52,9 +52,9 @@
       <div>
         <p class="kick"><span class="c">▚</span> Filmproduktion · 会社</p>
         <h1><span class="glitch" data-t="Scheinfirma.">Scheinfirma.</span>
-          <span class="l2">Geführt von ihren Figuren.</span></h1>
+          <span class="l2">Filmproduktion.</span></h1>
         <div class="bars"><i></i><i></i><i></i></div>
-        <p class="lead">${esc(SF.manifest.thesen[0])} ${esc(SF.manifest.thesen[3])}</p>
+        <p class="lead">${esc(SF.manifest.thesen[0])} ${esc(SF.manifest.thesen[1])}</p>
         <p style="margin-top:26px"><a class="tag" href="#manifest">→ Manifest</a><a class="tag" href="#roster" style="color:var(--pink)">→ Roster</a><a class="tag" href="#werke" style="color:var(--yellow)">→ Werke</a></p>
       </div>
       <div class="hero-logo logo glitch-img big" style="--src:url(assets/brand/logo.png)"><img src="assets/brand/logo.png" alt="Scheinfirma Logo"></div>
@@ -62,8 +62,8 @@
 
     <div class="ticker"><span>
       会社 · ${esc(wk.titel)} · ${esc(wk.ort)} · ${esc(SF.werkStatus[wk.status]).toUpperCase()} ·
-      FIGURENSTAND ${String(aktiv).padStart(2, "0")}/${String(SF.roster.length).padStart(2, "0")} ·
-      KESTREL RENTALS SCHWEIGT · NARROR, ERGO SUM · ICH WERDE ERZÄHLT, ALSO BIN ICH ·
+      BELEGSCHAFT ${String(aktiv).padStart(2, "0")}/${String(SF.roster.length).padStart(2, "0")} ·
+      KESTREL RENTALS SCHWEIGT · WAS FEHLT, WIRD GEBAUT · WAS GEBAUT WIRD, KOMMT INS BILD ·
     </span></div>
 
     <section class="grid g2">
@@ -73,9 +73,9 @@
         <p class="dim">${esc(wk.logline)} ${esc(wk.ort)}, ${esc(wk.jahr)}. →</p>
       </a>
       <a class="panel" href="#figur/kaisha" style="--c:var(--pink);color:var(--text)">
-        <p class="kick">Figur 01</p>
+        <p class="kick">Personalakte 01</p>
         <h2>Kaisha Goonin <span class="kana">会社</span></h2>
-        <p class="dim">Die Maske mit dem Kreis auf der Stirn. Dossier öffnen →</p>
+        <p class="dim">Die Maske mit dem Kreis auf der Stirn. Akte öffnen →</p>
       </a>
     </section>
 
@@ -114,7 +114,7 @@
     </tbody></table></div>
     ${SF.werke.filter((w) => w.figuren).map((w) => `
     <section style="margin-top:48px">
-      <div class="sec-head"><span class="code">${esc(w.nr)}</span><h2>${esc(w.titel)} · Besetzung</h2></div>
+      <div class="sec-head"><span class="code">${esc(w.nr)}</span><h2>${esc(w.titel)} · Crew</h2></div>
       <div class="roster">${w.figuren.map(fig).filter(Boolean).map(card).join("")}</div>
     </section>`).join("")}`;
   }
@@ -124,7 +124,7 @@
     if (f.status !== "aktiv") {
       return `<a class="card void" href="#figur/${f.id}">
         <div class="pic"><span class="nr">${f.nr}</span><span class="sil">?_</span></div>
-        <div class="meta"><h3>${esc(f.name)}</h3><p>${esc((f.funktionen || []).join(", "))} · <span style="color:var(--yellow)">Leerstelle</span></p></div></a>`;
+        <div class="meta"><h3>${esc(f.name)}</h3><p>${esc((f.funktionen || []).join(", "))} · <span style="color:var(--yellow)">Akte unvollständig</span></p></div></a>`;
     }
     return `<a class="card" href="#figur/${f.id}">
       <div class="pic"><span class="nr">${f.nr}</span><img src="${f.bilder.face}" alt="${esc(f.name)}" loading="lazy"></div>
@@ -133,8 +133,8 @@
   }
   function roster() {
     return `
-    <p class="kick"><span class="c">03</span> // Figurenstand</p>
-    <h1>Der Roster</h1>
+    <p class="kick"><span class="c">03</span> // Personal</p>
+    <h1>Belegschaft</h1>
     <div class="bars"><i></i><i></i><i></i></div>
     <div class="roster">${SF.roster.map(card).join("")}</div>`;
   }
@@ -142,14 +142,14 @@
   // ── Figur-Dossier ──
   function figur(id) {
     const f = fig(id);
-    if (!f) return `<h1>404</h1><p>Keine Figur mit der Kennung <code>${esc(id)}</code>.</p>`;
+    if (!f) return `<h1>404</h1><p>Keine Akte mit der Kennung <code>${esc(id)}</code>.</p>`;
     const val = (v, hint) => (v == null || (Array.isArray(v) && !v.length)) ? leer(hint) : Array.isArray(v) ? `<ul>${v.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : esc(v);
     const tb = SF.oeffentlich(SF.tagebuecher[f.id]).length;
     const pic = f.bilder
       ? `<div class="idcard" data-id="${f.nr}"><img src="${f.bilder.front}" alt="${esc(f.name)}, Ganzkörper frontal"></div>`
       : `<div class="card void" style="pointer-events:none"><div class="pic"><span class="nr">${f.nr}</span><span class="sil">?_</span></div></div>`;
     return `
-    <p class="kick"><a href="#roster">← Roster</a> &nbsp;/&nbsp; <span class="c">Figur ${f.nr}</span> // ${f.status === "aktiv" ? '<span class="green">AKTIV</span>' : '<span style="color:var(--yellow)">LEERSTELLE</span>'}</p>
+    <p class="kick"><a href="#roster">← Roster</a> &nbsp;/&nbsp; <span class="c">Personalakte ${f.nr}</span> // ${f.status === "aktiv" ? '<span class="green">AKTIV</span>' : '<span style="color:var(--yellow)">UNVOLLSTÄNDIG</span>'}</p>
     <h1>${esc(f.name)}${f.kana ? `<span class="kana" style="font-size:.5em">${f.kana}</span>` : ""}</h1>
     ${f.kurz ? `<p class="lead">${esc(f.kurz)}</p>` : ""}
     <div class="bars"><i></i><i></i><i></i></div>
@@ -160,12 +160,12 @@
           <dt>Kennung</dt><dd class="mono">${f.id}</dd>
           <dt>Funktionen</dt><dd>${f.funktionen ? f.funktionen.map((x) => `<span class="tag blue">${esc(x)}</span>`).join("") : leer("Funktion offen")}</dd>
           <dt>Vorgeschichte</dt><dd>${val(f.vorgeschichte)}</dd>
-          <dt>Insignie</dt><dd>${f.insignie ? esc(f.insignie) : leer()}</dd>
+          <dt>Abzeichen</dt><dd>${f.insignie ? esc(f.insignie) : leer()}</dd>
           <dt>Erkennungszeichen</dt><dd>${val(f.erkennungszeichen)}</dd>
           ${f.palette ? `<dt>Palette</dt><dd class="swatches">${f.palette.map((c) => `<i style="background:${c}" title="${c}"></i>`).join("")}</dd>` : ""}
           <dt>Zuständigkeiten</dt><dd>${val(f.zustaendigkeiten)}</dd>
           <dt>Offene Fäden</dt><dd>${val(f.offeneFaeden)}</dd>
-          <dt>Tagebuch</dt><dd><a href="#tagebuch/${f.id}">${tb} Episode${tb === 1 ? "" : "n"} →</a></dd>
+          <dt>Tagebuch</dt><dd><a href="#tagebuch/${f.id}">${tb} Eintr${tb === 1 ? "ag" : "äge"} →</a></dd>
         </dl>
       </div>
     </div>
@@ -176,7 +176,7 @@
   // ── 02 WELTBUCH ──
   function weltbuch() {
     return `
-    <p class="kick"><span class="c">04</span> // Lore</p>
+    <p class="kick"><span class="c">04</span> // Archiv</p>
     <h1>Das Weltbuch</h1>
     <div class="bars"><i></i><i></i><i></i></div>
     ${SF.weltbuch.map((k) => `
@@ -210,13 +210,13 @@
   // ── 04 TAGEBÜCHER ──
   function tagebuecher() {
     return `
-    <p class="kick"><span class="c">06</span> // je Figur</p>
+    <p class="kick"><span class="c">06</span> // Belegschaft</p>
     <h1>Tagebücher</h1>
     <div class="bars"><i></i><i></i><i></i></div>
     <div class="diary-list">${SF.roster.map((f) => {
       const n = SF.oeffentlich(SF.tagebuecher[f.id]).length;
       return `<a class="diary-row ${f.status === "aktiv" ? "" : "void"}" href="#tagebuch/${f.id}">
-        <span class="n">${f.nr}</span><span><b>${esc(f.name)}</b> <span class="dim mono">· ${n} Episode${n === 1 ? "" : "n"}</span></span>
+        <span class="n">${f.nr}</span><span><b>${esc(f.name)}</b> <span class="dim mono">· ${n} Eintr${n === 1 ? "ag" : "äge"}</span></span>
         <span class="tag ${n ? "pink" : ""}" style="${n ? "" : "color:var(--yellow)"}">${n ? "lesen" : "leer"}</span></a>`;
     }).join("")}</div>`;
   }
@@ -233,7 +233,7 @@
         <div class="when">${esc(e.datum)}</div>
         <p class="prose diary">${esc(e.text)}</p>
       </div>`).join("")}</div>`
-      : `<p>${leer("noch keine Episode")}</p>`}`;
+      : `<p>${leer("keine Einträge")}</p>`}`;
   }
   function episodeView(f, e) {
     return `<div class="grid g2" style="margin-top:10px;align-items:start">
@@ -298,7 +298,7 @@ AUFTRAG   ${esc(e.auftrag)}
       <div class="sec-head"><span class="code">B-40</span><h2>Manifest</h2></div>
       <p>Status: <span class="mono" style="color:${SF.manifest.status === "freigegeben" ? "var(--real)" : "var(--yellow)"}">${esc(SF.manifest.status.toUpperCase())}</span>
         · Unterzeichnet: ${SF.manifest.unterzeichnet ? esc(SF.manifest.unterzeichnet) : '<span style="color:var(--yellow)">offen</span>'}.
-        Die Thesen sind ein Entwurf aus dem Pitch-Deck, umgeschrieben in die Stimme der Firma. Bearbeiten in <code>data/werke.js</code>.</p>
+        Die Thesen sind ein Entwurf in der Stimme der Firma, ohne Bezug auf das Verfahren. Bearbeiten in <code>data/werke.js</code>.</p>
     </section>
     <section>
       <div class="sec-head"><span class="code">B-41</span><h2>Weltbuch-Stand</h2></div>

@@ -137,7 +137,7 @@ section { margin: 0 0 72px; }
   border: 1px dashed rgba(245,213,71,.5); padding: 10px 12px;
   background: repeating-linear-gradient(-45deg, rgba(245,213,71,.06) 0 8px, transparent 8px 16px);
 }
-.leer::before { content: "▒▒ LEERSTELLE ▒▒ "; font-weight: 800; }
+.leer::before { content: "▒▒ DATEN AUSSTEHEND ▒▒ "; font-weight: 800; }
 span.leer { display: inline-block; padding: 3px 8px; }
 
 /* ── lobby ──────────────────────────────────────── */

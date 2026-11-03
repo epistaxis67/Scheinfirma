@@ -36,9 +36,9 @@ SF.weltbuch = [
     code: "W-03",
     eintraege: [
       { titel: "Die Puppe", kanon: true,
-        text: "Steht im Raum, eine Kamera auf dem Kopf, Kabel im Arm. Wer an sie herantritt, bekommt einen Auftrag, einen Namen und einen Gegenstand. Wer sie fragt, warum, bekommt den Auftrag noch einmal." },
-      { titel: "Insignien", kanon: true,
-        text: "Wer eine Insignie trägt, spricht für die Figur. Bekannt: verspiegelte Schutzbrille (Frank the Drifter)." },
+        text: "Sitzt am Eingang, eine Kamera auf dem Kopf, Kabel im Arm. Verteilt die Aufträge des Tages. Wer sie fragt, warum, bekommt den Auftrag noch einmal." },
+      { titel: "Verspiegelte Schutzbrille", kanon: true,
+        text: "Franks. Er nimmt sie nicht ab, auch nicht drinnen." },
       { titel: "Geräte, Implantate, Netz", kanon: false, text: null }
     ]
   },
@@ -46,9 +46,8 @@ SF.weltbuch = [
     kapitel: "Sprache",
     code: "W-04",
     eintraege: [
-      { titel: "Antritt", kanon: true, text: "„Wie kommst du an?“ — die erste Frage der Puppe." },
-      { titel: "Rückgabe", kanon: true, text: "„Wie ist es gelaufen?“ — die letzte." },
-      { titel: "Narror, ergo sum", kanon: true, text: "Ich werde erzählt, also bin ich. Steht über dem Eingang." },
+      { titel: "„Wie kommst du an?“", kanon: true, text: "Gruß am Morgen." },
+      { titel: "„Wie ist es gelaufen?“", kanon: true, text: "Gruß am Abend." },
       { titel: "Slang, Flüche, Grußformeln", kanon: false, text: null }
     ]
   }
