@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SCHEINFIRMA</title>
+  <meta name="description" content="Scheinfirma — eine Filmproduktion, geführt von ihrem Figurenstand. Roster, Weltbuch, Firmengeschichte, Tagebücher, Backend.">
+  <link rel="icon" href="assets/brand/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Space+Grotesk:wght@400;600;700&family=Spectral:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="scan" aria-hidden="true"></div>
+
+  <header class="top">
+    <a class="brand" href="#lobby" aria-label="Scheinfirma — Lobby">
+      <span class="logo glitch-img" style="--src:url(assets/brand/logo.png)">
+        <img src="assets/brand/logo.png" alt="Scheinfirma">
+      </span>
+    </a>
+    <div class="sys">
+      <span class="dot"></span> NODE://SCHEINFIRMA <span class="dim">· CHANCE² · BUILD 0.1 · PROVISORISCH</span>
+    </div>
+    <button class="burger" aria-label="Menü" onclick="document.body.classList.toggle('nav-open')">≡</button>
+    <nav class="nav">
+      <a href="#lobby" data-r="lobby"><b>00</b>Lobby</a>
+      <a href="#roster" data-r="roster"><b>01</b>Roster</a>
+      <a href="#weltbuch" data-r="weltbuch"><b>02</b>Weltbuch</a>
+      <a href="#chronik" data-r="chronik"><b>03</b>Firmengeschichte</a>
+      <a href="#tagebuecher" data-r="tagebuecher"><b>04</b>Tagebücher</a>
+      <a href="#backend" data-r="backend" class="nav-back"><b>▚▚</b>Backend</a>
+    </nav>
+  </header>
+
+  <main id="view" tabindex="-1"></main>
+
+  <footer class="foot">
+    <span>SCHEINFIRMA · INTERN</span>
+    <span class="dim">Personen kommen und gehen. Die Figuren bleiben und wachsen weiter.</span>
+    <span>会社 // NARROR, ERGO SUM</span>
+  </footer>
+
+  <script src="data/roster.js"></script>
+  <script src="data/weltbuch.js"></script>
+  <script src="data/chronik.js"></script>
+  <script src="data/aufgaben.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
