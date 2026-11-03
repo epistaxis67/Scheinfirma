@@ -7,9 +7,10 @@ Provisorische Seite der Scheinfirma: eine Filmproduktionsfirma (Chance²), gefü
 | Bereich | Datei | Was dort steht |
 |---|---|---|
 | Roster | `data/roster.js` | Figuren, Steckbriefe, Bilder. Kaisha Goonin ist Figur 01, Figur 02–11 sind Leerstellen. |
+| Manifest, Werke | `data/werke.js` | Thesen (noch leer), Werkverzeichnis |
 | Weltbuch | `data/weltbuch.js` | Schauplätze, Konzerne, Technik, Sprache |
 | Firmengeschichte, Tagebücher | `data/chronik.js` | fortlaufend, vom Imaginator geschrieben |
-| Aufgabenpool | `data/aufgaben.js` | wird im Backend vom Office-Master an Figuren verteilt |
+| Aufgaben | `data/aufgaben.js` | allgemein und für Chance², im Backend Figuren zuteilbar |
 
 Ein Feld mit `null` erscheint auf der Seite als **LEERSTELLE**.
 
@@ -23,9 +24,13 @@ Dann http://localhost:8765 öffnen.
 
 ## Backend
 
-Das Backend (`#backend`) ist ein Prototyp ohne Server und ohne Zugangskontrolle.
-Zuteilungen und Protokolleinträge bleiben im jeweiligen Browser und lassen sich als JSON exportieren.
-Was dauerhaft gelten soll, wird in `data/*.js` eingetragen und committet.
+Das Backend (`#backend`) hat zwei Teile:
+
+1. **Workflow: Figuren** — vom Steckbrief über das Character Sheet bis zum Einsetzen der Figur in Filmmaterial.
+2. **Aufgaben** — alles, was ansteht: allgemein und für Chance² am Schinkel Pavillon (Vorbereitung, vor Ort, danach). Jede Aufgabe lässt sich einer Figur zuteilen.
+
+Zuteilungen und Häkchen bleiben im jeweiligen Browser (kein Server, keine Zugangskontrolle).
+Was dauerhaft gelten soll, wird in `data/aufgaben.js` eingetragen und committet.
 
 ## Neue Figur
 

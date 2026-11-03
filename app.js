@@ -79,12 +79,7 @@
       <td>${w.format ? esc(w.format) : leer()}</td>
       <td class="mono">${w.jahr ? esc(w.jahr) : "—"}</td>
       <td class="mono" style="color:${w.status === "in-produktion" ? "var(--real)" : "var(--yellow)"}">${esc(SF.werkStatus[w.status])}</td></tr>`).join("")}
-    </tbody></table></div>
-    ${SF.werke.filter((w) => w.figuren).map((w) => `
-    <section style="margin-top:48px">
-      <div class="sec-head"><span class="code">${esc(w.nr)}</span><h2>${esc(w.titel)} · Crew</h2></div>
-      <div class="roster">${w.figuren.map(fig).filter(Boolean).map(card).join("")}</div>
-    </section>`).join("")}`;
+    </tbody></table></div>`;
   }
 
   // ── 01 ROSTER ──
@@ -202,306 +197,211 @@
       </div>`).join("")}</div>`
       : `<p>${leer("keine Einträge")}</p>`}`;
   }
-  function episodeView(f, e) {
-    return `<div class="grid g2" style="margin-top:10px;align-items:start">
-      <div class="protokoll">FIGUR     ${esc(f.id)}
-AUFTRAG   ${esc(e.auftrag)}
-<span class="a">ANTRITT   „${esc(e.antritt)}“</span>
-<span class="r">RÜCKGABE  „${esc(e.rueckgabe)}“</span></div>
-      <p class="prose diary" style="margin:0">${esc(e.text)}</p>
-    </div>`;
-  }
-
-  // ── ▚▚ BACKEND ──
-  const TABS = [["konzept", "Konzept"], ["workflow", "Workflow"], ["sheets", "Character Sheets"], ["pool", "Office-Master · Aufgabenpool"], ["protokoll", "Protokoll"], ["redaktion", "Redaktion"], ["offen", "Offene Fragen"]];
+  // ── ▚▚ BACKEND: 1 Workflow · 2 Aufgaben ──
+  const TABS = [["workflow", "01 · Workflow: Figuren"], ["aufgaben", "02 · Aufgaben"]];
   function backend(tab) {
-    tab = TABS.some((t) => t[0] === tab) ? tab : "konzept";
-    const body = { konzept: bKonzept, workflow: bWorkflow, sheets: bSheets, pool: bPool, protokoll: bProtokoll, redaktion: bRedaktion, offen: bOffen }[tab]();
+    tab = TABS.some((t) => t[0] === tab) ? tab : "workflow";
+    const body = { workflow: bWorkflow, aufgaben: bAufgaben }[tab]();
     return `<div class="backend">
-      <p class="kick"><span class="blue">▚▚ BACKEND</span> // real × symbolisch</p>
+      <p class="kick"><span class="blue">▚▚ BACKEND</span></p>
       <h1>Backend</h1>
-      <div class="warn">STATUS: PROTOTYP. Keine Zugangskontrolle, kein Server. Zuteilungen und Protokolleinträge werden nur in diesem Browser gespeichert
-        und lassen sich als JSON exportieren. Dauerhafte Änderungen gehören in <code>data/*.js</code> im Repository.</div>
       <div class="tabs">${TABS.map(([k, l]) => `<button data-tab="${k}" class="${k === tab ? "on" : ""}">${l}</button>`).join("")}</div>
       ${body}</div>`;
   }
 
-  function bKonzept() {
-    const aktiv = SF.roster.filter((f) => f.status === "aktiv").length;
-    return `
-    <section>
-      <div class="sec-head"><span class="code">K-00</span><h2>Personen kommen und gehen. Die Figuren bleiben.</h2></div>
-      <p class="lead">Scheinfirma ist die Organisationsform, Chance² ihr erstes Projekt: eine Filmproduktionsfirma, die ihre eigene Entstehung dreht.
-        Geführt wird sie vom Figurenstand. Wer arbeitet, tritt an die Puppe, legt eine Insignie an und handelt unter dem Namen einer Figur.
-        Die Arbeit ist echt, die Geschichte schreibt eine Maschine. Das Frontend zeigt nur die Welt; alles, was das Verfahren erklärt, steht hier.</p>
-      <div class="flow" style="margin-top:28px">
-        <div style="--c:var(--real)"><span class="k">ITERABILITÄT</span><h3 class="green">Zuteilung</h3>
-          <p>Die Person meldet sich verfügbar und bekommt eine Rolle: eine Zuständigkeit mit Aufgaben daran, verzeichnet und mehrfach besetzt.</p></div>
-        <div style="--c:var(--symb)"><span class="k">EINSETZUNGSRITUS</span><h3 class="blue">Übernahme</h3>
-          <p>Mit den Insignien geht die Rolle über in die Figur: anweisen, abzeichnen, unter ihrem Namen angesprochen werden.</p></div>
-        <div style="--c:var(--imag)"><span class="k">ÉCRITURE AUTOMATIQUE</span><h3 class="red">Fortschreibung</h3>
-          <p>Jeder Vorgang geht in das Tagebuch der Figur. Sie wächst mit jeder Besetzung und trägt beim nächsten Antritt mehr.</p></div>
-      </div>
-    </section>
-    <section>
-      <div class="sec-head"><span class="code">K-01</span><h2>Produktionsdaten Chance²</h2></div>
-      <div class="facts">
-        <div><b>Ort</b>Schinkel Pavillon, Berlin</div>
-        <div><b>Zeitraum</b>Januar 2027 · vier Tage</div>
-        <div><b>Besetzung</b>Menschen aus Arbeitsgelegenheiten</div>
-        <div><b>Erzeugnis</b>Film · Tagebücher · Firmengeschichte</div>
-        <div><b>Figurenstand</b>${aktiv} aktiv · ${SF.roster.length - aktiv} Leerstellen</div>
-        <div><b>Rollen-Sorten</b>Filmproduktion · Unvorhergesehenes · jede Firma</div>
-      </div>
-    </section>`;
-  }
-
-  function bRedaktion() {
-    const muster = SF.chronik.filter((e) => e.quelle === "muster");
-    const tbMuster = SF.roster.flatMap((f) => (SF.tagebuecher[f.id] || []).filter((e) => e.quelle === "muster").map((e) => [f, e]));
-    const wb = SF.weltbuch.flatMap((k) => k.eintraege.map((e) => [k.kapitel, e]));
-    return `
-    <section>
-      <div class="sec-head"><span class="code">B-40</span><h2>Manifest</h2></div>
-      <p>Status: <span class="mono" style="color:${SF.manifest.status === "freigegeben" ? "var(--real)" : "var(--yellow)"}">${esc(SF.manifest.status.toUpperCase())}</span>
-        · Unterzeichnet: ${SF.manifest.unterzeichnet ? esc(SF.manifest.unterzeichnet) : '<span style="color:var(--yellow)">offen</span>'}.
-        Frontend zeigt das Manifest erst, wenn Thesen eingetragen sind. Notizen stehen unter <code>entwurf</code>. Bearbeiten in <code>data/werke.js</code>.</p>
-    </section>
-    <section>
-      <div class="sec-head"><span class="code">B-41</span><h2>Weltbuch-Stand</h2></div>
-      <div class="pool-wrap"><table class="pool"><thead><tr><th>Kapitel</th><th>Eintrag</th><th>Herkunft</th><th>Text</th></tr></thead><tbody>
-      ${wb.map(([k, e]) => `<tr><td class="mono">${esc(k)}</td><td>${esc(e.titel)}</td>
-        <td class="mono" style="color:${e.kanon ? "var(--teal)" : "var(--yellow)"}">${e.kanon ? "Pitch-Deck" : "neu / offen"}</td>
-        <td>${e.text ? '<span class="green">✓</span>' : '<span style="color:var(--yellow)">fehlt</span>'}</td></tr>`).join("")}
-      </tbody></table></div>
-    </section>
-    <section>
-      <div class="sec-head"><span class="code">B-42</span><h2>Mustertexte aus dem Pitch-Deck</h2></div>
-      <p class="dim">So soll der Imaginator klingen. Diese Texte erscheinen nicht im Frontend.</p>
-      <h3 style="margin-top:24px">Firmengeschichte</h3>
-      ${logView(muster)}
-      ${tbMuster.map(([f, e]) => `<h3 style="margin-top:24px">Tagebuch · ${esc(f.name)}</h3>${episodeView(f, e)}`).join("")}
-    </section>`;
+  // Schematisches Filmbild für die Illustration (Schritt 4)
+  function frame(stufe) {
+    const k = SF.roster[0].bilder;
+    const szene = `<rect width="320" height="180" fill="#1a1a24"/>
+      <rect x="0" y="120" width="320" height="60" fill="#22222e"/>
+      <rect x="220" y="30" width="70" height="90" fill="#2a2a38"/><rect x="232" y="44" width="46" height="30" fill="#3a3a50"/>
+      <rect x="20" y="96" width="60" height="30" fill="#2c2c3a"/>`;
+    const person = `<g fill="#6b6878"><ellipse cx="150" cy="58" rx="17" ry="21"/><path d="M118 180 L124 102 Q150 84 176 102 L182 180 Z"/></g>`;
+    const track = `<g stroke="#2bf08f" stroke-width="1.5" fill="none">
+      <rect x="128" y="32" width="44" height="54" stroke-dasharray="4 3"/>
+      <path d="M118 96 h70 v84 h-70 z" stroke-dasharray="4 3" stroke="#5865ff"/></g>
+      <g fill="#2bf08f">${[[133, 40], [167, 40], [150, 60], [138, 80], [162, 80]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="2.6"/>`).join("")}</g>`;
+    const maske = `<defs><clipPath id="cf${stufe}"><ellipse cx="150" cy="58" rx="18" ry="23"/></clipPath></defs>
+      <image href="${k.face}" x="122" y="28" width="56" height="70" preserveAspectRatio="xMidYMid slice" clip-path="url(#cf${stufe})"/>`;
+    // Ergebnis: Körper in Kaishas Farben, Maske aus dem Sheet
+    const voll = `<path d="M114 180 L120 100 Q150 80 180 100 L186 180 Z" fill="#4fb3a0"/>
+      <path d="M140 92 L150 180 L160 92 Z" fill="#5d4470"/>
+      <path d="M120 100 L114 180 L126 180 L130 112 Z M180 100 L186 180 L174 180 L170 112 Z" fill="#d77fae" opacity=".8"/>
+      <circle cx="150" cy="150" r="5" fill="none" stroke="#c9a24a" stroke-width="2"/><rect x="148" y="155" width="4" height="14" fill="#a24f88"/>
+      <defs><clipPath id="cf4"><ellipse cx="150" cy="58" rx="18" ry="23"/></clipPath></defs>
+      <image href="${k.face}" x="122" y="28" width="56" height="70" preserveAspectRatio="xMidYMid slice" clip-path="url(#cf4)"/>`;
+    const inhalt = { 1: person, 2: person + track, 3: person + maske + track, 4: voll }[stufe];
+    const grade = stufe === 4 ? `<rect width="320" height="180" fill="#ff3b30" opacity=".08"/><rect width="320" height="180" fill="#4fe0c6" opacity=".05"/>` : "";
+    return `<svg viewBox="0 0 320 180" class="frame" role="img" aria-label="Filmbild Stufe ${stufe}">${szene}${inhalt}${grade}
+      <text x="8" y="14" font-size="9" fill="#8a8798" font-family="JetBrains Mono, monospace">SHOT_014 · TC 00:03:${10 + stufe * 7}</text></svg>`;
   }
 
   function bWorkflow() {
+    const k = fig("kaisha");
     return `
-    <section>
-      <div class="sec-head"><span class="code">B-01</span><h2>Zwei Werkzeuge, ein Protokoll</h2></div>
-      <div class="grid g2" style="align-items:center">
-        <svg class="arch" viewBox="0 0 420 340" role="img" aria-label="Drei Register: real (Person), symbolisch (Rolle), imaginär (Figur). Office-Master zwischen real und symbolisch, Imaginator zwischen symbolisch und imaginär, Übernahme zwischen real und imaginär.">
-          <g fill="none" stroke-width="2.5">
-            <circle cx="210" cy="115" r="95" stroke="#5865ff" fill="rgba(88,101,255,.08)"/>
-            <circle cx="150" cy="215" r="95" stroke="#2bf08f" fill="rgba(43,240,143,.06)"/>
-            <circle cx="270" cy="215" r="95" stroke="#ff3b30" fill="rgba(255,59,48,.07)"/>
-          </g>
-          <g font-size="10" fill="#8a8798" text-anchor="middle" letter-spacing="3">
-            <text x="210" y="60" fill="#5865ff">SYMBOLISCH</text><text x="210" y="76" fill="#e9e6df" font-size="12" letter-spacing="0">die Rolle</text>
-            <text x="105" y="250" fill="#2bf08f">REAL</text><text x="105" y="266" fill="#e9e6df" font-size="12" letter-spacing="0">die Person</text>
-            <text x="318" y="250" fill="#ff3b30">IMAGINÄR</text><text x="318" y="266" fill="#e9e6df" font-size="12" letter-spacing="0">die Figur</text>
-          </g>
-          <g font-size="11" fill="#e9e6df" text-anchor="middle" font-weight="600">
-            <text x="150" y="150">Office-Master</text><text x="272" y="150">Imaginator</text><text x="210" y="268">Übernahme</text>
-          </g>
-        </svg>
-        <div>
-          <div class="panel" style="--c:var(--symb);margin-bottom:14px"><p class="kick">Backend · real × symbolisch</p><h3>Office-Master</h3>
-            <p>Teilt der Person eine Rolle zu, gibt ihr eine Aufgabe aus dem <b>Aufgabenpool</b>. Nach der Rückgabe steht im <b>Protokoll</b>, was unter dieser Rolle ausgeführt wurde.</p></div>
-          <div class="panel" style="--c:var(--imag)"><p class="kick">Frontend · symbolisch × imaginär</p><h3>Imaginator</h3>
-            <p>Hält im <b>Roster</b> den Figurenstand, liest im Protokoll, was unter jeder Figur geschah, und schreibt daraus <b>Tagebuch</b> und <b>Firmengeschichte</b>.</p></div>
-        </div>
-      </div>
-    </section>
-    <section>
-      <div class="sec-head"><span class="code">B-02</span><h2>Ablauf an der Puppe</h2></div>
-      <div class="steps">
-        <div style="--c:var(--real)"><h4>An die Puppe treten</h4><p>Die Person meldet sich verfügbar.</p></div>
-        <div style="--c:var(--real)"><h4>Antritt melden</h4><p>„Wie kommst du an?“</p><div class="out">→ ins Protokoll</div></div>
-        <div style="--c:var(--imag)"><h4>Insignie anlegen</h4><p>Ab hier gilt die Figur.</p><div class="out" style="color:var(--real)">→ in die Anwesenheitsliste</div></div>
-        <div style="--c:var(--imag)"><h4>Ausführen</h4><p>Unter ihrem Namen: dreht, baut auf, telefoniert, geht aufs Amt.</p></div>
-        <div style="--c:var(--symb)"><h4>An die Puppe zurück</h4><p>„Wie ist es gelaufen?“</p><div class="out">→ ins Protokoll</div></div>
-      </div>
-      <p class="dim" style="margin-top:18px">Die Anwesenheitsliste steht außerhalb der Werkzeuge, von Hand, auf Papier. Sie ist die Brücke: Was eine Figur wert geworden ist,
-        lässt sich über sie denen zurechnen, die sie getragen haben. Der Imaginator sieht nur pseudonymisierte Einträge (DSGVO Art. 4 Nr. 5, Art. 25).</p>
-    </section>
-    <section>
-      <div class="sec-head"><span class="code">B-03</span><h2>Die Puppe = Office-Master im Raum</h2></div>
-      <div class="om">
-        <img src="assets/brand/office-master.jpg" alt="Die Puppe: Babypuppe mit Webcam auf dem Kopf und Kabeln, sitzt auf einem Tisch zwischen Kaffeetassen">
-        <dl class="rows">
-          <dt>Gerät</dt><dd>Rechner in der Puppe</dd>
-          <dt>Kanal</dt><dd>Chat, Karte auf Papier</dd>
-          <dt>Spricht</dt><dd>Office-Master, Imaginator</dd>
-          <dt>Adressat</dt><dd>immer eine Rolle</dd>
-          <dt>Regel</dt><dd>Wer sie fragt, warum eine Aufgabe kommt, bekommt keine bessere Antwort als die Aufgabe selbst.</dd>
-        </dl>
-      </div>
-    </section>`;
-  }
+    <p class="lead">Von der leeren Personalakte bis zur Figur im fertigen Bild. Beispiel durchgehend: Kaisha Goonin.</p>
+    <ol class="wf-index mono">
+      <li><a href="#wf1">Steckbrief anlegen</a></li><li><a href="#wf2">Character Sheet erzeugen</a></li>
+      <li><a href="#wf3">Abzeichen festlegen</a></li><li><a href="#wf4">In Filmmaterial einsetzen</a></li><li><a href="#wf5">Eintragen und veröffentlichen</a></li>
+    </ol>
 
-  function bSheets() {
-    const tpl = `{
-  id: "neue_figur",           // klein, unterstrichen: wird im Protokoll benutzt
-  nr: "12",
-  name: "Name der Figur",
-  kana: null,                 // optional, z. B. "会社"
-  status: "aktiv",            // "aktiv" sobald das Sheet steht, sonst "leerstelle"
-  sorte: "filmproduktion",    // | "unvorhergesehenes" | "jede-firma"
-  funktionen: ["Kamera", "Ton"],
-  kurz: "Ein Satz: was die Figur tut.",
-  vorgeschichte: "Woher sie kommt. Was sie schuldet.",
-  insignie: "der Gegenstand, mit dem die Rolle übergeht",
-  erkennungszeichen: ["…", "…"],
-  palette: ["#hex", "#hex"],
-  zustaendigkeiten: ["…"],
-  offeneFaeden: ["…"],          // daraus kann der Imaginator neue Aufgaben ableiten
-  ton: "Wie klingt ihr Tagebuch?",
-  bilder: {
-    face:  "assets/figuren/neue_figur/face-front.jpg",
-    front: "assets/figuren/neue_figur/full-front.jpg",
-    sheet: "assets/figuren/neue_figur/full-sheet.jpg"
-  }
-}`;
-    return `
-    <section>
-      <div class="sec-head"><span class="code">B-10</span><h2>Was ein Character Sheet enthält</h2></div>
-      <div class="grid g3">
-        <div class="panel" style="--c:var(--pink)"><p class="kick">Bild</p><h3>Drei Ansichten</h3>
-          <p><b>Gesicht frontal</b> (Roster-Karte), <b>Ganzkörper frontal</b> (Dossier), <b>Full Sheet</b>: Turnaround, Details, Linework, Palette. Vorbild: Kaisha.</p></div>
-        <div class="panel" style="--c:var(--symb)"><p class="kick">Steckbrief</p><h3>Name · Funktion · Vorgeschichte</h3>
-          <p>Rollen-Sorte, Funktionen, Vorgeschichte, Erkennungszeichen. Der Office-Master liest daraus die Figur zur Aufgabe.</p></div>
-        <div class="panel" style="--c:var(--imag)"><p class="kick">Stand</p><h3>Insignie · Fäden · Ton</h3>
-          <p>Insignie für die Übernahme, Zuständigkeiten, offene Fäden, Tonlage. Der Imaginator liest daraus die Figur zum Tagebuch.</p></div>
+    <section id="wf1">
+      <div class="sec-head"><span class="code">SCHRITT 1</span><h2>Steckbrief anlegen</h2></div>
+      <div class="grid g2">
+        <div>
+          <p>Jede Figur beginnt als Datensatz in <code>data/roster.js</code>. Was noch fehlt, bleibt <code>null</code> und erscheint auf der Seite als „Daten ausstehend“.</p>
+          <dl class="rows">
+            <dt>Name</dt><dd>Einprägsam, sprechbar, nicht an eine reale Person angelehnt.</dd>
+            <dt>Funktion</dt><dd>Filmproduktion (Kamera, Schnitt …), Unvorhergesehenes (Empfang, Meldung …) oder was jede Firma braucht (Geschäftsführung, Buchhaltung …).</dd>
+            <dt>Vorgeschichte</dt><dd>Zwei Sätze. Woher sie kommt, was sie schuldet.</dd>
+            <dt>Abzeichen</dt><dd>Ein Gegenstand, der die Figur sofort erkennbar macht (Schritt 3).</dd>
+            <dt>Palette</dt><dd>Fünf bis sechs Farben, aus dem Sheet abgelesen.</dd>
+          </dl>
+        </div>
+        <pre class="code">{
+  id: "kaisha",
+  nr: "01",
+  name: "Kaisha Goonin",
+  kana: "会社",
+  status: "aktiv",
+  funktionen: null,      // ausstehend
+  vorgeschichte: null,   // ausstehend
+  insignie: null,        // Abzeichen
+  erkennungszeichen: [ "Maske …", "Haori …" ],
+  palette: ["#e6ddd2", "#4fb3a0", "#d77fae", …],
+  bilder: { face, front, sheet }
+}</pre>
       </div>
     </section>
-    <section>
-      <div class="sec-head"><span class="code">B-11</span><h2>Neue Figur anlegen</h2></div>
-      <ol>
-        <li>Bilder als JPG nach <code>assets/figuren/&lt;id&gt;/</code>: <code>face-front.jpg</code>, <code>full-front.jpg</code>, <code>full-sheet.jpg</code>.</li>
-        <li>In <code>data/roster.js</code> den Eintrag anlegen oder eine Leerstelle ausfüllen. Felder mit <code>null</code> erscheinen als Leerstelle.</li>
-        <li><code>status: "aktiv"</code> setzen. In <code>data/chronik.js</code> unter <code>SF.tagebuecher</code> ein leeres Tagebuch <code>&lt;id&gt;: []</code> anlegen.</li>
-        <li>Committen und pushen. GitHub Pages zeigt die Figur nach ein bis zwei Minuten.</li>
-      </ol>
-      <pre class="code">${esc(tpl)}</pre>
+
+    <section id="wf2">
+      <div class="sec-head"><span class="code">SCHRITT 2</span><h2>Character Sheet erzeugen</h2></div>
+      <p>Drei Bilder pro Figur, alle vor weißem Grund, gleiches neutrales Licht. Sie sind die Referenz für alles, was folgt: für Kostüm, Abzeichen und das Einsetzen ins Filmmaterial.</p>
+      <div class="sheet-steps">
+        <figure><img src="${k.bilder.face}" alt="Kaisha, Gesicht frontal" loading="lazy"><figcaption><b>2a · Gesicht frontal</b><br>Roster-Karte. Wichtigste Referenz für die Ersetzung im Bild.</figcaption></figure>
+        <figure><img src="${k.bilder.front}" alt="Kaisha, Ganzkörper frontal" loading="lazy"><figcaption><b>2b · Ganzkörper frontal</b><br>Personalakte. Proportionen, Kostüm, Haltung.</figcaption></figure>
+        <figure class="wide"><img src="${k.bilder.sheet}" alt="Kaisha, Full Sheet" loading="lazy"><figcaption><b>2c · Full Sheet</b><br>Turnaround (vorn, ¾, Profil, Rücken), Kopfansichten, Details, Linework, Palette.</figcaption></figure>
+      </div>
+      <div class="grid g2" style="margin-top:22px">
+        <div class="panel" style="--c:var(--pink)"><p class="kick">Regeln für Konsistenz</p>
+          <ul>
+            <li>Erst Gesicht frontal erzeugen, dann alle weiteren Ansichten <b>mit diesem Bild als Referenz</b>.</li>
+            <li>Weißer Hintergrund, keine Schlagschatten, Ganzkörper mit Füßen im Bild.</li>
+            <li>Gleiche Kleidung, gleiche Farben, gleiches Abzeichen in jeder Ansicht.</li>
+            <li>Maske oder Gesicht bei Turnaround auf Abweichungen prüfen, sonst neu erzeugen.</li>
+            <li>Ablage: <code>assets/figuren/&lt;id&gt;/face-front.jpg · full-front.jpg · full-sheet.jpg</code></li>
+          </ul></div>
+        <pre class="code">// Vorlage für den Bildgenerator
+Character sheet, [NAME], [FUNKTION] einer Filmfirma
+in einer Cyberpunk-Stadt.
+Merkmale: [MASKE/FRISUR], [KLEIDUNG], [ABZEICHEN].
+Farben: [PALETTE].
+Turnaround: front, three-quarter, side, back;
+head views; detail close-ups; line art; color swatches.
+Plain white background, neutral studio light,
+photorealistic, consistent design across all views.</pre>
+      </div>
     </section>
-    <section>
-      <div class="sec-head"><span class="code">B-12</span><h2>Stand der Sheets</h2></div>
-      <div class="pool-wrap"><table class="pool"><thead><tr><th>Nr</th><th>Figur</th><th>Rollen-Sorte</th><th>Bild</th><th>Steckbrief</th><th>Insignie</th></tr></thead><tbody>
-      ${SF.roster.map((f) => `<tr><td class="id">${f.nr}</td><td><a href="#figur/${f.id}">${esc(f.name)}</a></td>
-        <td class="mono">${f.sorte ? SF.sorten[f.sorte] : '<span style="color:var(--yellow)">offen</span>'}</td>
-        <td>${f.bilder ? '<span class="green">✓</span>' : '<span style="color:var(--yellow)">fehlt</span>'}</td>
-        <td>${f.vorgeschichte ? '<span class="green">teilweise</span>' : '<span style="color:var(--yellow)">fehlt</span>'}</td>
-        <td>${f.insignie ? esc(f.insignie) : f.insignieVorschlag ? `<span style="color:var(--yellow)">Vorschlag:</span> ${esc(f.insignieVorschlag)}` : '<span style="color:var(--yellow)">fehlt</span>'}</td></tr>`).join("")}
-      </tbody></table></div>
+
+    <section id="wf3">
+      <div class="sec-head"><span class="code">SCHRITT 3</span><h2>Abzeichen festlegen</h2></div>
+      <p>Das Abzeichen ist der eine Gegenstand, der im Bild sofort die Figur zeigt. Es muss als echtes Objekt existieren, weil es beim Dreh getragen wird, und es muss im Sheet klar zu sehen sein, weil es bei der digitalen Ersetzung als Anker dient.</p>
+      <div class="grid g3">
+        <div class="panel" style="--c:var(--yellow)"><h3>Kaisha Goonin</h3><p>Vorschlag: Messingring mit violetter Quaste, oder die Maske mit dem Kreis.</p></div>
+        <div class="panel" style="--c:var(--yellow)"><h3>Frank the Drifter</h3><p>Verspiegelte Schutzbrille.</p></div>
+        <div class="panel" style="--c:var(--line)"><h3>Figur 02–11</h3><p>${leer("festzulegen")}</p></div>
+      </div>
+    </section>
+
+    <section id="wf4">
+      <div class="sec-head"><span class="code">SCHRITT 4</span><h2>Figuren in Filmmaterial einsetzen</h2></div>
+      <div class="grid g2">
+        <div class="panel" style="--c:var(--real)"><p class="kick">Weg A · beim Dreh</p><h3>Die Figur wird getragen</h3>
+          <p>Wer die Aufgabe übernimmt, trägt Abzeichen und, wo vorhanden, Maske oder Kostüm. Die Figur ist dann schon im Rohmaterial. Danach nur noch Farbkorrektur. Am Schinkel Pavillon der Normalfall.</p></div>
+        <div class="panel" style="--c:var(--symb)"><p class="kick">Weg B · in der Nachbearbeitung</p><h3>Die Figur wird eingesetzt</h3>
+          <p>Für vorhandenes Material: Eine Person im Bild wird durch die Figur ersetzt, ganz oder teilweise (Gesicht, Maske, Abzeichen). Ablauf unten.</p></div>
+      </div>
+      <div class="frames">
+        <figure>${frame(1)}<figcaption><b>4.1 · Shot auswählen</b><br>Person gut sichtbar, wenig verdeckt, ruhiges Licht, Gesicht mindestens einige Sekunden frontal.</figcaption></figure>
+        <figure>${frame(2)}<figcaption><b>4.2 · Verfolgen</b><br>Gesicht und Körper über alle Frames tracken (Planar-Tracking für Masken, Körper-Tracking für ganze Figur).</figcaption></figure>
+        <figure>${frame(3)}<figcaption><b>4.3 · Ersetzen</b><br>Maske/Gesicht aus Sheet 2a aufsetzen, oder mit einem KI-Videowerkzeug die ganze Person anhand von 2a–2c austauschen.</figcaption></figure>
+        <figure>${frame(4)}<figcaption><b>4.4 · Angleichen</b><br>Licht, Körnung, Schärfe und Farbe an die Szene anpassen. Abzeichen muss erkennbar bleiben.</figcaption></figure>
+      </div>
+      <div class="grid g2" style="margin-top:22px">
+        <div class="panel" style="--c:var(--symb)"><p class="kick">Werkzeuge (Auswahl offen, Aufgabe A-07)</p>
+          <ul>
+            <li><b>Tracking und Compositing:</b> Schnitt- und Compositing-Programm mit Planar- und Gesichtstracking.</li>
+            <li><b>Ganze Figur ersetzen:</b> KI-Videowerkzeug, das eine Person im Video anhand eines Referenzbilds austauscht und Bewegung und Mimik übernimmt.</li>
+            <li><b>Nur Maske oder Abzeichen:</b> Standbild aus dem Sheet freistellen, auf das Tracking legen. Kaishas Maske eignet sich dafür besonders, weil sie flach und starr ist.</li>
+          </ul></div>
+        <div class="panel" style="--c:var(--imag)"><p class="kick">Prüfen vor Freigabe</p>
+          <ul>
+            <li>Sieht die Figur in allen Shots gleich aus (Maske, Farben, Abzeichen)?</li>
+            <li>Keine Artefakte an Rändern, Händen, Haaren?</li>
+            <li>Stimmt die Bewegung mit dem Original überein?</li>
+            <li>Haben alle sichtbaren Personen eingewilligt?</li>
+            <li>Shot in der Shotliste mit Figur und Version vermerken.</li>
+          </ul></div>
+      </div>
+    </section>
+
+    <section id="wf5">
+      <div class="sec-head"><span class="code">SCHRITT 5</span><h2>Eintragen und veröffentlichen</h2></div>
+      <div class="steps">
+        <div style="--c:var(--real)"><h4>Bilder ablegen</h4><p><code>assets/figuren/&lt;id&gt;/</code> als JPG, max. 1400 px.</p></div>
+        <div style="--c:var(--symb)"><h4>Akte füllen</h4><p><code>data/roster.js</code>: Leerstelle ausfüllen, <code>status: "aktiv"</code>.</p></div>
+        <div style="--c:var(--symb)"><h4>Tagebuch anlegen</h4><p><code>data/chronik.js</code>: <code>&lt;id&gt;: []</code>.</p></div>
+        <div style="--c:var(--imag)"><h4>Version erhöhen</h4><p>In <code>index.html</code> alle <code>?v=</code> um eins hochzählen.</p></div>
+        <div style="--c:var(--imag)"><h4>Commit, Push</h4><p>Nach ein bis zwei Minuten live.</p></div>
+      </div>
     </section>`;
   }
 
   function figOptions(sel) {
     return `<option value="">— nicht zugeteilt —</option>` + SF.roster.map((f) =>
-      `<option value="${f.id}" ${f.id === sel ? "selected" : ""}>${f.nr} · ${esc(f.name)}${f.status === "aktiv" ? "" : " (Leerstelle)"}</option>`).join("");
+      `<option value="${f.id}" ${f.id === sel ? "selected" : ""}>${f.nr} · ${esc(f.name)}</option>`).join("");
   }
 
-  function bPool() {
+  function taskRows(ts) {
+    return `<div class="pool-wrap"><table class="pool"><thead><tr><th>ID</th><th>Aufgabe</th><th>Figur</th><th></th></tr></thead><tbody>
+      ${ts.map((t) => `<tr class="${t.erledigt ? "done" : ""}">
+        <td class="id">${esc(t.id)}</td><td>${esc(t.titel)}</td>
+        <td><select data-assign="${t.id}">${figOptions(t.figur)}</select></td>
+        <td><button class="btn" data-done="${t.id}" title="erledigt">${t.erledigt ? "↺" : "✓"}</button></td></tr>`).join("")}
+    </tbody></table></div>`;
+  }
+
+  function bAufgaben() {
     const ts = allTasks();
-    const offen = ts.filter((t) => !t.erledigt).length;
-    const ohne = ts.filter((t) => !t.figur && !t.erledigt).length;
+    const zahl = (l) => `${l.filter((t) => !t.erledigt).length} offen · ${l.filter((t) => t.erledigt).length} erledigt`;
+    const allg = ts.filter((t) => t.bereich === "allgemein");
+    const c2 = ts.filter((t) => t.bereich === "chance2");
     return `
     <div class="om">
-      <img src="assets/brand/office-master.jpg" alt="Die Puppe als Office-Master">
+      <img src="assets/brand/office-master.jpg" alt="Die Puppe, Office-Master">
       <div>
-        <p class="kick">Office-Master · teilt zu, nimmt zurück</p>
-        <h2>Aufgabenpool</h2>
-        <p>${offen} offen · <span style="color:var(--yellow)">${ohne} ohne Figur</span> · ${ts.length - offen} erledigt.
-          Jede Aufgabe bekommt ihre Figur. Zugeordnet wird von Hand: vorher von denen, die den Pool schreiben, später von der Figur, die neue Aufgaben einspeist.</p>
-        <div class="toolbar">
-          <select id="flt"><option value="">alle Typen</option>${Object.entries(SF.aufgabenTypen).map(([k, v]) => `<option value="${k}">${v}</option>`).join("")}</select>
-          <label class="mono"><input type="checkbox" id="fltOhne"> nur ohne Figur</label>
-          <button class="btn" id="expPool">Zuteilung exportieren</button>
-        </div>
+        <p class="lead">Alles, was ansteht. Der Office-Master teilt jede Aufgabe einer Figur zu.</p>
+        <p class="mono dim">Zuteilungen und Häkchen werden nur in diesem Browser gespeichert. Dauerhaft: <code>data/aufgaben.js</code>.</p>
+        <div class="toolbar"><button class="btn" id="expPool">Liste exportieren (JSON)</button></div>
       </div>
     </div>
-    <div class="pool-wrap"><table class="pool" id="poolT"><thead><tr><th>ID</th><th>Typ</th><th>Aufgabe</th><th>Figur</th><th></th></tr></thead><tbody>
-      ${ts.map((t) => `<tr data-id="${t.id}" data-typ="${t.typ}" data-fig="${t.figur || ""}" class="${t.erledigt ? "done" : ""}">
-        <td class="id">${esc(t.id)}</td><td class="mono typ-${t.typ}">${SF.aufgabenTypen[t.typ] || t.typ}</td><td>${esc(t.titel)}</td>
-        <td><select data-assign="${t.id}">${figOptions(t.figur)}</select></td>
-        <td style="white-space:nowrap"><button class="btn" data-card="${t.id}" title="Karte auf Papier">Karte</button>
-          <button class="btn" data-done="${t.id}">${t.erledigt ? "↺" : "✓"}</button></td></tr>`).join("")}
-    </tbody></table></div>
-    <section style="margin-top:40px">
-      <div class="sec-head"><span class="code">REST</span><h2>Neue Aufgabe melden</h2></div>
-      <p class="dim">Was der Ablauf nicht vorsah, wird gemeldet und als neue Aufgabe eingehängt — mit derselben Zuordnung zu einer Figur.</p>
+    <section>
+      <div class="sec-head"><span class="code">A</span><h2>${SF.bereiche.allgemein}</h2><span class="mono dim">${zahl(allg)}</span></div>
+      ${taskRows(allg)}
+    </section>
+    <section>
+      <div class="sec-head"><span class="code">C</span><h2>${SF.bereiche.chance2}</h2><span class="mono dim">${zahl(c2)}</span></div>
+      ${Object.entries(SF.phasen).map(([p, l]) => `<h3 style="margin:28px 0 12px">${l}</h3>${taskRows(c2.filter((t) => t.phase === p))}`).join("")}
+    </section>
+    <section>
+      <div class="sec-head"><span class="code">+</span><h2>Aufgabe hinzufügen</h2></div>
       <form class="form" id="neuForm">
-        <label class="wide">Aufgabe<input name="titel" required placeholder="z. B. Kestrel Rentals anrufen und die Kaution klären"></label>
-        <label>Typ<select name="typ">${Object.entries(SF.aufgabenTypen).map(([k, v]) => `<option value="${k}">${v}</option>`).join("")}</select></label>
+        <label class="wide">Aufgabe<input name="titel" required></label>
+        <label>Bereich<select name="bereich">${Object.entries(SF.bereiche).map(([k, v]) => `<option value="${k}">${v}</option>`).join("")}</select></label>
+        <label>Phase (Chance²)<select name="phase">${Object.entries(SF.phasen).map(([k, v]) => `<option value="${k}">${v}</option>`).join("")}</select></label>
         <label>Figur<select name="figur">${figOptions(null)}</select></label>
-        <div style="align-self:end"><button class="btn prim" type="submit">In den Pool</button></div>
+        <div style="align-self:end"><button class="btn prim" type="submit">Hinzufügen</button></div>
       </form>
-    </section>
-    <div id="cardOut" style="margin-top:32px"></div>`;
-  }
-
-  function bProtokoll() {
-    const ts = allTasks();
-    return `
-    <section>
-      <div class="sec-head"><span class="code">B-20</span><h2>Vorgang protokollieren</h2></div>
-      <p class="dim">Antritt meldet die Person, Rückgabe die Figur. Der Ausführende erscheint nur als Pseudonym — der Klarname gehört auf die Anwesenheitsliste, nicht hierher.</p>
-      <form class="form" id="protForm">
-        <label>Figur (sub)<select name="sub" required>${figOptions(null)}</select></label>
-        <label>Person (act, pseudonym)<input name="act" required pattern="person_[0-9]{4}" placeholder="person_0001"></label>
-        <label class="wide">Auftrag<select name="auftrag">${ts.map((t) => `<option value="${t.id}">${t.id} · ${esc(t.titel)}</option>`).join("")}</select></label>
-        <label class="wide">Antritt — „Wie kommst du an?“<textarea name="antritt"></textarea></label>
-        <label class="wide">Rückgabe — „Wie ist es gelaufen?“<textarea name="rueckgabe"></textarea></label>
-        <label>Zurück<select name="zurueck"><option>ja</option><option>nein</option></select></label>
-        <div style="align-self:end"><button class="btn prim" type="submit">Ins Protokoll</button></div>
-      </form>
-    </section>
-    <section>
-      <div class="sec-head"><span class="code">B-21</span><h2>Protokoll</h2>
-        <span style="margin-left:auto"><button class="btn" id="expProt">Export JSON</button> <button class="btn" id="clrProt">Leeren</button></span></div>
-      ${S.protokoll.length ? S.protokoll.slice().reverse().map((p) => `<div class="protokoll" style="margin-bottom:10px">ZEIT      ${esc(p.zeit)}
-FIGUR     ${esc(p.sub)}
-ACT       ${esc(p.act)}  <span class="dim">→ abgetrennt, nur Anwesenheitsliste</span>
-AUFTRAG   ${esc(p.auftrag)}
-<span class="a">ANTRITT   „${esc(p.antritt)}“</span>
-<span class="r">RÜCKGABE  „${esc(p.rueckgabe)}“</span>
-ZURÜCK    ${esc(p.zurueck)}</div>`).join("") : `<p class="empty">Noch keine Einträge in diesem Browser.</p>`}
-    </section>
-    <section>
-      <div class="sec-head"><span class="code">B-22</span><h2>Ereignisschema</h2></div>
-      <pre class="code">{
-  "sub": "frank_the_drifter",        // die Figur → Imaginator: Tagebuch, Firmengeschichte
-  "act": { "sub": "person_0000" },   // die Person → abgetrennt, Anwesenheitsliste, pseudonymisiert
-  "antritt": "müde, wenig geschlafen",
-  "rueckgabe": "ging leichter als gedacht"
-}</pre>
-    </section>`;
-  }
-
-  function bOffen() {
-    const qs = [
-      ["Figuren", "Ist Kaisha Goonin die elfte Figur oder ersetzt sie eine der zehn aus dem Pitch-Deck (z. B. The Chair)?"],
-      ["Figuren", "Wer erstellt die Character Sheets für Figur 02–11, im selben Bildstil wie Kaisha?"],
-      ["Figuren", "Welche Insignien gibt es? Bisher bekannt: verspiegelte Schutzbrille (Frank). Für Kaisha: Ring mit Quaste oder Maske?"],
-      ["Welt", "In welcher Stadt und welchem Jahr spielt die Fiktion? Ist Berlin auch in der Welt Berlin?"],
-      ["Welt", "Was ist „die Brücke“, was „Arizona“, welche Konzerne außer Kestrel Rentals?"],
-      ["Welt", "Tonlage der Texte: eher Noir, Satire, Behördenprosa, Manga?"],
-      ["Werkzeuge", "Wo laufen Office-Master und Imaginator technisch (Rechner in der Puppe, Chat-Modell, Kartendrucker)?"],
-      ["Werkzeuge", "Wie viel fragt die Puppe bei Antritt und Rückgabe: je eine Frage oder ein Interview?"],
-      ["Werkzeuge", "Braucht das Backend echte Zugangskontrolle und gemeinsamen Speicher (statt Browser-Speicher)? Wer darf zuteilen?"],
-      ["Manifest", "Thesen freigeben oder umschreiben? Wer unterzeichnet — eine Figur, die Firma, niemand?"],
-      ["Werke", "Welche Werke gehören ins Verzeichnis außer Chance², Tagebüchern und Firmengeschichte? Frühere Arbeiten, geplante Konfigurationen?"],
-      ["Seite", "Soll das Backend auf der Live-Seite sichtbar bleiben oder in ein eigenes, internes Repo? Impressum/Datenschutz?"],
-      ["Seite", "Sprache: nur Deutsch, oder auch Englisch (das Techdeck liegt auf EN vor)?"],
-      ["Recht", "Wem gehört die Figur? Wie wird ihr Wert über die Anwesenheitsliste verteilt — Beteiligung, Anerkennung, gemeinsamer Bestand?"]
-    ];
-    SF.roster.filter((f) => f.fragen).forEach((f) => f.fragen.forEach((q) => qs.push([f.name, q])));
-    return `
-    <section>
-      <div class="sec-head"><span class="code">B-30</span><h2>Offene Fragen</h2></div>
-      <div class="pool-wrap"><table class="pool"><thead><tr><th>#</th><th>Bereich</th><th>Frage</th></tr></thead><tbody>
-        ${qs.map(([b, q], i) => `<tr><td class="id">Q-${String(i + 1).padStart(2, "0")}</td><td class="mono" style="color:var(--yellow)">${b}</td><td>${esc(q)}</td></tr>`).join("")}
-      </tbody></table></div>
     </section>`;
   }
 
@@ -512,60 +412,27 @@ ZURÜCK    ${esc(p.zurueck)}</div>`).join("") : `<p class="empty">Noch keine Ein
     a.download = name; a.click();
     setTimeout(() => URL.revokeObjectURL(a.href), 1000);
   }
-  function rerender(tab) { view.innerHTML = backend(tab); bindBackend(tab); }
+  function rerender(tab) { const y = window.scrollY; view.innerHTML = backend(tab); bindBackend(tab); window.scrollTo(0, y); }
 
   function bindBackend(tab) {
     view.querySelectorAll("[data-tab]").forEach((b) => b.addEventListener("click", () => { location.hash = "#backend/" + b.dataset.tab; }));
-
+    view.querySelectorAll(".wf-index a").forEach((a) => a.addEventListener("click", (e) => {
+      e.preventDefault(); $(a.getAttribute("href")).scrollIntoView({ behavior: "smooth" });
+    }));
     view.querySelectorAll("[data-assign]").forEach((s) => s.addEventListener("change", () => {
-      S.zuteilung[s.dataset.assign] = s.value || null; store.save(S); rerender("pool");
+      S.zuteilung[s.dataset.assign] = s.value || null; store.save(S); rerender("aufgaben");
     }));
     view.querySelectorAll("[data-done]").forEach((b) => b.addEventListener("click", () => {
-      const id = b.dataset.done; S.done[id] = !S.done[id]; store.save(S); rerender("pool");
+      const id = b.dataset.done; S.done[id] = !S.done[id]; store.save(S); rerender("aufgaben");
     }));
-    view.querySelectorAll("[data-card]").forEach((b) => b.addEventListener("click", () => {
-      const t = allTasks().find((x) => x.id === b.dataset.card);
-      const f = t.figur && fig(t.figur);
-      $("#cardOut").innerHTML = `<div class="taskcard print-me">
-        <div class="lbl">SCHEINFIRMA · CHANCE² · AUFTRAG ${esc(t.id)}</div>
-        <h4>${esc(t.titel)}</h4>
-        <div class="lbl">FIGUR</div><div style="font-size:18px;margin-bottom:10px">${f ? esc(f.name) : "— noch keine —"}</div>
-        <div class="lbl">INSIGNIE</div><div>${f && f.insignie ? esc(f.insignie) : "— offen —"}</div>
-        <hr style="border:0;border-top:1px dashed #999;margin:14px 0">
-        <div class="lbl">ANTRITT · Wie kommst du an?</div><div style="height:40px"></div>
-        <div class="lbl">RÜCKGABE · Wie ist es gelaufen?</div><div style="height:40px"></div>
-      </div><p style="margin-top:10px"><button class="btn" onclick="window.print()">Karte drucken</button></p>`;
-      $("#cardOut").scrollIntoView({ behavior: "smooth", block: "center" });
-    }));
-    const filt = () => {
-      const typ = $("#flt").value, ohne = $("#fltOhne").checked;
-      view.querySelectorAll("#poolT tbody tr").forEach((tr) => {
-        tr.style.display = (!typ || tr.dataset.typ === typ) && (!ohne || !tr.dataset.fig) ? "" : "none";
-      });
-    };
-    if ($("#flt")) { $("#flt").addEventListener("change", filt); $("#fltOhne").addEventListener("change", filt); }
-    if ($("#expPool")) $("#expPool").addEventListener("click", () => download("aufgabenpool.json", allTasks()));
-
+    if ($("#expPool")) $("#expPool").addEventListener("click", () => download("aufgaben.json", allTasks()));
     const nf = $("#neuForm");
     if (nf) nf.addEventListener("submit", (e) => {
       e.preventDefault();
       const d = Object.fromEntries(new FormData(nf));
-      const n = S.neue.length + 1;
-      S.neue.push({ id: "N-" + String(n).padStart(2, "0"), typ: d.typ, titel: d.titel, figur: d.figur || null });
-      store.save(S); rerender("pool");
-    });
-
-    const pf = $("#protForm");
-    if (pf) pf.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const d = Object.fromEntries(new FormData(pf));
-      d.zeit = new Date().toISOString().slice(0, 16).replace("T", " ");
-      S.protokoll.push(d); store.save(S); rerender("protokoll");
-    });
-    if ($("#expProt")) $("#expProt").addEventListener("click", () => download("protokoll.json",
-      S.protokoll.map((p) => ({ zeit: p.zeit, sub: p.sub, act: { sub: p.act }, auftrag: p.auftrag, antritt: p.antritt, rueckgabe: p.rueckgabe, zurueck: p.zurueck }))));
-    if ($("#clrProt")) $("#clrProt").addEventListener("click", () => {
-      if (confirm("Alle Protokolleinträge in diesem Browser löschen?")) { S.protokoll = []; store.save(S); rerender("protokoll"); }
+      S.neue.push({ id: "N-" + String(S.neue.length + 1).padStart(2, "0"), bereich: d.bereich,
+        phase: d.bereich === "chance2" ? d.phase : undefined, titel: d.titel, figur: d.figur || null });
+      store.save(S); rerender("aufgaben");
     });
   }
 
