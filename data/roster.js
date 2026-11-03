@@ -12,7 +12,7 @@ SF.roster = [
     status: "aktiv",
     sorte: null, // "filmproduktion" | "unvorhergesehenes" | "jede-firma"
     funktionen: null,
-    kurz: "会社. Trägt die Firma im Namen.",
+    kurz: null,
     vorgeschichte: null,
     insignie: null,
     insignieVorschlag: "Messingring an Kette mit violetter Quaste — die Figur hält ihn auf allen Ansichten in den Händen.",

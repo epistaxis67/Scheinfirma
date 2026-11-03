@@ -44,47 +44,15 @@
 
   // ── 00 LOBBY ──
   function lobby() {
-    const aktiv = SF.roster.filter((f) => f.status === "aktiv").length;
-    const wk = SF.werke[0];
-    const letzte = SF.oeffentlich(SF.chronik).filter((e) => e.text).slice(-1)[0];
     return `
     <section class="hero">
       <div>
-        <p class="kick"><span class="c">▚</span> Filmproduktion · 会社</p>
         <h1><span class="glitch" data-t="Scheinfirma.">Scheinfirma.</span>
           <span class="l2">Filmproduktion.</span></h1>
         <div class="bars"><i></i><i></i><i></i></div>
-        <p class="lead">${esc(SF.manifest.thesen[0])} ${esc(SF.manifest.thesen[1])}</p>
-        <p style="margin-top:26px"><a class="tag" href="#manifest">→ Manifest</a><a class="tag" href="#roster" style="color:var(--pink)">→ Roster</a><a class="tag" href="#werke" style="color:var(--yellow)">→ Werke</a></p>
       </div>
       <div class="hero-logo logo glitch-img big" style="--src:url(assets/brand/logo.png)"><img src="assets/brand/logo.png" alt="Scheinfirma Logo"></div>
-    </section>
-
-    <div class="ticker"><span>
-      会社 · ${esc(wk.titel)} · ${esc(wk.ort)} · ${esc(SF.werkStatus[wk.status]).toUpperCase()} ·
-      BELEGSCHAFT ${String(aktiv).padStart(2, "0")}/${String(SF.roster.length).padStart(2, "0")} ·
-      KESTREL RENTALS SCHWEIGT · WAS FEHLT, WIRD GEBAUT · WAS GEBAUT WIRD, KOMMT INS BILD ·
-    </span></div>
-
-    <section class="grid g2">
-      <a class="panel" href="#werke" style="--c:var(--yellow);color:var(--text)">
-        <p class="kick">${esc(wk.nr)} · ${esc(SF.werkStatus[wk.status])}</p>
-        <h2>${esc(wk.titel)}</h2>
-        <p class="dim">${esc(wk.logline)} ${esc(wk.ort)}, ${esc(wk.jahr)}. →</p>
-      </a>
-      <a class="panel" href="#figur/kaisha" style="--c:var(--pink);color:var(--text)">
-        <p class="kick">Personalakte 01</p>
-        <h2>Kaisha Goonin <span class="kana">会社</span></h2>
-        <p class="dim">Die Maske mit dem Kreis auf der Stirn. Akte öffnen →</p>
-      </a>
-    </section>
-
-    ${letzte ? `<section style="margin-top:56px">
-      <div class="sec-head"><span class="code">CHRONIK/${esc(letzte.id)}</span><h2>Zuletzt</h2></div>
-      <div class="when mono dim">${esc(letzte.datum)}</div>
-      <p class="prose">${esc(letzte.text)}</p>
-      <p><a href="#chronik">Firmengeschichte →</a></p>
-    </section>` : ""}`;
+    </section>`;
   }
 
   // ── 01 MANIFEST ──
@@ -94,8 +62,8 @@
     <p class="kick"><span class="c">01</span> // Manifest</p>
     <h1>Manifest</h1>
     <div class="bars"><i></i><i></i><i></i></div>
-    <ol class="manifest">${m.thesen.map((t) => `<li>${esc(t)}</li>`).join("")}</ol>
-    <p class="mono" style="margin-top:32px">— ${m.unterzeichnet ? esc(m.unterzeichnet) : leer("Unterzeichnet von: offen")}</p>`;
+    ${m.thesen.length ? `<ol class="manifest">${m.thesen.map((t) => `<li>${esc(t)}</li>`).join("")}</ol>` : leer()}
+    ${m.unterzeichnet ? `<p class="mono" style="margin-top:32px">— ${esc(m.unterzeichnet)}</p>` : ""}`;
   }
 
   // ── 02 WERKE ──
@@ -107,8 +75,8 @@
     <div class="pool-wrap"><table class="pool werke"><thead><tr><th>Nr</th><th>Titel</th><th>Format</th><th>Jahr</th><th>Status</th></tr></thead><tbody>
     ${SF.werke.map((w) => `<tr>
       <td class="id">${esc(w.nr)}</td>
-      <td>${w.titel ? `<b>${esc(w.titel)}</b>${w.logline ? `<br><span class="dim">${esc(w.logline)}</span>` : ""}` : leer("Titel")}</td>
-      <td>${w.format ? esc(w.format) : leer("")}</td>
+      <td>${w.titel ? `<b>${esc(w.titel)}</b>` : leer()}</td>
+      <td>${w.format ? esc(w.format) : leer()}</td>
       <td class="mono">${w.jahr ? esc(w.jahr) : "—"}</td>
       <td class="mono" style="color:${w.status === "in-produktion" ? "var(--real)" : "var(--yellow)"}">${esc(SF.werkStatus[w.status])}</td></tr>`).join("")}
     </tbody></table></div>
@@ -151,7 +119,6 @@
     return `
     <p class="kick"><a href="#roster">← Roster</a> &nbsp;/&nbsp; <span class="c">Personalakte ${f.nr}</span> // ${f.status === "aktiv" ? '<span class="green">AKTIV</span>' : '<span style="color:var(--yellow)">UNVOLLSTÄNDIG</span>'}</p>
     <h1>${esc(f.name)}${f.kana ? `<span class="kana" style="font-size:.5em">${f.kana}</span>` : ""}</h1>
-    ${f.kurz ? `<p class="lead">${esc(f.kurz)}</p>` : ""}
     <div class="bars"><i></i><i></i><i></i></div>
     <div class="dossier">
       <div>${pic}</div>
@@ -298,7 +265,7 @@ AUFTRAG   ${esc(e.auftrag)}
       <div class="sec-head"><span class="code">B-40</span><h2>Manifest</h2></div>
       <p>Status: <span class="mono" style="color:${SF.manifest.status === "freigegeben" ? "var(--real)" : "var(--yellow)"}">${esc(SF.manifest.status.toUpperCase())}</span>
         · Unterzeichnet: ${SF.manifest.unterzeichnet ? esc(SF.manifest.unterzeichnet) : '<span style="color:var(--yellow)">offen</span>'}.
-        Die Thesen sind ein Entwurf in der Stimme der Firma, ohne Bezug auf das Verfahren. Bearbeiten in <code>data/werke.js</code>.</p>
+        Frontend zeigt das Manifest erst, wenn Thesen eingetragen sind. Notizen stehen unter <code>entwurf</code>. Bearbeiten in <code>data/werke.js</code>.</p>
     </section>
     <section>
       <div class="sec-head"><span class="code">B-41</span><h2>Weltbuch-Stand</h2></div>

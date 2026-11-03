@@ -6,7 +6,7 @@ window.SF = window.SF || {};
 
 SF.chronik = [
   { id: "000", datum: "2026-11-03", titel: "Gründung", quelle: "gruendung",
-    text: "Die Firma meldet sich an. Name: Scheinfirma. Gewerbe: Filmproduktion. Als Erste unterschreibt Kaisha Goonin, ohne die Maske abzunehmen. Die übrigen Akten sind angelegt. Die Kamera läuft ab Januar." },
+    text: "Scheinfirma. Filmproduktion. Erste Unterschrift: Kaisha Goonin." },
   { id: "M-01", datum: "Muster", titel: "Am zweiten Tag", quelle: "muster",
     text: "Am zweiten Tag hat die Firma aufgehört, sich zu erklären, und angefangen zu liefern. Im Hinterhof wurde über Kisten gestritten, am Empfang stand, wer gerade da war, und Kestrel Rentals schwieg weiter. Zwei Abteilungen arbeiteten gegeneinander, ohne es zu bemerken. Was fehlte, wurde gebaut. Was gebaut wurde, kam ins Bild." },
   { id: "001", datum: "2027-01 · Tag 1", titel: null, quelle: "imaginator", text: null },

@@ -10,15 +10,15 @@ SF.weltbuch = [
     code: "W-01",
     eintraege: [
       { titel: "Schinkel Pavillon, Berlin", kanon: true,
-        text: "Drehort von Chance². Vier Tage im Januar 2027." },
+        text: "Chance², Januar 2027." },
       { titel: "Der Hinterhof", kanon: true,
-        text: "Wo die Ausstattung ihre Kisten stapelt. Hier wird über Kisten gestritten." },
+        text: "Kisten der Ausstattung." },
       { titel: "Der Empfang", kanon: true,
-        text: "Am Empfang steht, wer gerade da ist." },
+        text: null },
       { titel: "Die Brücke", kanon: true,
-        text: "Frank the Drifter kam über die Brücke. Was auf der anderen Seite liegt, sagt er nicht." },
+        text: "Frank the Drifter kam über die Brücke." },
       { titel: "Arizona", kanon: false,
-        text: "Steht in Katakana auf Kaishas Rücken: アリゾナ." },
+        text: "アリゾナ" },
       { titel: "Die Stadt", kanon: false, text: null }
     ]
   },
@@ -35,10 +35,8 @@ SF.weltbuch = [
     kapitel: "Technik",
     code: "W-03",
     eintraege: [
-      { titel: "Die Puppe", kanon: true,
-        text: "Sitzt am Eingang, eine Kamera auf dem Kopf, Kabel im Arm. Verteilt die Aufträge des Tages. Wer sie fragt, warum, bekommt den Auftrag noch einmal." },
       { titel: "Verspiegelte Schutzbrille", kanon: true,
-        text: "Franks. Er nimmt sie nicht ab, auch nicht drinnen." },
+        text: "Frank the Drifter." },
       { titel: "Geräte, Implantate, Netz", kanon: false, text: null }
     ]
   },
@@ -46,8 +44,6 @@ SF.weltbuch = [
     kapitel: "Sprache",
     code: "W-04",
     eintraege: [
-      { titel: "„Wie kommst du an?“", kanon: true, text: "Gruß am Morgen." },
-      { titel: "„Wie ist es gelaufen?“", kanon: true, text: "Gruß am Abend." },
       { titel: "Slang, Flüche, Grußformeln", kanon: false, text: null }
     ]
   }
