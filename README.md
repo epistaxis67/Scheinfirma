@@ -32,4 +32,5 @@ Was dauerhaft gelten soll, wird in `data/*.js` eingetragen und committet.
 1. Bilder nach `assets/figuren/<id>/`: `face-front.jpg`, `full-front.jpg`, `full-sheet.jpg`
 2. Eintrag in `data/roster.js` anlegen oder Leerstelle ausfüllen, `status: "aktiv"`
 3. In `data/chronik.js` unter `SF.tagebuecher` ein leeres Tagebuch `<id>: []` anlegen
-4. Commit, Push. GitHub Pages aktualisiert nach ein bis zwei Minuten.
+4. In `index.html` die Versionsnummer `?v=` hochzählen, damit Browser die neuen Dateien laden.
+5. Commit, Push. GitHub Pages aktualisiert nach ein bis zwei Minuten.
