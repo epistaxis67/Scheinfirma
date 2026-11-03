@@ -26,7 +26,7 @@
 
   // ── Router ──
   const routes = {
-    lobby, roster, figur, weltbuch, chronik, tagebuecher, tagebuch, backend
+    lobby, manifest, werke, roster, figur, weltbuch, chronik, tagebuecher, tagebuch, backend
   };
   function go() {
     const [r, arg] = (location.hash.replace(/^#\/?/, "") || "lobby").split("/");
@@ -45,63 +45,78 @@
   // ── 00 LOBBY ──
   function lobby() {
     const aktiv = SF.roster.filter((f) => f.status === "aktiv").length;
+    const wk = SF.werke[0];
+    const letzte = SF.oeffentlich(SF.chronik).filter((e) => e.text).slice(-1)[0];
     return `
     <section class="hero">
       <div>
-        <p class="kick"><span class="c">▚</span> Zur Organisationsform der Scheinfirma</p>
-        <h1><span class="glitch" data-t="Personen kommen und gehen.">Personen kommen und gehen.</span>
-          <span class="l2">Die Figuren bleiben.</span></h1>
+        <p class="kick"><span class="c">▚</span> Filmproduktion · 会社</p>
+        <h1><span class="glitch" data-t="Scheinfirma.">Scheinfirma.</span>
+          <span class="l2">Geführt von ihren Figuren.</span></h1>
         <div class="bars"><i></i><i></i><i></i></div>
-        <p class="lead">Scheinfirma ist eine Filmproduktionsfirma, die ihre eigene Entstehung dreht. Geführt wird sie nicht von Menschen,
-        sondern von ihrem <b>Figurenstand</b>. Wer hier arbeitet, tritt an die Puppe, legt eine Insignie an und handelt unter fremdem Namen.
-        Die Arbeit ist echt. Die Geschichte schreibt eine Maschine.</p>
-        <p style="margin-top:26px"><a class="tag" href="#roster">→ Roster öffnen</a><a class="tag" href="#chronik" style="color:var(--pink)">→ Firmengeschichte</a></p>
+        <p class="lead">${esc(SF.manifest.thesen[0])} ${esc(SF.manifest.thesen[3])}</p>
+        <p style="margin-top:26px"><a class="tag" href="#manifest">→ Manifest</a><a class="tag" href="#roster" style="color:var(--pink)">→ Roster</a><a class="tag" href="#werke" style="color:var(--yellow)">→ Werke</a></p>
       </div>
       <div class="hero-logo logo glitch-img big" style="--src:url(assets/brand/logo.png)"><img src="assets/brand/logo.png" alt="Scheinfirma Logo"></div>
     </section>
 
     <div class="ticker"><span>
-      ORGANISATIONS DEPEND ON PEOPLE BEING RELIABLE · THEY LACK IMAGINATION · THIS ONE SUPPLIES IT ·
-      会社 · CHANCE² · SCHINKEL PAVILLON · JANUAR 2027 · VIER TAGE · FIGURENSTAND ${String(aktiv).padStart(2, "0")}/${String(SF.roster.length).padStart(2, "0")} BESETZT ·
-      NARROR, ERGO SUM · ICH WERDE ERZÄHLT, ALSO BIN ICH ·
+      会社 · ${esc(wk.titel)} · ${esc(wk.ort)} · ${esc(SF.werkStatus[wk.status]).toUpperCase()} ·
+      FIGURENSTAND ${String(aktiv).padStart(2, "0")}/${String(SF.roster.length).padStart(2, "0")} ·
+      KESTREL RENTALS SCHWEIGT · NARROR, ERGO SUM · ICH WERDE ERZÄHLT, ALSO BIN ICH ·
     </span></div>
 
-    <section>
-      <div class="sec-head"><span class="code">SYS/01</span><h2>Wie die Firma läuft</h2></div>
-      <div class="flow">
-        <div style="--c:var(--real)"><span class="k">ITERABILITÄT</span><h3 class="green">Zuteilung</h3>
-          <p>Die Person meldet sich verfügbar und bekommt eine Rolle: eine Zuständigkeit mit Aufgaben daran, verzeichnet und mehrfach besetzt.</p></div>
-        <div style="--c:var(--symb)"><span class="k">EINSETZUNGSRITUS</span><h3 class="blue">Übernahme</h3>
-          <p>Mit den Insignien geht die Rolle über in die Figur: anweisen, abzeichnen, unter ihrem Namen angesprochen werden.</p></div>
-        <div style="--c:var(--imag)"><span class="k">ÉCRITURE AUTOMATIQUE</span><h3 class="red">Fortschreibung</h3>
-          <p>Jeder Vorgang geht in das Tagebuch der Figur. Sie wächst mit jeder Besetzung und trägt beim nächsten Antritt mehr.</p></div>
-      </div>
-    </section>
-
-    <section>
-      <div class="sec-head"><span class="code">SYS/02</span><h2>Produktionsdaten</h2></div>
-      <div class="facts">
-        <div><b>Projekt</b>Chance²</div>
-        <div><b>Ort</b>Schinkel Pavillon, Berlin</div>
-        <div><b>Zeitraum</b>Januar 2027 · vier Tage</div>
-        <div><b>Besetzung</b>Menschen aus Arbeitsgelegenheiten</div>
-        <div><b>Erzeugnis</b>Film · Tagebücher · Firmengeschichte</div>
-        <div><b>Figurenstand</b>${aktiv} aktiv · ${SF.roster.length - aktiv} Leerstellen</div>
-      </div>
-    </section>
-
     <section class="grid g2">
+      <a class="panel" href="#werke" style="--c:var(--yellow);color:var(--text)">
+        <p class="kick">${esc(wk.nr)} · ${esc(SF.werkStatus[wk.status])}</p>
+        <h2>${esc(wk.titel)}</h2>
+        <p class="dim">${esc(wk.logline)} ${esc(wk.ort)}, ${esc(wk.jahr)}. →</p>
+      </a>
       <a class="panel" href="#figur/kaisha" style="--c:var(--pink);color:var(--text)">
-        <p class="kick">Figur 01 · zuerst im Roster</p>
+        <p class="kick">Figur 01</p>
         <h2>Kaisha Goonin <span class="kana">会社</span></h2>
-        <p class="dim">Die Maske mit dem Kreis auf der Stirn. Der Name heißt „Firma“. Dossier öffnen →</p>
+        <p class="dim">Die Maske mit dem Kreis auf der Stirn. Dossier öffnen →</p>
       </a>
-      <a class="panel" href="#backend" style="--c:var(--symb);color:var(--text)">
-        <p class="kick">Für Beteiligte</p>
-        <h2>Backend</h2>
-        <p class="dim">Workflow, Character-Sheet-Vorlage, Aufgabenpool, Protokoll und offene Fragen. Hier teilt der Office-Master zu →</p>
-      </a>
-    </section>`;
+    </section>
+
+    ${letzte ? `<section style="margin-top:56px">
+      <div class="sec-head"><span class="code">CHRONIK/${esc(letzte.id)}</span><h2>Zuletzt</h2></div>
+      <div class="when mono dim">${esc(letzte.datum)}</div>
+      <p class="prose">${esc(letzte.text)}</p>
+      <p><a href="#chronik">Firmengeschichte →</a></p>
+    </section>` : ""}`;
+  }
+
+  // ── 01 MANIFEST ──
+  function manifest() {
+    const m = SF.manifest;
+    return `
+    <p class="kick"><span class="c">01</span> // Manifest</p>
+    <h1>Manifest</h1>
+    <div class="bars"><i></i><i></i><i></i></div>
+    <ol class="manifest">${m.thesen.map((t) => `<li>${esc(t)}</li>`).join("")}</ol>
+    <p class="mono" style="margin-top:32px">— ${m.unterzeichnet ? esc(m.unterzeichnet) : leer("Unterzeichnet von: offen")}</p>`;
+  }
+
+  // ── 02 WERKE ──
+  function werke() {
+    return `
+    <p class="kick"><span class="c">02</span> // Werkverzeichnis</p>
+    <h1>Werke</h1>
+    <div class="bars"><i></i><i></i><i></i></div>
+    <div class="pool-wrap"><table class="pool werke"><thead><tr><th>Nr</th><th>Titel</th><th>Format</th><th>Jahr</th><th>Status</th></tr></thead><tbody>
+    ${SF.werke.map((w) => `<tr>
+      <td class="id">${esc(w.nr)}</td>
+      <td>${w.titel ? `<b>${esc(w.titel)}</b>${w.logline ? `<br><span class="dim">${esc(w.logline)}</span>` : ""}` : leer("Titel")}</td>
+      <td>${w.format ? esc(w.format) : leer("")}</td>
+      <td class="mono">${w.jahr ? esc(w.jahr) : "—"}</td>
+      <td class="mono" style="color:${w.status === "in-produktion" ? "var(--real)" : "var(--yellow)"}">${esc(SF.werkStatus[w.status])}</td></tr>`).join("")}
+    </tbody></table></div>
+    ${SF.werke.filter((w) => w.figuren).map((w) => `
+    <section style="margin-top:48px">
+      <div class="sec-head"><span class="code">${esc(w.nr)}</span><h2>${esc(w.titel)} · Besetzung</h2></div>
+      <div class="roster">${w.figuren.map(fig).filter(Boolean).map(card).join("")}</div>
+    </section>`).join("")}`;
   }
 
   // ── 01 ROSTER ──
@@ -118,13 +133,10 @@
   }
   function roster() {
     return `
-    <p class="kick"><span class="c">01</span> // Figurenstand</p>
+    <p class="kick"><span class="c">03</span> // Figurenstand</p>
     <h1>Der Roster</h1>
-    <p class="lead">Keine Figur ist ihre Funktion. Drei Sorten von Rollen sind auf die Figuren verteilt, nicht auf sie aufgeteilt:
-      die einer <span class="green">Filmproduktion</span>, die für das <span class="blue">Unvorhergesehene</span> und die, die <span class="red">jede Firma</span> braucht.</p>
     <div class="bars"><i></i><i></i><i></i></div>
-    <div class="roster">${SF.roster.map(card).join("")}</div>
-    <p class="mono dim" style="margin-top:24px">Figur 02–11: Arbeitstitel aus dem Pitch-Deck, noch ohne Character Sheet. Ob Kaisha eine davon ablöst oder hinzukommt, ist offen.</p>`;
+    <div class="roster">${SF.roster.map(card).join("")}</div>`;
   }
 
   // ── Figur-Dossier ──
@@ -132,11 +144,10 @@
     const f = fig(id);
     if (!f) return `<h1>404</h1><p>Keine Figur mit der Kennung <code>${esc(id)}</code>.</p>`;
     const val = (v, hint) => (v == null || (Array.isArray(v) && !v.length)) ? leer(hint) : Array.isArray(v) ? `<ul>${v.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : esc(v);
-    const tb = (SF.tagebuecher[f.id] || []).length;
+    const tb = SF.oeffentlich(SF.tagebuecher[f.id]).length;
     const pic = f.bilder
       ? `<div class="idcard" data-id="${f.nr}"><img src="${f.bilder.front}" alt="${esc(f.name)}, Ganzkörper frontal"></div>`
-      : `<div class="card void" style="pointer-events:none"><div class="pic"><span class="nr">${f.nr}</span><span class="sil">?_</span></div></div>
-         <p style="margin-top:12px">${leer("Character Sheet fehlt: Gesicht, Ganzkörper, Turnaround")}</p>`;
+      : `<div class="card void" style="pointer-events:none"><div class="pic"><span class="nr">${f.nr}</span><span class="sil">?_</span></div></div>`;
     return `
     <p class="kick"><a href="#roster">← Roster</a> &nbsp;/&nbsp; <span class="c">Figur ${f.nr}</span> // ${f.status === "aktiv" ? '<span class="green">AKTIV</span>' : '<span style="color:var(--yellow)">LEERSTELLE</span>'}</p>
     <h1>${esc(f.name)}${f.kana ? `<span class="kana" style="font-size:.5em">${f.kana}</span>` : ""}</h1>
@@ -147,18 +158,15 @@
       <div>
         <dl class="rows">
           <dt>Kennung</dt><dd class="mono">${f.id}</dd>
-          <dt>Rollen-Sorte</dt><dd>${f.sorte ? SF.sorten[f.sorte] : leer("Filmproduktion / Unvorhergesehenes / jede Firma?")}</dd>
           <dt>Funktionen</dt><dd>${f.funktionen ? f.funktionen.map((x) => `<span class="tag blue">${esc(x)}</span>`).join("") : leer("Funktion offen")}</dd>
           <dt>Vorgeschichte</dt><dd>${val(f.vorgeschichte)}</dd>
-          <dt>Insignie</dt><dd>${f.insignie ? esc(f.insignie) : leer(f.insignieVorschlag ? "Vorschlag: " + f.insignieVorschlag : "Insignie festlegen")}</dd>
-          <dt>Erkennungszeichen</dt><dd>${val(f.erkennungszeichen, "aus dem Character Sheet ableiten")}</dd>
+          <dt>Insignie</dt><dd>${f.insignie ? esc(f.insignie) : leer()}</dd>
+          <dt>Erkennungszeichen</dt><dd>${val(f.erkennungszeichen)}</dd>
           ${f.palette ? `<dt>Palette</dt><dd class="swatches">${f.palette.map((c) => `<i style="background:${c}" title="${c}"></i>`).join("")}</dd>` : ""}
           <dt>Zuständigkeiten</dt><dd>${val(f.zustaendigkeiten)}</dd>
           <dt>Offene Fäden</dt><dd>${val(f.offeneFaeden)}</dd>
-          <dt>Tonlage</dt><dd>${val(f.ton, "Wie klingt das Tagebuch dieser Figur?")}</dd>
           <dt>Tagebuch</dt><dd><a href="#tagebuch/${f.id}">${tb} Episode${tb === 1 ? "" : "n"} →</a></dd>
         </dl>
-        ${f.fragen ? `<div class="panel" style="margin-top:24px;--c:var(--yellow)"><p class="kick">Offene Fragen zu dieser Figur</p><ol class="fragen">${f.fragen.map((q) => `<li>${esc(q)}</li>`).join("")}</ol></div>` : ""}
       </div>
     </div>
     ${f.bilder && f.bilder.sheet ? `<section style="margin-top:48px"><div class="sec-head"><span class="code">SHEET</span><h2>Character Sheet</h2></div>
@@ -168,17 +176,15 @@
   // ── 02 WELTBUCH ──
   function weltbuch() {
     return `
-    <p class="kick"><span class="c">02</span> // Lore</p>
+    <p class="kick"><span class="c">04</span> // Lore</p>
     <h1>Das Weltbuch</h1>
-    <p class="lead">Schauplätze, Konzerne, Technik, Sprache: die Welt, in der die Figuren gelten. Der Imaginator liest daraus, bevor er schreibt.
-      <span class="teal">KANON</span> steht so im Pitch-Deck, <span style="color:var(--yellow)">OFFEN</span> ist noch zu schreiben.</p>
     <div class="bars"><i></i><i></i><i></i></div>
     ${SF.weltbuch.map((k) => `
       <section>
         <div class="sec-head"><span class="code">${k.code}</span><h2>${esc(k.kapitel)}</h2></div>
         <div class="wb">${k.eintraege.map((e) => `
-          <div class="entry ${e.kanon ? "k" : ""}">
-            <h4>${esc(e.titel)}<span class="badge ${e.kanon ? "k" : "o"}">${e.kanon ? "KANON" : "OFFEN"}</span></h4>
+          <div class="entry ${e.text ? "k" : ""}">
+            <h4>${esc(e.titel)}</h4>
             ${e.text ? `<p>${esc(e.text)}</p>` : leer()}
           </div>`).join("")}</div>
       </section>`).join("")}`;
@@ -187,28 +193,28 @@
   // ── 03 FIRMENGESCHICHTE ──
   function chronik() {
     return `
-    <p class="kick"><span class="c">03</span> // fortlaufend</p>
+    <p class="kick"><span class="c">05</span> // fortlaufend</p>
     <h1>Firmengeschichte</h1>
-    <p class="lead">Während im Raum gearbeitet wird, schreibt sich die Arbeit fort: aus dem Protokoll in die Tagebücher, aus allen Tagebüchern hierher.
-      <i>Ein Cyberpunk-Abenteuer, dessen Stoff aus wirklicher Arbeit stammt.</i></p>
     <div class="bars"><i></i><i></i><i></i></div>
-    <div class="log">${SF.chronik.map((e) => `
+    ${logView(SF.oeffentlich(SF.chronik))}`;
+  }
+  function logView(list) {
+    return `<div class="log">${list.map((e) => `
       <div class="ev ${e.text ? "" : "leer-ev"}">
-        <div class="when">${esc(e.datum)} · Eintrag ${esc(e.id)} ${e.quelle === "muster" ? '· <span class="muster">MUSTER AUS DEM PITCH-DECK</span>' : e.quelle === "gruendung" ? '· <span class="green">GRÜNDUNG</span>' : ""}</div>
+        <div class="when">${esc(e.datum)} · Eintrag ${esc(e.id)}</div>
         ${e.titel ? `<h3 style="margin:6px 0 0">${esc(e.titel)}</h3>` : ""}
-        ${e.text ? `<p class="prose">${esc(e.text)}</p>` : `<p style="margin-top:8px">${leer("wird vom Imaginator aus dem Protokoll geschrieben")}</p>`}
+        ${e.text ? `<p class="prose">${esc(e.text)}</p>` : `<p style="margin-top:8px">${leer()}</p>`}
       </div>`).join("")}</div>`;
   }
 
   // ── 04 TAGEBÜCHER ──
   function tagebuecher() {
     return `
-    <p class="kick"><span class="c">04</span> // je Figur</p>
+    <p class="kick"><span class="c">06</span> // je Figur</p>
     <h1>Tagebücher</h1>
-    <p class="lead">Aus jedem Vorgang wird eine Episode, und die gehört von da an der Figur. Antritt meldet die Person, Rückgabe die Figur.</p>
     <div class="bars"><i></i><i></i><i></i></div>
     <div class="diary-list">${SF.roster.map((f) => {
-      const n = (SF.tagebuecher[f.id] || []).length;
+      const n = SF.oeffentlich(SF.tagebuecher[f.id]).length;
       return `<a class="diary-row ${f.status === "aktiv" ? "" : "void"}" href="#tagebuch/${f.id}">
         <span class="n">${f.nr}</span><span><b>${esc(f.name)}</b> <span class="dim mono">· ${n} Episode${n === 1 ? "" : "n"}</span></span>
         <span class="tag ${n ? "pink" : ""}" style="${n ? "" : "color:var(--yellow)"}">${n ? "lesen" : "leer"}</span></a>`;
@@ -217,30 +223,33 @@
   function tagebuch(id) {
     const f = fig(id);
     if (!f) return `<h1>404</h1>`;
-    const eps = SF.tagebuecher[f.id] || [];
+    const eps = SF.oeffentlich(SF.tagebuecher[f.id]);
     return `
     <p class="kick"><a href="#tagebuecher">← Tagebücher</a> &nbsp;/&nbsp; <span class="c">${f.nr}</span></p>
     <h1>Tagebuch: ${esc(f.name)}</h1>
     <div class="bars"><i></i><i></i><i></i></div>
     ${eps.length ? `<div class="log">${eps.map((e) => `
       <div class="ev">
-        <div class="when">${esc(e.datum)} ${e.quelle === "muster" ? '· <span class="muster">MUSTER AUS DEM PITCH-DECK</span>' : ""}</div>
-        <div class="grid g2" style="margin-top:10px;align-items:start">
-          <div class="protokoll">FIGUR     ${esc(f.id)}
+        <div class="when">${esc(e.datum)}</div>
+        <p class="prose diary">${esc(e.text)}</p>
+      </div>`).join("")}</div>`
+      : `<p>${leer("noch keine Episode")}</p>`}`;
+  }
+  function episodeView(f, e) {
+    return `<div class="grid g2" style="margin-top:10px;align-items:start">
+      <div class="protokoll">FIGUR     ${esc(f.id)}
 AUFTRAG   ${esc(e.auftrag)}
 <span class="a">ANTRITT   „${esc(e.antritt)}“</span>
 <span class="r">RÜCKGABE  „${esc(e.rueckgabe)}“</span></div>
-          <p class="prose diary" style="margin:0">${esc(e.text)}</p>
-        </div>
-      </div>`).join("")}</div>`
-      : `<p>${leer("Noch keine Episode. Die erste entsteht, wenn jemand diese Figur trägt und zurückmeldet.")}</p>`}`;
+      <p class="prose diary" style="margin:0">${esc(e.text)}</p>
+    </div>`;
   }
 
   // ── ▚▚ BACKEND ──
-  const TABS = [["workflow", "Workflow"], ["sheets", "Character Sheets"], ["pool", "Office-Master · Aufgabenpool"], ["protokoll", "Protokoll"], ["offen", "Offene Fragen"]];
+  const TABS = [["konzept", "Konzept"], ["workflow", "Workflow"], ["sheets", "Character Sheets"], ["pool", "Office-Master · Aufgabenpool"], ["protokoll", "Protokoll"], ["redaktion", "Redaktion"], ["offen", "Offene Fragen"]];
   function backend(tab) {
-    tab = TABS.some((t) => t[0] === tab) ? tab : "workflow";
-    const body = { workflow: bWorkflow, sheets: bSheets, pool: bPool, protokoll: bProtokoll, offen: bOffen }[tab]();
+    tab = TABS.some((t) => t[0] === tab) ? tab : "konzept";
+    const body = { konzept: bKonzept, workflow: bWorkflow, sheets: bSheets, pool: bPool, protokoll: bProtokoll, redaktion: bRedaktion, offen: bOffen }[tab]();
     return `<div class="backend">
       <p class="kick"><span class="blue">▚▚ BACKEND</span> // real × symbolisch</p>
       <h1>Backend</h1>
@@ -248,6 +257,64 @@ AUFTRAG   ${esc(e.auftrag)}
         und lassen sich als JSON exportieren. Dauerhafte Änderungen gehören in <code>data/*.js</code> im Repository.</div>
       <div class="tabs">${TABS.map(([k, l]) => `<button data-tab="${k}" class="${k === tab ? "on" : ""}">${l}</button>`).join("")}</div>
       ${body}</div>`;
+  }
+
+  function bKonzept() {
+    const aktiv = SF.roster.filter((f) => f.status === "aktiv").length;
+    return `
+    <section>
+      <div class="sec-head"><span class="code">K-00</span><h2>Personen kommen und gehen. Die Figuren bleiben.</h2></div>
+      <p class="lead">Scheinfirma ist die Organisationsform, Chance² ihr erstes Projekt: eine Filmproduktionsfirma, die ihre eigene Entstehung dreht.
+        Geführt wird sie vom Figurenstand. Wer arbeitet, tritt an die Puppe, legt eine Insignie an und handelt unter dem Namen einer Figur.
+        Die Arbeit ist echt, die Geschichte schreibt eine Maschine. Das Frontend zeigt nur die Welt; alles, was das Verfahren erklärt, steht hier.</p>
+      <div class="flow" style="margin-top:28px">
+        <div style="--c:var(--real)"><span class="k">ITERABILITÄT</span><h3 class="green">Zuteilung</h3>
+          <p>Die Person meldet sich verfügbar und bekommt eine Rolle: eine Zuständigkeit mit Aufgaben daran, verzeichnet und mehrfach besetzt.</p></div>
+        <div style="--c:var(--symb)"><span class="k">EINSETZUNGSRITUS</span><h3 class="blue">Übernahme</h3>
+          <p>Mit den Insignien geht die Rolle über in die Figur: anweisen, abzeichnen, unter ihrem Namen angesprochen werden.</p></div>
+        <div style="--c:var(--imag)"><span class="k">ÉCRITURE AUTOMATIQUE</span><h3 class="red">Fortschreibung</h3>
+          <p>Jeder Vorgang geht in das Tagebuch der Figur. Sie wächst mit jeder Besetzung und trägt beim nächsten Antritt mehr.</p></div>
+      </div>
+    </section>
+    <section>
+      <div class="sec-head"><span class="code">K-01</span><h2>Produktionsdaten Chance²</h2></div>
+      <div class="facts">
+        <div><b>Ort</b>Schinkel Pavillon, Berlin</div>
+        <div><b>Zeitraum</b>Januar 2027 · vier Tage</div>
+        <div><b>Besetzung</b>Menschen aus Arbeitsgelegenheiten</div>
+        <div><b>Erzeugnis</b>Film · Tagebücher · Firmengeschichte</div>
+        <div><b>Figurenstand</b>${aktiv} aktiv · ${SF.roster.length - aktiv} Leerstellen</div>
+        <div><b>Rollen-Sorten</b>Filmproduktion · Unvorhergesehenes · jede Firma</div>
+      </div>
+    </section>`;
+  }
+
+  function bRedaktion() {
+    const muster = SF.chronik.filter((e) => e.quelle === "muster");
+    const tbMuster = SF.roster.flatMap((f) => (SF.tagebuecher[f.id] || []).filter((e) => e.quelle === "muster").map((e) => [f, e]));
+    const wb = SF.weltbuch.flatMap((k) => k.eintraege.map((e) => [k.kapitel, e]));
+    return `
+    <section>
+      <div class="sec-head"><span class="code">B-40</span><h2>Manifest</h2></div>
+      <p>Status: <span class="mono" style="color:${SF.manifest.status === "freigegeben" ? "var(--real)" : "var(--yellow)"}">${esc(SF.manifest.status.toUpperCase())}</span>
+        · Unterzeichnet: ${SF.manifest.unterzeichnet ? esc(SF.manifest.unterzeichnet) : '<span style="color:var(--yellow)">offen</span>'}.
+        Die Thesen sind ein Entwurf aus dem Pitch-Deck, umgeschrieben in die Stimme der Firma. Bearbeiten in <code>data/werke.js</code>.</p>
+    </section>
+    <section>
+      <div class="sec-head"><span class="code">B-41</span><h2>Weltbuch-Stand</h2></div>
+      <div class="pool-wrap"><table class="pool"><thead><tr><th>Kapitel</th><th>Eintrag</th><th>Herkunft</th><th>Text</th></tr></thead><tbody>
+      ${wb.map(([k, e]) => `<tr><td class="mono">${esc(k)}</td><td>${esc(e.titel)}</td>
+        <td class="mono" style="color:${e.kanon ? "var(--teal)" : "var(--yellow)"}">${e.kanon ? "Pitch-Deck" : "neu / offen"}</td>
+        <td>${e.text ? '<span class="green">✓</span>' : '<span style="color:var(--yellow)">fehlt</span>'}</td></tr>`).join("")}
+      </tbody></table></div>
+    </section>
+    <section>
+      <div class="sec-head"><span class="code">B-42</span><h2>Mustertexte aus dem Pitch-Deck</h2></div>
+      <p class="dim">So soll der Imaginator klingen. Diese Texte erscheinen nicht im Frontend.</p>
+      <h3 style="margin-top:24px">Firmengeschichte</h3>
+      ${logView(muster)}
+      ${tbMuster.map(([f, e]) => `<h3 style="margin-top:24px">Tagebuch · ${esc(f.name)}</h3>${episodeView(f, e)}`).join("")}
+    </section>`;
   }
 
   function bWorkflow() {
@@ -352,11 +419,12 @@ AUFTRAG   ${esc(e.auftrag)}
     </section>
     <section>
       <div class="sec-head"><span class="code">B-12</span><h2>Stand der Sheets</h2></div>
-      <div class="pool-wrap"><table class="pool"><thead><tr><th>Nr</th><th>Figur</th><th>Bild</th><th>Steckbrief</th><th>Insignie</th></tr></thead><tbody>
+      <div class="pool-wrap"><table class="pool"><thead><tr><th>Nr</th><th>Figur</th><th>Rollen-Sorte</th><th>Bild</th><th>Steckbrief</th><th>Insignie</th></tr></thead><tbody>
       ${SF.roster.map((f) => `<tr><td class="id">${f.nr}</td><td><a href="#figur/${f.id}">${esc(f.name)}</a></td>
+        <td class="mono">${f.sorte ? SF.sorten[f.sorte] : '<span style="color:var(--yellow)">offen</span>'}</td>
         <td>${f.bilder ? '<span class="green">✓</span>' : '<span style="color:var(--yellow)">fehlt</span>'}</td>
         <td>${f.vorgeschichte ? '<span class="green">teilweise</span>' : '<span style="color:var(--yellow)">fehlt</span>'}</td>
-        <td>${f.insignie ? esc(f.insignie) : '<span style="color:var(--yellow)">fehlt</span>'}</td></tr>`).join("")}
+        <td>${f.insignie ? esc(f.insignie) : f.insignieVorschlag ? `<span style="color:var(--yellow)">Vorschlag:</span> ${esc(f.insignieVorschlag)}` : '<span style="color:var(--yellow)">fehlt</span>'}</td></tr>`).join("")}
       </tbody></table></div>
     </section>`;
   }
@@ -454,10 +522,13 @@ ZURÜCK    ${esc(p.zurueck)}</div>`).join("") : `<p class="empty">Noch keine Ein
       ["Werkzeuge", "Wo laufen Office-Master und Imaginator technisch (Rechner in der Puppe, Chat-Modell, Kartendrucker)?"],
       ["Werkzeuge", "Wie viel fragt die Puppe bei Antritt und Rückgabe: je eine Frage oder ein Interview?"],
       ["Werkzeuge", "Braucht das Backend echte Zugangskontrolle und gemeinsamen Speicher (statt Browser-Speicher)? Wer darf zuteilen?"],
-      ["Seite", "Öffentlich oder intern? Soll das Pitch-Deck verlinkt werden? Impressum/Datenschutz für die Live-Seite?"],
+      ["Manifest", "Thesen freigeben oder umschreiben? Wer unterzeichnet — eine Figur, die Firma, niemand?"],
+      ["Werke", "Welche Werke gehören ins Verzeichnis außer Chance², Tagebüchern und Firmengeschichte? Frühere Arbeiten, geplante Konfigurationen?"],
+      ["Seite", "Soll das Backend auf der Live-Seite sichtbar bleiben oder in ein eigenes, internes Repo? Impressum/Datenschutz?"],
       ["Seite", "Sprache: nur Deutsch, oder auch Englisch (das Techdeck liegt auf EN vor)?"],
       ["Recht", "Wem gehört die Figur? Wie wird ihr Wert über die Anwesenheitsliste verteilt — Beteiligung, Anerkennung, gemeinsamer Bestand?"]
     ];
+    SF.roster.filter((f) => f.fragen).forEach((f) => f.fragen.forEach((q) => qs.push([f.name, q])));
     return `
     <section>
       <div class="sec-head"><span class="code">B-30</span><h2>Offene Fragen</h2></div>

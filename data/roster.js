@@ -12,7 +12,7 @@ SF.roster = [
     status: "aktiv",
     sorte: null, // "filmproduktion" | "unvorhergesehenes" | "jede-firma"
     funktionen: null,
-    kurz: "Erste Figur im Roster. Trägt die Firma im Namen: 会社 (kaisha) heißt auf Japanisch „Firma“.",
+    kurz: "Trägt die Firma im Namen: 会社 (kaisha) heißt „Firma“.",
     vorgeschichte: null,
     insignie: null,
     insignieVorschlag: "Messingring an Kette mit violetter Quaste — die Figur hält ihn auf allen Ansichten in den Händen.",

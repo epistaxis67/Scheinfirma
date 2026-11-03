@@ -1,5 +1,6 @@
-/* FIRMENGESCHICHTE + TAGEBÜCHER — wird vom Imaginator fortgeschrieben.
+/* FIRMENGESCHICHTE + TAGEBÜCHER — werden vom Imaginator fortgeschrieben.
    quelle: "imaginator" | "gruendung" | "muster" (Beispieltext aus dem Pitch-Deck)
+   Einträge mit quelle "muster" erscheinen nur im Backend, nicht im Frontend.
    text: null = noch nicht geschrieben */
 window.SF = window.SF || {};
 
@@ -22,3 +23,6 @@ SF.tagebuecher = {
       text: "Der Auftrag kam von oben: herausfinden, wo es zwischen den Leuten knirscht, und es für The Chair festhalten. Ich hatte kaum geschlafen und wenig Geduld für Menschen. Also bin ich in den Hinterhof, wo die Ausstattung ihre Kisten stapelt, und habe gewartet, bis jemand etwas über die Kisten sagt. Es ging leichter als gedacht. Seit der Brücke ist das der erste Ort, an dem meine Anwesenheit einen Unterschied macht." }
   ]
 };
+
+// Frontend zeigt nur, was keine Muster sind
+SF.oeffentlich = (liste) => (liste || []).filter((e) => e.quelle !== "muster");
