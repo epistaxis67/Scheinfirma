@@ -419,3 +419,4 @@ figcaption b { color: var(--text); font-family: var(--mono); font-size: 12px; le
 
 /* Backend · Logo-Motion */
 .logo-frame { display: block; width: 100%; height: 1400px; border: 1px solid var(--line); background: #07070a; }
+.tool-open { font: 600 13px var(--mono); display: inline-block; padding: 14px 20px; background: var(--imag); color: #fff; border-color: var(--imag); text-decoration: none; letter-spacing: .1em; }

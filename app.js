@@ -177,10 +177,10 @@
 
   // ═════════════ BACKEND ═════════════
 
-  const TABS = [["workflow", "01 · Higgsfield-Workflow"], ["sheets", "02 · Character Sheets"], ["worldbook", "03 · Worldbook"], ["aufgaben", "04 · Aufgaben"], ["logo", "05 · Logo-Motion"]];
+  const TABS = [["workflow", "01 · Higgsfield-Workflow"], ["sheets", "02 · Character Sheets"], ["worldbook", "03 · Worldbook"], ["aufgaben", "04 · Aufgaben"], ["logo", "05 · Logo-Motion"], ["tool", "06 · Logo-Tool"]];
   function backend(tab) {
     tab = TABS.some((t) => t[0] === tab) ? tab : "workflow";
-    const body = { workflow: bWorkflow, sheets: bSheets, worldbook: bWorldbook, aufgaben: bAufgaben, logo: bLogo }[tab]();
+    const body = { workflow: bWorkflow, sheets: bSheets, worldbook: bWorldbook, aufgaben: bAufgaben, logo: bLogo, tool: bTool }[tab]();
     return `<div class="backend">
       <p class="kick"><span class="blue">▚▚ BACKEND</span></p>
       <h1>Backend</h1>
@@ -370,6 +370,13 @@ Halbtotale, Handkamera, leichte Unschärfe im Vordergrund.</pre>
     return `
     <p class="lead">Entwürfe: Wie das Logo einen Clip eröffnet und beendet. Fünf Varianten laufen synchron, umschaltbar zwischen 9:16 (Reels) und 16:9. „DEIN CLIP“ ist ein Platzhalter.</p>
     <iframe class="logo-frame" src="backend/logo-varianten.html?embed&v=10" title="Logo-Varianten"></iframe>`;
+  }
+  function bTool() {
+    const url = new URL("logo-tool.html", location.href).href;
+    return `
+    <p class="lead">Video wählen, Logo kommt automatisch drauf (Variante 1 · Glitch-Schnitt): Intro am Anfang, klein in der Ecke, Outro am Ende. Funktioniert mit jeder Clip-Länge, am Handy und am Rechner. Das Video bleibt auf dem eigenen Gerät.</p>
+    <p><a class="btn tool-open" href="logo-tool.html" target="_blank" rel="noopener">▶ LOGO-TOOL ÖFFNEN</a></p>
+    <p class="mono">Link zum Weitergeben: <code>${url}</code></p>`;
   }
   window.addEventListener("message", (e) => {
     const f = document.querySelector(".logo-frame");
