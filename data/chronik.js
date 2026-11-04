@@ -5,6 +5,7 @@
 window.SF = window.SF || {};
 
 SF.chronik = [
+  { id: "PROLOG", datum: "vor der Gründung", titel: "Prolog", quelle: "prolog", text: null }, // folgt aus dem Worldbook, Text kommt als eigene Datei
   { id: "000", datum: "2026-11-03", titel: "Gründung", quelle: "gruendung",
     text: "Scheinfirma. Filmproduktion. Erste Unterschrift: Kaisha Goonin." },
   { id: "M-01", datum: "Muster", titel: "Am zweiten Tag", quelle: "muster",

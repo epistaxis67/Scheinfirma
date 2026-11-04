@@ -28,11 +28,17 @@ SF.roster = [
     zustaendigkeiten: null,
     offeneFaeden: null,
     ton: null,
+    stimme: null, // Text der Figur in ihrer eigenen Stimme: Vorlage für das Logbuch
     bilder: {
       face: "assets/figuren/kaisha/face-front.jpg",
       front: "assets/figuren/kaisha/full-front.jpg",
       sheet: "assets/figuren/kaisha/full-sheet.jpg"
     },
+    referenzen: [ // alle Referenzbilder für Higgsfield (Soul ID, Genjutsu)
+      ["face-front", "Gesicht frontal"], ["face-34", "Gesicht ¾"], ["face-side", "Gesicht Profil"],
+      ["full-front", "Ganzkörper frontal"], ["full-34", "Ganzkörper ¾"], ["full-side", "Ganzkörper Profil"],
+      ["full-side2", "Ganzkörper Profil 2"], ["full-back", "Rücken"], ["full-sheet", "Full Sheet"]
+    ],
     fragen: [
       "Welche Funktion(en) trägt Kaisha in Chance²? Ersetzt die Figur eine der zehn aus dem Pitch-Deck oder ist sie die elfte?",
       "Was bedeutet „Goonin“? Gibt es eine Schreibweise in Kanji/Katakana?",
