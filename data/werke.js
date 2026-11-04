@@ -25,7 +25,7 @@ SF.werke = [
   { nr: "WK-001", titel: "Chance²", format: "Film", status: "in-produktion", jahr: "2027",
     ort: "Schinkel Pavillon, Berlin",
     logline: null, },
-  { nr: "WK-002", titel: "Firmengeschichte", format: "Buch, fortlaufend", status: "in-produktion", jahr: "2026–",
+  { nr: "WK-002", titel: "Core Log", format: "Chronik, fortlaufend", status: "in-produktion", jahr: "2026–",
     ort: null, logline: null, figuren: null },
   { nr: "WK-003", titel: null, format: null, status: "geplant", jahr: null, ort: null, logline: null, figuren: null }
 ];

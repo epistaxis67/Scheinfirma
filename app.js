@@ -50,6 +50,7 @@
       <div>
         <h1><span class="glitch" data-t="Scheinfirma.">Scheinfirma.</span>
           <span class="l2">Filmproduktion.</span></h1>
+        <p class="yurei" lang="ja">幽霊会社</p>
         <div class="bars"><i></i><i></i><i></i></div>
       </div>
       <div class="hero-logo logo glitch-img big" style="--src:url(assets/brand/logo.png)"><img src="assets/brand/logo.png" alt="Scheinfirma Logo"></div>
@@ -61,7 +62,7 @@
     return `
     <p class="kick"><span class="c">01</span> // Manifest</p>
     <div class="manifest-text">
-      ${m.absaetze.length ? m.absaetze.map((p) => `<p class="${p.length < 40 ? "beat" : ""}">${esc(p)}</p>`).join("") : leer()}
+      ${m.absaetze.length ? m.absaetze.map((p, i) => `<p class="${i === m.absaetze.length - 1 ? "final" : p.length < 40 ? "beat" : ""}">${esc(p)}</p>`).join("") : leer()}
       ${m.unterzeichnet ? `<p class="sig">${esc(m.unterzeichnet)}</p>` : ""}
     </div>`;
   }
@@ -94,7 +95,7 @@
   }
   function roster() {
     return `
-    <p class="kick"><span class="c">03</span> // PERSONNEL.DB · 会社</p>
+    <p class="kick"><span class="c">03</span> // PERSONNEL.DB · 幽霊会社</p>
     <h1><span class="glitch" data-t="ROSTER">ROSTER</span></h1>
     <div class="bars"><i></i><i></i><i></i></div>
     <div class="roster">${SF.roster.map(card).join("")}</div>`;
@@ -118,7 +119,7 @@
         <dl class="rows">
           <dt>Funktion</dt><dd>${f.funktionen ? f.funktionen.map((x) => `<span class="tag blue">${esc(x)}</span>`).join("") : leer()}</dd>
           <dt>Vorgeschichte</dt><dd>${f.vorgeschichte ? esc(f.vorgeschichte) : leer()}</dd>
-          <dt>Logbuch</dt><dd><a href="#log/${f.id}">${n} Eintr${n === 1 ? "ag" : "äge"} →</a></dd>
+          <dt>Ghost Log</dt><dd><a href="#log/${f.id}">${n} Eintr${n === 1 ? "ag" : "äge"} →</a></dd>
         </dl>
       </div>
     </div>`;
@@ -126,8 +127,8 @@
 
   function chronik() {
     return `
-    <p class="kick"><span class="c">04</span> // fortlaufend</p>
-    <h1>Firmengeschichte</h1>
+    <p class="kick"><span class="c">04</span> // 幽霊会社 · CHRONICLE</p>
+    <h1><span class="glitch" data-t="CORE LOG">CORE LOG</span></h1>
     <div class="bars"><i></i><i></i><i></i></div>
     ${logView(SF.oeffentlich(SF.chronik))}`;
   }
@@ -142,8 +143,8 @@
 
   function logbuch() {
     return `
-    <p class="kick"><span class="c">05</span> // LOGS</p>
-    <h1>Logbuch</h1>
+    <p class="kick"><span class="c">05</span> // 幽霊会社 · PERSONAL</p>
+    <h1><span class="glitch" data-t="GHOST LOGS">GHOST LOGS</span></h1>
     <div class="bars"><i></i><i></i><i></i></div>
     <div class="diary-list">${SF.roster.map((f) => {
       const n = SF.oeffentlich(SF.tagebuecher[f.id]).length;
@@ -157,8 +158,8 @@
     if (!f) return `<h1>404</h1>`;
     const eps = SF.oeffentlich(SF.tagebuecher[f.id]);
     return `
-    <p class="kick"><a href="#logbuch">← LOGS</a> &nbsp;/&nbsp; <span class="c">ID-${f.nr}</span></p>
-    <h1>LOG // ${esc(f.name)}</h1>
+    <p class="kick"><a href="#logbuch">← GHOST LOGS</a> &nbsp;/&nbsp; <span class="c">ID-${f.nr}</span></p>
+    <h1>GHOST LOG // ${esc(f.name)}</h1>
     <div class="bars"><i></i><i></i><i></i></div>
     ${eps.length ? `<div class="log">${eps.map((e) => `
       <div class="ev"><div class="when">${esc(e.datum)}</div><p class="prose diary">${esc(e.text)}</p></div>`).join("")}</div>`
@@ -202,7 +203,6 @@
     const k = fig("kaisha");
     return `
     <p class="lead">Wie eine Figur in Higgsfield entsteht, stabil bleibt und in Filmmaterial landet. Beispiel: Kaisha Goonin.</p>
-    <p class="mono dim">Stand November 2026, nach Angaben von Higgsfield. Funktionen, Limits und Preise im eigenen Account prüfen.</p>
     <ol class="wf-index mono">
       <li><a href="#wf1">Referenzbilder</a></li><li><a href="#wf2">Soul ID</a></li>
       <li><a href="#wf3">Neue Szenen</a></li><li><a href="#wf4">Vorhandenes Material: Genjutsu</a></li><li><a href="#wf5">Prüfen</a></li>
@@ -210,7 +210,7 @@
 
     <section id="wf1">
       <div class="sec-head"><span class="code">SCHRITT 1</span><h2>Referenzbilder erzeugen</h2></div>
-      <p>Grundlage jeder Figur ist ein gutes Character Sheet bzw. ein Satz Referenzbilder. Es gibt keine feste Zahl: Je mehr saubere, unterschiedliche Ansichten derselben Figur, desto stabiler bleibt sie später in Bild und Video.</p>
+      <p>Jede Figur beginnt mit einem Character Sheet und einem Satz Referenzbilder. Je mehr saubere, unterschiedliche Ansichten derselben Figur, desto stabiler bleibt sie in Bild und Video.</p>
       <div class="refgrid">${(k.referenzen || []).map(([key, label]) => `
         <figure><img src="${refSrc(k, key)}" alt="Kaisha, ${esc(label)}" loading="lazy"><figcaption>${esc(label)}</figcaption></figure>`).join("")}
       </div>
@@ -238,13 +238,13 @@
       <div class="sec-head"><span class="code">SCHRITT 2</span><h2>Identität festigen: Soul ID</h2></div>
       <div class="grid g2" style="align-items:start">
         <div>
-          <p>Soul ID ist eine in Higgsfield trainierte Identität. Einmal angelegt, lässt sie sich bei jeder Bild- und Videogenerierung auswählen, auch in den Videomodellen, die Higgsfield anbietet.</p>
+          <p>Aus den Referenzbildern wird in Higgsfield eine Soul ID trainiert. Sie ist danach bei jeder Bild- und Videogenerierung auswählbar.</p>
           <dl class="rows">
-            <dt>Eingabe</dt><dd>Laut Higgsfield 20 oder mehr Fotos aus verschiedenen Winkeln. Für Kaisha: die ${(k.referenzen || []).length} vorhandenen Ansichten plus Varianten aus Schritt 1.</dd>
-            <dt>Dauer</dt><dd>Wenige Minuten Training.</dd>
-            <dt>Grenze</dt><dd>Soul ID hält vor allem das Gesicht fest. Kostüm, Maske und Gegenstände zusätzlich als Referenzbilder mitgeben. Bei maskierten Figuren wie Kaisha besonders wichtig.</dd>
-            <dt>Mehrere Figuren</dt><dd>Eine Soul ID pro Figur. Zwei Figuren in einer Szene: beide Identitäten anlegen und gemeinsam verwenden.</dd>
-            <dt>Export</dt><dd>Soul ID bleibt in Higgsfield, sie lässt sich nicht als Datei mitnehmen. Referenzbilder deshalb immer selbst archivieren.</dd>
+            <dt>Eingabe</dt><dd>20 oder mehr Bilder aus verschiedenen Winkeln. Für Kaisha: die ${(k.referenzen || []).length} Ansichten plus Varianten aus Schritt 1.</dd>
+            <dt>Training</dt><dd>Soul ID anlegen, Bilder hochladen, trainieren. Dauert wenige Minuten.</dd>
+            <dt>Kostüm</dt><dd>Kostüm, Maske und Gegenstände bei jeder Generierung zusätzlich als Referenzbilder mitgeben. Bei Kaisha: Maske und Ring immer dabei.</dd>
+            <dt>Mehrere Figuren</dt><dd>Eine Soul ID pro Figur. Für gemeinsame Szenen beide auswählen.</dd>
+            <dt>Archiv</dt><dd>Referenzbilder immer im eigenen Ordner aufbewahren: <code>Avatar/Character Sheets/&lt;Name&gt;/</code>.</dd>
           </dl>
         </div>
         <div class="soul">
@@ -257,7 +257,7 @@
 
     <section id="wf3">
       <div class="sec-head"><span class="code">SCHRITT 3</span><h2>Figur in neue Szenen setzen</h2></div>
-      <p>Mit Soul ID entstehen Standbilder und Clips, in denen die Figur auftritt: Plakate, Einstellungen für den Film, Bilder für Firmengeschichte und Logbuch.</p>
+      <p>Mit Soul ID entstehen Standbilder und Clips, in denen die Figur auftritt: Plakate, Einstellungen für den Film, Bilder für Core Log und Ghost Logs.</p>
       <div class="steps">
         <div style="--c:var(--real)"><h4>Soul ID wählen</h4><p>Die trainierte Figur auswählen, bei Bedarf Kostüm-Referenzen ergänzen.</p></div>
         <div style="--c:var(--symb)"><h4>Bild erzeugen</h4><p>Szene im Prompt beschreiben, Orte und Begriffe aus dem Worldbook verwenden.</p></div>
@@ -291,7 +291,7 @@ Halbtotale, Handkamera, leichte Unschärfe im Vordergrund.</pre>
             <li><b>Motion Transfer:</b> Die Bewegung aus dem Clip wird auf die Figur übertragen. Für den Tausch der ganzen Person.</li>
             <li><b>Object Swap:</b> Nur ein Element wird ersetzt, der Rest bleibt. Für Maske, Jacke oder einen Gegenstand.</li>
           </ul>
-          <p class="dim">Ob Genjutsu eine trainierte Soul ID direkt übernimmt, ist in Higgsfields eigenen Texten widersprüchlich. Sicher: Referenzbilder hochladen.</p></div>
+</div>
         <div class="panel" style="--c:var(--real)"><p class="kick">Tipps</p>
           <ul>
             <li>Eine große Änderung pro Durchgang, z. B. erst Person, dann Hintergrund.</li>
@@ -326,7 +326,7 @@ Halbtotale, Handkamera, leichte Unschärfe im Vordergrund.</pre>
           <dt>Erkennungszeichen</dt><dd>${f.erkennungszeichen ? `<ul>${f.erkennungszeichen.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : leer()}</dd>
           ${f.palette ? `<dt>Palette</dt><dd class="swatches">${f.palette.map((c) => `<i style="background:${c}" title="${c}"></i>`).join("")}</dd>` : ""}
           <dt>Abzeichen</dt><dd>${f.insignie ? esc(f.insignie) : f.insignieVorschlag ? `<span style="color:var(--yellow)">Vorschlag:</span> ${esc(f.insignieVorschlag)}` : leer()}</dd>
-          <dt>Text der Figur</dt><dd>${f.stimme ? esc(f.stimme) : leer("fehlt: Vorlage für das Logbuch")}</dd>
+          <dt>Text der Figur</dt><dd>${f.stimme ? esc(f.stimme) : leer("fehlt: Vorlage für den Ghost Log")}</dd>
           ${f.fragen ? `<dt>Offen</dt><dd><ul>${f.fragen.map((q) => `<li>${esc(q)}</li>`).join("")}</ul></dd>` : ""}
         </dl>
       </section>`;
@@ -344,7 +344,7 @@ Halbtotale, Handkamera, leichte Unschärfe im Vordergrund.</pre>
 
   function bWorldbook() {
     return `
-    <p class="lead">Die Lore der Scheinfirma. Grundlage für Prompts, Logbücher und den Prolog der Firmengeschichte.</p>
+    <p class="lead">Die Lore der Scheinfirma. Grundlage für Prompts, Ghost Logs und den Prolog des Core Log.</p>
     <p class="mono">${Object.entries(SF.herkunft).map(([k, v]) => `<span class="badge h-${k}">${v}</span>`).join(" ")}</p>
     ${SF.weltbuch.map((k) => `
       <section>

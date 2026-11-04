@@ -12,8 +12,8 @@ SF.aufgaben = [
   { id: "A-06", bereich: "allgemein", titel: "Higgsfield: Soul ID für Kaisha trainieren und testen", figur: "nix_farrow" },
   { id: "A-07", bereich: "allgemein", titel: "Higgsfield Genjutsu: Testclip, Kaisha in vorhandenes Material einsetzen", figur: "mother_solvent" },
   { id: "A-10", bereich: "allgemein", titel: "Higgsfield: Tarif und Credits für Chance² klären", figur: "marisol_vane" },
-  { id: "A-08", bereich: "allgemein", titel: "Text jeder Figur schreiben (Stimme für das Logbuch)", figur: null },
-  { id: "A-11", bereich: "allgemein", titel: "Prolog der Firmengeschichte aus dem Worldbook", figur: null },
+  { id: "A-08", bereich: "allgemein", titel: "Text jeder Figur schreiben (Stimme für den Ghost Log)", figur: null },
+  { id: "A-11", bereich: "allgemein", titel: "Prolog des Core Log aus dem Worldbook", figur: null },
   { id: "A-09", bereich: "allgemein", titel: "Webseite: Impressum und Datenschutz ergänzen", figur: "marisol_vane" },
 
   // ── Chance² · Schinkel Pavillon · vorher ──
@@ -41,7 +41,7 @@ SF.aufgaben = [
   { id: "C-27", bereich: "chance2", phase: "vor-ort", titel: "Fehlendes nachdrehen", figur: "frank_the_drifter" },
   { id: "C-28", bereich: "chance2", phase: "vor-ort", titel: "Ausstattung beschaffen und bauen", figur: "halcyon_bo" },
   { id: "C-29", bereich: "chance2", phase: "vor-ort", titel: "Licht, Strom, Geräte in Betrieb halten", figur: "nix_farrow" },
-  { id: "C-30", bereich: "chance2", phase: "vor-ort", titel: "Logbücher und Firmengeschichte täglich fortschreiben", figur: null },
+  { id: "C-30", bereich: "chance2", phase: "vor-ort", titel: "Ghost Logs und Core Log täglich fortschreiben", figur: null },
   { id: "C-31", bereich: "chance2", phase: "vor-ort", titel: "Raum in Ordnung halten", figur: "marisol_vane" },
   { id: "C-32", bereich: "chance2", phase: "vor-ort", titel: "Schneiden und vertonen", figur: "mother_solvent" },
   { id: "C-33", bereich: "chance2", phase: "vor-ort", titel: "Fassung am vierten Tag zeigen", figur: "the_chair" },
@@ -49,7 +49,7 @@ SF.aufgaben = [
   // ── Chance² · danach ──
   { id: "C-41", bereich: "chance2", phase: "danach", titel: "Endfassung des Films fertigstellen", figur: "mother_solvent" },
   { id: "C-42", bereich: "chance2", phase: "danach", titel: "Material archivieren", figur: "mother_solvent" },
-  { id: "C-43", bereich: "chance2", phase: "danach", titel: "Werke-Verzeichnis und Firmengeschichte auf der Seite aktualisieren", figur: null }
+  { id: "C-43", bereich: "chance2", phase: "danach", titel: "Werke und Core Log auf der Seite aktualisieren", figur: null }
 ];
 
 SF.bereiche = { allgemein: "Allgemein · Scheinfirma", chance2: "Chance² · Schinkel Pavillon, Januar 2027" };

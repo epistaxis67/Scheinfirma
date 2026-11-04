@@ -28,7 +28,7 @@ SF.roster = [
     zustaendigkeiten: null,
     offeneFaeden: null,
     ton: null,
-    stimme: null, // Text der Figur in ihrer eigenen Stimme: Vorlage für das Logbuch
+    stimme: null, // Text der Figur in ihrer eigenen Stimme: Vorlage für den Ghost Log
     bilder: {
       face: "assets/figuren/kaisha/face-front.jpg",
       front: "assets/figuren/kaisha/full-front.jpg",
