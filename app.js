@@ -39,8 +39,17 @@
     document.body.classList.remove("nav-open");
     if (r === "backend") bindBackend(arg);
     window.scrollTo(0, 0);
+    SF.sound.tick();
   }
   window.addEventListener("hashchange", go);
+
+  // Sound-Schalter in der Kopfzeile
+  $("#snd").addEventListener("click", () => {
+    const an = SF.sound.toggle();
+    $("#snd").classList.toggle("on", an);
+    $("#snd").setAttribute("aria-pressed", an);
+    $(".snd-l").textContent = an ? "SOUND ON" : "SOUND OFF";
+  });
 
   // ═════════════ FRONTEND ═════════════
 
@@ -440,6 +449,7 @@ Halbtotale, Handkamera, leichte Unschärfe im Vordergrund.</pre>
       if (!offen.length) { say("Alles erledigt. Wie ist es gelaufen?"); return; }
       busy = true;
       p.classList.add("work");
+      SF.sound.glitch();
       say("…");
       ticket.innerHTML = "";
       setTimeout(() => {

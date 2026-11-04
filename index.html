@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;800&family=Space+Grotesk:wght@400;600;700&family=Spectral:ital@0;1&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=8">
+  <link rel="stylesheet" href="style.css?v=9">
 </head>
 <body>
   <div class="scan" aria-hidden="true"></div>
@@ -23,6 +23,7 @@
     <div class="sys">
       <span class="dot"></span> NODE://SCHEINFIRMA <span class="yurei-top" lang="ja">幽霊会社</span> <span class="dim">· FILMPRODUKTION</span>
     </div>
+    <button class="snd" id="snd" aria-pressed="false" aria-label="Sound ein- oder ausschalten"><span class="eq"><i></i><i></i><i></i><i></i></span><span class="snd-l">SOUND OFF</span></button>
     <button class="burger" aria-label="Menü" onclick="document.body.classList.toggle('nav-open')">≡</button>
     <nav class="nav" aria-label="Register">
       <a href="#lobby" data-r="lobby"><b>00</b>Lobby</a>
@@ -42,11 +43,12 @@
     <span lang="ja">幽霊会社</span>
   </footer>
 
-  <script src="data/roster.js?v=8"></script>
-  <script src="data/werke.js?v=8"></script>
-  <script src="data/weltbuch.js?v=8"></script>
-  <script src="data/chronik.js?v=8"></script>
-  <script src="data/aufgaben.js?v=8"></script>
-  <script src="app.js?v=8"></script>
+  <script src="data/roster.js?v=9"></script>
+  <script src="data/werke.js?v=9"></script>
+  <script src="data/weltbuch.js?v=9"></script>
+  <script src="data/chronik.js?v=9"></script>
+  <script src="data/aufgaben.js?v=9"></script>
+  <script src="sound.js?v=9"></script>
+  <script src="app.js?v=9"></script>
 </body>
 </html>

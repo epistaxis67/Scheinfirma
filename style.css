@@ -50,7 +50,7 @@ img { max-width: 100%; display: block; }
 /* ── header ─────────────────────────────────────── */
 .top {
   position: sticky; top: 0; z-index: 40;
-  display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 8px 24px;
+  display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; gap: 8px 24px;
   padding: 10px 24px;
   background: rgba(7,7,10,.88); backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--line);
@@ -404,3 +404,15 @@ figcaption b { color: var(--text); font-family: var(--mono); font-size: 12px; le
 .yurei-top { color: var(--pink); letter-spacing: .2em; margin: 0 4px; text-shadow: 0 0 10px rgba(255,79,163,.5); }
 .yurei { font: 700 clamp(28px, 4vw, 52px)/1 var(--sans); letter-spacing: .25em; color: var(--pink); margin: 18px 0 0;
   text-shadow: 0 0 22px rgba(255,79,163,.45); opacity: .9; }
+
+/* ── Sound-Schalter ─────────────────────────────── */
+.snd { display: inline-flex; align-items: center; gap: 8px; background: none; border: 1px solid var(--line); color: var(--dim);
+  font: 600 11px var(--mono); letter-spacing: .14em; padding: 8px 10px; cursor: pointer; }
+.snd:hover { border-color: var(--teal); color: var(--text); }
+.snd.on { border-color: var(--imag); color: var(--imag); box-shadow: 0 0 14px rgba(255,59,48,.3); }
+.eq { display: inline-flex; gap: 2px; align-items: flex-end; height: 12px; }
+.eq i { width: 3px; height: 3px; background: currentColor; }
+.snd.on .eq i { animation: eq .9s ease-in-out infinite; }
+.snd.on .eq i:nth-child(2) { animation-delay: -.3s; } .snd.on .eq i:nth-child(3) { animation-delay: -.6s; } .snd.on .eq i:nth-child(4) { animation-delay: -.15s; }
+@keyframes eq { 50% { height: 12px; } }
+@media (max-width: 820px) { .top { grid-template-columns: auto 1fr auto auto; } .snd-l { display: none; } .sys { grid-column: 1 / -1; order: 5; } }

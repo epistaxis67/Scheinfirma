@@ -37,3 +37,7 @@ Was dauerhaft gelten soll, wird in `data/aufgaben.js` eingetragen und committet.
 3. In `data/chronik.js` unter `SF.tagebuecher` einen leeren Ghost Log `<id>: []` anlegen
 4. In `index.html` die Versionsnummer `?v=` hochzählen, damit Browser die neuen Dateien laden.
 5. Commit, Push. GitHub Pages aktualisiert nach ein bis zwei Minuten.
+
+## Sound
+
+`sound.js` erzeugt den Soundtrack live im Browser (Web Audio): Drone, Bass-Puls, Arpeggio in A phrygisch, Datenrauschen. Schalter oben rechts, standardmäßig aus. Die Puppe löst beim Auftragziehen einen Glitch aus, Seitenwechsel einen kurzen Ton. Tempo, Tonleiter und Lautstärken stehen oben in der Datei.
