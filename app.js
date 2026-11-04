@@ -69,8 +69,8 @@
 
   function werke() {
     return `
-    <p class="kick"><span class="c">02</span> // Werkverzeichnis</p>
-    <h1>Werke</h1>
+    <p class="kick"><span class="c">02</span> // 幽霊会社 · FILMOGRAPHY</p>
+    <h1><span class="glitch" data-t="WORKS">WORKS</span></h1>
     <div class="bars"><i></i><i></i><i></i></div>
     <div class="pool-wrap"><table class="pool werke"><thead><tr><th>Nr</th><th>Titel</th><th>Format</th><th>Jahr</th><th>Status</th></tr></thead><tbody>
     ${SF.werke.map((w) => `<tr>

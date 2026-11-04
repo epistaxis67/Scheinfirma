@@ -317,7 +317,8 @@ figcaption b { color: var(--text); font-family: var(--mono); font-size: 12px; le
 .manifest-text { max-width: 760px; margin-top: 28px; }
 .manifest-text p { font: 400 clamp(19px, 1.9vw, 24px)/1.6 var(--serif); margin: 0 0 1.1em; color: #ece8e0; }
 .manifest-text p.beat { font: 700 clamp(24px, 3vw, 38px)/1.2 var(--sans); color: var(--imag); text-shadow: 0 0 22px rgba(255,59,48,.35); margin: 1.2em 0; }
-.manifest-text p.final { font: 700 clamp(26px, 3.4vw, 44px)/1.15 var(--sans); color: var(--text); margin-top: 1.4em; }
+.manifest-text p.final { font: 700 clamp(26px, 3.4vw, 44px)/1.15 var(--sans); color: #ff5a1f; margin-top: 1.4em;
+  text-shadow: 0 0 18px rgba(255,90,31,.55), 0 0 42px rgba(255,59,48,.35); }
 .manifest-text .sig { font: 800 14px var(--mono); letter-spacing: .5em; color: var(--imag); margin-top: 2.4em; }
 
 /* ── Stimme der Figur ───────────────────────────── */
