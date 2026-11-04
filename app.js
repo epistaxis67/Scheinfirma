@@ -177,10 +177,10 @@
 
   // ═════════════ BACKEND ═════════════
 
-  const TABS = [["workflow", "01 · Higgsfield-Workflow"], ["sheets", "02 · Character Sheets"], ["worldbook", "03 · Worldbook"], ["aufgaben", "04 · Aufgaben"]];
+  const TABS = [["workflow", "01 · Higgsfield-Workflow"], ["sheets", "02 · Character Sheets"], ["worldbook", "03 · Worldbook"], ["aufgaben", "04 · Aufgaben"], ["logo", "05 · Logo-Motion"]];
   function backend(tab) {
     tab = TABS.some((t) => t[0] === tab) ? tab : "workflow";
-    const body = { workflow: bWorkflow, sheets: bSheets, worldbook: bWorldbook, aufgaben: bAufgaben }[tab]();
+    const body = { workflow: bWorkflow, sheets: bSheets, worldbook: bWorldbook, aufgaben: bAufgaben, logo: bLogo }[tab]();
     return `<div class="backend">
       <p class="kick"><span class="blue">▚▚ BACKEND</span></p>
       <h1>Backend</h1>
@@ -365,6 +365,16 @@ Halbtotale, Handkamera, leichte Unschärfe im Vordergrund.</pre>
           </div>`).join("")}</div>
       </section>`).join("")}`;
   }
+
+  function bLogo() {
+    return `
+    <p class="lead">Entwürfe: Wie das Logo einen Clip eröffnet und beendet. Fünf Varianten laufen synchron, umschaltbar zwischen 9:16 (Reels) und 16:9. „DEIN CLIP“ ist ein Platzhalter.</p>
+    <iframe class="logo-frame" src="backend/logo-varianten.html?embed&v=10" title="Logo-Varianten"></iframe>`;
+  }
+  window.addEventListener("message", (e) => {
+    const f = document.querySelector(".logo-frame");
+    if (f && e.source === f.contentWindow && e.data && e.data.sfLogoH) f.style.height = e.data.sfLogoH + "px";
+  });
 
   function figOptions(sel) {
     return `<option value="">— nicht zugeteilt —</option>` + SF.roster.map((f) =>
