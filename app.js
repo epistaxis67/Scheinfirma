@@ -62,7 +62,7 @@
         <p class="yurei" lang="ja">幽霊会社</p>
         <div class="bars"><i></i><i></i><i></i></div>
       </div>
-      <div class="hero-logo logo glitch-img big" style="--src:url(assets/brand/logo.png)"><img src="assets/brand/logo.png" alt="Scheinfirma Logo"></div>
+      <div class="hero-logo logo glitch-img big" style="--src:url(assets/brand/logo.svg)"><img src="assets/brand/logo.svg" alt="Scheinfirma Logo"></div>
     </section>`;
   }
 
@@ -369,7 +369,7 @@ Halbtotale, Handkamera, leichte Unschärfe im Vordergrund.</pre>
   function bLogo() {
     return `
     <p class="lead">Entwürfe: Wie das Logo einen Clip eröffnet und beendet. Fünf Varianten laufen synchron, umschaltbar zwischen 9:16 (Reels) und 16:9. „DEIN CLIP“ ist ein Platzhalter.</p>
-    <iframe class="logo-frame" src="backend/logo-varianten.html?embed&v=10" title="Logo-Varianten"></iframe>`;
+    <iframe class="logo-frame" src="backend/logo-varianten.html?embed&v=12" title="Logo-Varianten"></iframe>`;
   }
   function bTool() {
     const url = new URL("logo-tool.html", location.href).href;
