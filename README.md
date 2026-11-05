@@ -9,9 +9,9 @@ Backend: Higgsfield-Workflow, Character Sheets, Worldbook, Aufgaben (mit der Pup
 
 | Bereich | Datei | Was dort steht |
 |---|---|---|
-| Roster, Character Sheets | `data/roster.js` | Figuren, Text der Figur (`stimme`), Referenzbilder |
+| Roster, Character Sheets | `data/roster.json` | Figuren, Text der Figur (`stimme`), Referenzbilder |
 | Manifest, Werke | `data/werke.js` | Manifest (aus `../Manifest/scheinfirma-manifest.md`), Werkverzeichnis |
-| Worldbook | `data/weltbuch.js` | Lore, mit Herkunft je Eintrag (Deck, Manifest, Sheet, Vorschlag) |
+| Worldbook | `data/weltbuch.json` | Lore, mit Herkunft je Eintrag (Deck, Manifest, Sheet, Vorschlag, Eingereicht) |
 | Core Log, Ghost Logs | `data/chronik.js` | Prolog und Chronik der Firma, Ghost Log je Figur |
 | Aufgaben | `data/aufgaben.js` | allgemein und für Chance², im Backend Figuren zuteilbar |
 
@@ -33,7 +33,7 @@ Was dauerhaft gelten soll, wird in `data/aufgaben.js` eingetragen und committet.
 ## Neue Figur
 
 1. Referenzbilder als JPG nach `assets/figuren/<id>/` und in `referenzen` eintragen; mindestens `face-front`, `full-front`, `full-sheet`
-2. Eintrag in `data/roster.js` anlegen oder Leerstelle ausfüllen, `status: "aktiv"`
+2. Eintrag in `data/roster.json` anlegen oder Leerstelle ausfüllen, `status: "aktiv"`
 3. In `data/chronik.js` unter `SF.tagebuecher` einen leeren Ghost Log `<id>: []` anlegen
 4. In `index.html` die Versionsnummer `?v=` hochzählen, damit Browser die neuen Dateien laden.
 5. Commit, Push. GitHub Pages aktualisiert nach ein bis zwei Minuten.
@@ -41,3 +41,9 @@ Was dauerhaft gelten soll, wird in `data/aufgaben.js` eingetragen und committet.
 ## Sound
 
 `sound.js` erzeugt den Soundtrack live im Browser (Web Audio): Drone, Bass-Puls, Arpeggio in A phrygisch, Datenrauschen. Schalter oben rechts, standardmäßig aus. Die Puppe löst beim Auftragziehen einen Glitch aus, Seitenwechsel einen kurzen Ton. Tempo, Tonleiter und Lautstärken stehen oben in der Datei.
+
+## Einreichen und Eingang
+
+- **Einreichen** (`#einreichen`, öffentlich): Figuren-Generator und Welt-Formular. Alle Felder freiwillig, Beiträge kommen in ein Paket, das als JSON-Datei oder Text ans Team geht. „Prompt für deine KI kopieren“ erzeugt einen Prompt mit Worldbook und Figuren; die Antwort der KI wird ins Formular zurückgefügt. Liegt `data/weltbibel.md` vor, wird sie automatisch mitgegeben.
+- **Eingang** (Backend, Tab 07): Pakete laden, Feld für Feld annehmen oder verwerfen. Angenommenes landet in einer Arbeitskopie (nur dieser Browser). `roster.json` / `weltbuch.json` herunterladen und in `data/` ersetzen, dann committen.
+- Code: `einreichen.js`. Format: `{ format: "scheinfirma.einreichung", version: 1, von, erstellt, figuren: [{ ziel, felder, anmerkung }], welt: [{ art, ziel, kapitel, titel, text, verweise, anmerkung }] }`.

@@ -420,3 +420,51 @@ figcaption b { color: var(--text); font-family: var(--mono); font-size: 12px; le
 /* Backend · Logo-Motion */
 .logo-frame { display: block; width: 100%; height: 1400px; border: 1px solid var(--line); background: #07070a; }
 .tool-open { font: 600 13px var(--mono); display: inline-block; padding: 14px 20px; background: var(--imag); color: #fff; border-color: var(--imag); text-decoration: none; letter-spacing: .1em; }
+
+/* ── Einreichen ─────────────────────────────── */
+.steps { display: flex; flex-wrap: wrap; gap: 8px 28px; padding: 0; margin: 18px 0 26px; list-style: none; counter-reset: s; font-size: 12px; color: var(--dim); }
+.steps li { counter-increment: s; } .steps li::before { content: "0" counter(s) " "; color: var(--imag); font-weight: 800; }
+.ein { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 28px; align-items: start; margin-top: 22px; }
+.ein-form fieldset { border: 1px solid var(--line); margin: 0 0 16px; padding: 14px 16px 16px; background: rgba(14,14,20,.6); }
+.ein-form legend { font: 600 11px var(--mono); letter-spacing: .25em; text-transform: uppercase; color: var(--teal); padding: 0 6px; }
+.fgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 16px; }
+.fld { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.fld.wide { grid-column: 1 / -1; }
+.fld label, .paket label, .ki-out label, .ki-in label { font: 600 10px var(--mono); letter-spacing: .18em; text-transform: uppercase; color: var(--dim); }
+.ein-form > .fld { margin-bottom: 16px; }
+.fld input, .fld select { width: 100%; }
+.colrow { display: flex; gap: 6px; } .colrow input:first-child { flex: 1; min-width: 0; }
+.colrow input[type=color] { width: 44px; padding: 2px; height: auto; }
+.swatch-prev { margin-top: 6px; } .swatch-prev i { width: 22px; height: 22px; }
+.ki { border-color: var(--yellow) !important; box-shadow: 0 0 0 1px var(--yellow); }
+.ki-tools, .ein-act, .paket-btns { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 12px 0; }
+.ki-out, .ki-in { margin: 8px 0 12px; display: grid; gap: 6px; }
+.ki-in .btn { justify-self: start; }
+.ki-msg, .ein-msg { font-size: 12px; }
+.paket { position: sticky; top: 16px; border: 1px solid var(--symb); background: var(--panel); padding: 16px; display: grid; gap: 8px; }
+.paket .lbl { font: 800 11px var(--mono); letter-spacing: .25em; color: var(--symb); }
+.paket ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 14px; }
+.paket li { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+.paket li .tag { margin: 0; }
+.paket .x { margin-left: auto; background: none; border: 0; color: var(--dim); font-size: 18px; cursor: pointer; line-height: 1; }
+.paket .x:hover { color: var(--imag); }
+.paket .small, .small { font-size: 12px; line-height: 1.5; }
+.paket button:disabled { opacity: .4; cursor: default; }
+.ein-load { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 18px 0; }
+.ein-load textarea { flex: 1; min-width: 220px; min-height: 40px; }
+.drop-mini { font: 600 12px var(--mono); letter-spacing: .1em; text-transform: uppercase; border: 1px dashed var(--teal); color: var(--teal); padding: 10px 14px; cursor: pointer; }
+.ein-status { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; font-size: 12px; padding: 12px 0 18px; border-bottom: 1px solid var(--line); margin-bottom: 26px; }
+.ein-status b { color: var(--teal); font-size: 15px; }
+.chk { display: inline-flex; gap: 6px; align-items: center; cursor: pointer; }
+.ein-paket { margin-bottom: 34px; } .ein-paket .sec-head .btn { margin-left: auto; font-size: 10px; padding: 5px 8px; }
+.ein-item { border-left: 2px solid var(--pink); padding: 2px 0 6px 14px; margin-bottom: 22px; }
+.ein-item h4 { margin: 0 0 8px; font: 700 16px var(--sans); display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; }
+.ein-item h4 .tag { margin: 0; }
+.ein-item.erledigt { opacity: .5; }
+.ein-item p { margin: 4px 0; }
+.pool.cmp td { vertical-align: top; } .pool.cmp ul { margin: 0; padding-left: 16px; }
+.pool.cmp .swatches i { width: 18px; height: 18px; }
+body.vorschau::after { content: "VORSCHAU · ARBEITSKOPIE · NUR DIESER BROWSER"; position: fixed; left: 0; right: 0; bottom: 0; z-index: 50; text-align: center; font: 800 11px var(--mono); letter-spacing: .2em; padding: 6px; background: var(--yellow); color: #111; }
+@media (max-width: 980px) { .ein { grid-template-columns: 1fr; } .paket { position: static; } }
+@media (max-width: 620px) { .fgrid { grid-template-columns: 1fr; } }
+.badge.h-eingereicht { color: var(--real); } .wb .entry.h-eingereicht { border-color: var(--real); border-left-style: dashed; }

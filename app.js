@@ -1,6 +1,6 @@
 /* SCHEINFIRMA — Frontend + Backend in einer Datei.
    Frontend: nur die Welt. Backend: Higgsfield-Workflow, Character Sheets, Worldbook, Aufgaben.
-   Inhalte liegen in data/*.js. Zuteilungen im Backend bleiben im Browser (localStorage). */
+   Inhalte liegen in data/*.json (Figuren, Worldbook) und data/*.js. Zuteilungen im Backend bleiben im Browser (localStorage). */
 (function () {
   const $ = (s, el = document) => el.querySelector(s);
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
@@ -25,7 +25,7 @@
   }));
 
   // ── Router ──
-  const routes = { lobby, manifest, werke, roster, figur, chronik, logbuch, log, backend };
+  const routes = { lobby, manifest, werke, roster, figur, chronik, logbuch, log, backend, einreichen: (t) => SF.einreichen.view(t) };
   const alias = { tagebuecher: "logbuch", tagebuch: "log" };
   function go() {
     let [r, arg] = (location.hash.replace(/^#\/?/, "") || "lobby").split("/");
@@ -38,6 +38,7 @@
     });
     document.body.classList.remove("nav-open");
     if (r === "backend") bindBackend(arg);
+    if (r === "einreichen") SF.einreichen.bind(arg);
     window.scrollTo(0, 0);
     SF.sound.tick();
   }
@@ -177,10 +178,10 @@
 
   // ═════════════ BACKEND ═════════════
 
-  const TABS = [["workflow", "01 · Higgsfield-Workflow"], ["sheets", "02 · Character Sheets"], ["worldbook", "03 · Worldbook"], ["aufgaben", "04 · Aufgaben"], ["logo", "05 · Logo-Motion"], ["tool", "06 · Logo-Tool"]];
+  const TABS = [["workflow", "01 · Higgsfield-Workflow"], ["sheets", "02 · Character Sheets"], ["worldbook", "03 · Worldbook"], ["aufgaben", "04 · Aufgaben"], ["logo", "05 · Logo-Motion"], ["tool", "06 · Logo-Tool"], ["eingang", "07 · Eingang"]];
   function backend(tab) {
     tab = TABS.some((t) => t[0] === tab) ? tab : "workflow";
-    const body = { workflow: bWorkflow, sheets: bSheets, worldbook: bWorldbook, aufgaben: bAufgaben, logo: bLogo, tool: bTool }[tab]();
+    const body = { workflow: bWorkflow, sheets: bSheets, worldbook: bWorldbook, aufgaben: bAufgaben, logo: bLogo, tool: bTool, eingang: () => SF.einreichen.eingang() }[tab]();
     return `<div class="backend">
       <p class="kick"><span class="blue">▚▚ BACKEND</span></p>
       <h1>Backend</h1>
@@ -537,7 +538,16 @@ Halbtotale, Handkamera, leichte Unschärfe im Vordergrund.</pre>
       store.save(S); rerender("aufgaben");
     });
     bindPuppet();
+    if (tab === "eingang") SF.einreichen.bindEingang(() => rerender("eingang"));
   }
 
-  go();
+  // Figuren und Worldbook liegen als JSON vor (Austausch mit dem Einreichen-Formular)
+  const json = (f) => fetch(f + "?v=13", { cache: "no-cache" }).then((r) => { if (!r.ok) throw new Error(f); return r.json(); });
+  Promise.all([json("data/roster.json"), json("data/weltbuch.json")]).then(([r, w]) => {
+    SF.roster = r.roster; SF.sorten = r.sorten;
+    SF.weltbuch = w.weltbuch; SF.herkunft = w.herkunft;
+    SF.einreichen.init(r, w);
+    SF.einreichen.rerender = (t) => { const y = window.scrollY; view.innerHTML = SF.einreichen.view(t); SF.einreichen.bind(t); window.scrollTo(0, y); };
+    go();
+  }).catch((e) => { view.innerHTML = `<h1>Fehler</h1><p class="mono">Daten konnten nicht geladen werden (${esc(e.message)}).</p>`; });
 })();
