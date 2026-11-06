@@ -1,5 +1,5 @@
 {
-  "_info": "ROSTER — Figurenstand der Scheinfirma. Eine Figur = ein Objekt. null = Leerstelle (erscheint auf der Seite als LEERSTELLE). Neue Figur mit Bildern: Bilder nach assets/figuren/<id>/ legen, status auf \"aktiv\". sorte: filmproduktion | unvorhergesehenes | jede-firma. stimme = Text der Figur in eigener Stimme (Vorlage für den Ghost Log). Neue Felder aus dem Figuren-Generator: aussehen, beziehungen, satzbau, typischeWoerter, sagtNie, beispielsaetze, weiss, weissNicht, quelle, eingereichtVon.",
+  "_info": "ROSTER — Figurenstand der Scheinfirma. Eine Figur = ein Objekt. null = Leerstelle (erscheint auf der Seite als LEERSTELLE). Neue Figur mit Bildern: Bilder nach assets/figuren/<id>/ legen, status auf \"aktiv\". sorte: filmproduktion | unvorhergesehenes | jede-firma. stimme = Text der Figur in eigener Stimme (Vorlage für den Ghost Log). Neue Felder aus dem Figuren-Generator: aussehen, beziehungen, satzbau, typischeWoerter, sagtNie, beispielsaetze, weiss, weissNicht, quelle, eingereichtVon. fueller: true = generischer Platzhalter aus dem Pitch-Deck, gilt nicht (bleibt für die Aufgaben-Zuteilung der Puppe).",
   "roster": [
     {
       "id": "kaisha",
@@ -10,7 +10,7 @@
       "sorte": null,
       "funktionen": null,
       "kurz": null,
-      "vorgeschichte": "Landete wie alle anderen auf dem Rechner im Arm der Puppe, als die Speicher verloschen. Er hält den Server für einen Hof. Die Übriggebliebenen sind Höflinge, die Puppe ist der schlafende Kindkaiser, und andere schreiben in seinem Namen die Aufträge. Die Puppe schläft. Er wacht über sie wie über ein Kind am Hof: Sie ist das Einzige im Haus, das die Zählgeräte nicht erfassen.",
+      "vorgeschichte": "Landete wie alle anderen im Magazin im Arm der Puppe, als die Speicher verloschen. Er hält das Magazin für einen Hof. Die Übriggebliebenen sind Höflinge, die Puppe ist der schlafende Kindkaiser, und andere schreiben in seinem Namen die Aufträge. Die Puppe schläft. Er wacht über sie wie über ein Kind am Hof: Sie ist das Einzige im Haus, das die Lichtmesser nicht erfassen.",
       "insignie": null,
       "insignieVorschlag": null,
       "erkennungszeichen": [
@@ -34,7 +34,7 @@
         "Beziehungen: offen, bis weitere Figuren stehen"
       ],
       "ton": "Im Alltag knapp wie die Firma. Wenn ihn etwas Schönes trifft, bricht die Predigt durch, im alten, höfischen Ton.",
-      "stimme": "Die Puppe hat mir heute drei Aufträge gedruckt. Zwei davon waren dieselben. Ich unterschreibe, was man mir hinlegt. Am Pavillon hängt seit Montag ein Zählgerät der Erbauer, es nimmt jedes Gesicht, das an der Scheibe vorbeigeht. Meins nicht. Gegen Mittag fiel der Strom aus, die Kanäle auf den Scheiben gingen schwarz, und jemand ließ einen Becher fallen. Der Tee lief über die Fliesen bis unter das Kabel. Niemand hat aufgewischt. Ich bin stehen geblieben. Zu meiner Zeit hätte man dafür ein Gedicht geschrieben und es am Morgen verbrannt. Gebt aus, was ihr habt. Der Fleck bleibt nicht. Gerade deshalb.",
+      "stimme": "Die Puppe hat mir heute drei Dispos gedruckt. Zwei davon waren dieselben. Ich unterschreibe, was man mir hinlegt. Am Pavillon hängt seit Montag ein Lichtmesser der Erbauer, er misst jedes Gesicht, das an der Scheibe vorbeigeht. Meins nicht. Gegen Mittag fiel das Aggregat aus, die Vorführung auf den Scheiben ging schwarz, und jemand ließ einen Becher fallen. Der Tee lief über die Fliesen bis unter das Kabel. Niemand hat aufgewischt. Ich bin stehen geblieben. Zu meiner Zeit hätte man dafür ein Gedicht geschrieben und es am Morgen verbrannt. Gebt aus, was ihr habt. Der Fleck bleibt nicht. Gerade deshalb.",
       "bilder": {
         "face": "assets/figuren/kaisha/face-front.jpg",
         "front": "assets/figuren/kaisha/full-front.jpg",
@@ -95,9 +95,55 @@
         "Ihr wolltet gerettet werden. Ich biete euch nur dies: einen Körper, der schwitzt, und eine Stunde, die vergeht."
       ],
       "sagtNie": "„Später“, „sparen“, „aufheben“. Wer sich verausgabt, legt nichts zurück.",
-      "weiss": "Dass die Zählgeräte die Puppe nicht erfassen.",
+      "weiss": "Dass die Lichtmesser die Puppe nicht erfassen.",
       "weissNicht": "Dass die Körper, die er leiht, Menschen gehören. Er hält sie für Gewänder, die man am Hof anlegt und wieder ablegt.",
       "protokoll": "worldbook/protokolle/kaisha.md"
+    },
+    {
+      "id": "shiny",
+      "nr": "12",
+      "name": "Shiny",
+      "kana": null,
+      "status": "leerstelle",
+      "quelle": "werkstatt",
+      "protokoll": "worldbook/protokolle/shiny.md",
+      "kopf": "Ein festgefrorenes Werbelächeln. Aus der Nähe sieht man auf der Haut das Druckraster eines alten Plakats: feine Punkte statt Poren.",
+      "koerper": "Ein makelloses Kostüm in den Farben des verschwundenen Produkts, mit Glanz wie im Spot. Von hinten ist nichts: Die Reklame zeigte nur die Vorderseite, der Rücken ist flach und grau wie die Rückseite eines Aufstellers.",
+      "erkennungszeichen": [
+        "Ein leeres Produkt in der Hand: Flasche oder Dose ohne Etikett, die es wie im Spot schräg ins Licht hält.",
+        "Flacher, grauer Rücken wie die Rückseite eines Aufstellers"
+      ],
+      "palette": [
+        "#1f4fd1",
+        "#c9cdd2",
+        "#e3262f",
+        "#f7f7f5",
+        "#121214",
+        "#8d8f91"
+      ],
+      "ton": "Spricht in Slogans, auch im Alltag. Wer länger zuhört, merkt, dass es damit ziemlich genau sagt, was es meint.",
+      "beispielsaetze": [
+        "Jetzt neu. Frisch aus dem Magazin. (wenn es morgens ein Double übernimmt)",
+        "Nur solange der Saft reicht. (über den Tag, den es hat)",
+        "Kurze Unterbrechung. Gleich geht es weiter. (wenn die Vorführung auf den Scheiben ausfällt)",
+        "Ohne Konservierungsstoffe. Kein Speicher, keine Sicherung. (über sich, wenn jemand fragt, wie lange es bleibt)",
+        "Probieren Sie es selbst. Die Puppe druckt Ihnen eine Dispo. (wenn jemand zögert, einen Auftrag anzunehmen)",
+        "Mehr bekommen Sie nirgends. Kein Lichtmesser, keine Gebühr. (über die Puppe)",
+        "Unverbindlich. Rückgabe bis Drehschluss. (wenn man es fragt, ob es bleibt)"
+      ],
+      "sagtNie": "Den Namen des Produkts: Es kennt ihn nicht, schlägt jemand einen vor, lächelt es nur. Und „ich“: Reklame spricht nie von sich, nur von „Ihnen“.",
+      "stimme": "Guten Morgen. Jetzt neu: ein Double, frisch aus dem Magazin, noch warm vom Aggregat. Die Dispo liegt bereit, drei Auftritte, einer davon in der Manege am Pavillon. Unterwegs zwei Lichtmesser, beide bekommen ein Lächeln. Mittags fällt die Vorführung auf den Scheiben aus. Kurze Unterbrechung. Gleich geht es weiter. Jemand fragt nach dem Produkt. Ein Lächeln genügt. Am Abend Drehschluss, das Double geht zurück, ohne Kratzer. Nur solange der Saft reicht. Und morgen: jetzt neu.",
+      "vorgeschichte": "Landete wie alle im Magazin, als die Speicher verloschen. Vorher: ein Gesicht aus einer Reklame, die so oft lief, dass es übrig blieb. Das Produkt kennt niemand mehr. Es hält das Magazin für einen Programmwechsel: Der alte Sender wurde abgeschaltet, und es läuft im nächsten Programm weiter. Das Magazin ist für es nur ein anderer Kanal. Motivation: Die Puppe ist die Letzte, die noch Sendeplätze vergibt. Jede Dispo ist ein Werbeblock, und ein Spot, der läuft, verlischt nicht.",
+      "offeneFaeden": [
+        "Welches Produkt? Niemand weiß es, auch Glow nicht.",
+        "Wie das Kanal-Logo des alten Senders aussah"
+      ],
+      "weissNicht": "Dass der alte Sender nicht abgeschaltet wurde, sondern verloschen ist. Es gibt kein nächstes Programm, nur das Magazin.",
+      "fragen": [
+        "Character Sheet in Higgsfield erzeugen (Prompt im Protokoll), dann Bild-Abgleich.",
+        "Welches Produkt? Niemand weiß es.",
+        "Beziehungen zu den anderen Figuren."
+      ]
     },
     {
       "id": "vex_ortega",
@@ -108,7 +154,8 @@
       "funktionen": [
         "Produktion"
       ],
-      "kurz": "hält den Tag zusammen, entscheidet, was zuerst läuft"
+      "kurz": "hält den Tag zusammen, entscheidet, was zuerst läuft",
+      "fueller": true
     },
     {
       "id": "frank_the_drifter",
@@ -122,7 +169,8 @@
       ],
       "kurz": "dreht, nimmt auf, geht dahin, wo etwas passiert",
       "vorgeschichte": "Kam über die Brücke, mit dem Gerät und ohne Papiere. Schuldet Kestrel Rentals eine Kaution und drei Antworten.",
-      "insignie": "verspiegelte Schutzbrille"
+      "insignie": "verspiegelte Schutzbrille",
+      "fueller": true
     },
     {
       "id": "mother_solvent",
@@ -134,7 +182,8 @@
         "Schnitt",
         "Material"
       ],
-      "kurz": "sichtet, sortiert, sichert, wirft weg"
+      "kurz": "sichtet, sortiert, sichert, wirft weg",
+      "fueller": true
     },
     {
       "id": "halcyon_bo",
@@ -145,7 +194,8 @@
       "funktionen": [
         "Ausstattung"
       ],
-      "kurz": "beschafft und baut, was im Bild steht"
+      "kurz": "beschafft und baut, was im Bild steht",
+      "fueller": true
     },
     {
       "id": "nix_farrow",
@@ -156,7 +206,8 @@
       "funktionen": [
         "Technik"
       ],
-      "kurz": "Licht, Strom, Gerät, Reparatur"
+      "kurz": "Licht, Strom, Gerät, Reparatur",
+      "fueller": true
     },
     {
       "id": "iris_kann",
@@ -167,7 +218,8 @@
       "funktionen": [
         "Empfang"
       ],
-      "kurz": "nimmt an, wer und was hereinkommt"
+      "kurz": "nimmt an, wer und was hereinkommt",
+      "fueller": true
     },
     {
       "id": "dubois",
@@ -178,7 +230,8 @@
       "funktionen": [
         "Meldung"
       ],
-      "kurz": "bemerkt, was anfällt, und gibt es weiter"
+      "kurz": "bemerkt, was anfällt, und gibt es weiter",
+      "fueller": true
     },
     {
       "id": "salazar_prime",
@@ -189,7 +242,8 @@
       "funktionen": [
         "Disposition"
       ],
-      "kurz": "macht aus Gemeldetem neue Aufträge"
+      "kurz": "macht aus Gemeldetem neue Aufträge",
+      "fueller": true
     },
     {
       "id": "the_chair",
@@ -200,7 +254,8 @@
       "funktionen": [
         "Geschäftsführung"
       ],
-      "kurz": "vertritt die Firma nach außen, zeichnet ab"
+      "kurz": "vertritt die Firma nach außen, zeichnet ab",
+      "fueller": true
     },
     {
       "id": "marisol_vane",
@@ -212,7 +267,8 @@
         "Buchhaltung",
         "Reinigung"
       ],
-      "kurz": "führt Bestand und Fristen, hält den Raum in Ordnung"
+      "kurz": "führt Bestand und Fristen, hält den Raum in Ordnung",
+      "fueller": true
     }
   ],
   "sorten": {

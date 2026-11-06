@@ -95,7 +95,7 @@
     if (f.status !== "aktiv") {
       return `<a class="card void" href="#figur/${f.id}">
         <div class="pic"><span class="nr">ID-${f.nr}</span><span class="sil">?_</span></div>
-        <div class="meta"><h3>${esc(f.name)}</h3><p>${esc((f.funktionen || []).join(", "))} · <span style="color:var(--yellow)">OFFLINE</span></p></div></a>`;
+        <div class="meta"><h3>${esc(f.name)}</h3><p>${f.fueller ? `<span class="dim">PLATZHALTER</span>` : `<span style="color:var(--yellow)">OFFLINE</span>`}</p></div></a>`;
     }
     return `<a class="card" href="#figur/${f.id}">
       <div class="pic"><span class="nr">ID-${f.nr}</span><img src="${f.bilder.face}" alt="${esc(f.name)}" loading="lazy"></div>
@@ -118,7 +118,7 @@
       ? `<div class="idcard" data-id="${f.nr}"><img src="${f.bilder.front}" alt="${esc(f.name)}"></div>`
       : `<div class="card void" style="pointer-events:none"><div class="pic"><span class="nr">ID-${f.nr}</span><span class="sil">?_</span></div></div>`;
     return `
-    <p class="kick"><a href="#roster">← ROSTER</a> &nbsp;/&nbsp; <span class="c">ID-${f.nr}</span> // ${f.status === "aktiv" ? '<span class="green">ONLINE</span>' : '<span style="color:var(--yellow)">OFFLINE</span>'}</p>
+    <p class="kick"><a href="#roster">← ROSTER</a> &nbsp;/&nbsp; <span class="c">ID-${f.nr}</span> // ${f.status === "aktiv" ? '<span class="green">ONLINE</span>' : f.fueller ? '<span class="dim">PLATZHALTER · gilt nicht</span>' : '<span style="color:var(--yellow)">OFFLINE</span>'}</p>
     <h1>${esc(f.name)}${f.kana ? `<span class="kana" style="font-size:.5em">${f.kana}</span>` : ""}</h1>
     <div class="bars"><i></i><i></i><i></i></div>
     <div class="dossier">
@@ -543,7 +543,7 @@ Halbtotale, Handkamera, leichte Unschärfe im Vordergrund.</pre>
   }
 
   // Figuren und Worldbook liegen als JSON vor (Austausch mit dem Einreichen-Formular)
-  const json = (f) => fetch(f + "?v=16", { cache: "no-cache" }).then((r) => { if (!r.ok) throw new Error(f); return r.json(); });
+  const json = (f) => fetch(f + "?v=17", { cache: "no-cache" }).then((r) => { if (!r.ok) throw new Error(f); return r.json(); });
   Promise.all([json("data/roster.json"), json("data/weltbuch.json")]).then(([r, w]) => {
     SF.roster = r.roster; SF.sorten = r.sorten;
     SF.weltbuch = w.weltbuch; SF.herkunft = w.herkunft;

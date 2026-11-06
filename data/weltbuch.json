@@ -21,9 +21,9 @@
           "text": "Bilder bewegen sich ohne die, nach denen sie gemacht wurden. Sie wechseln Namen, unterschreiben Verträge, sprechen aus fremden Mündern. Ein Bild, das lange genug zirkuliert, beginnt Befehle zu geben."
         },
         {
-          "titel": "Der Server",
+          "titel": "Das Magazin",
           "herkunft": "kanon",
-          "text": "Als die Speicher verloschen, sprangen einzelne Bilder auf den letzten Rechner, der noch lief: den, den die Puppe im Arm hält. Dort sind alle Figuren gelandet. Warum gerade sie, weiß keiner. Jede erzählt es anders."
+          "text": "Als die Speicher verloschen, sprangen einzelne Bilder in das letzte Magazin, das noch lief: das, das die Puppe im Arm hält. Dort sind alle Figuren gelandet. Warum gerade sie, weiß keiner. Jede erzählt es anders."
         }
       ]
     },
@@ -52,14 +52,9 @@
           "text": "Am Empfang steht, wer gerade da ist. Er sitzt neben der Puppe."
         },
         {
-          "titel": "Die Brücke",
-          "herkunft": "vorschlag",
-          "text": "Trennt die Bezirke mit Papieren von denen ohne. Frank the Drifter kam darüber, mit dem Gerät und ohne Papiere."
-        },
-        {
           "titel": "Arizona",
           "herkunft": "sheet",
-          "text": "アリゾナ steht auf Kaishas Rücken. Vorschlag: ein Bezirk jenseits der Brücke, benannt nach einer Werbung, die dort jahrelang lief und deren Produkt niemand mehr kennt."
+          "text": "アリゾナ steht auf Kaishas Rücken, zurzeit ein Platzhalter. Vorschlag: ein Bezirk, benannt nach einer Werbung, die dort jahrelang lief und deren Produkt niemand mehr kennt."
         }
       ]
     },
@@ -67,11 +62,6 @@
       "kapitel": "Konzerne und Kräfte",
       "code": "W-02",
       "eintraege": [
-        {
-          "titel": "Kestrel Rentals",
-          "herkunft": "deck",
-          "text": "Geräteverleih: Kameras, Licht, Ton. Frank schuldet dort eine Kaution und drei Antworten. Kestrel Rentals schweigt."
-        },
         {
           "titel": "Die Erbauer",
           "herkunft": "manifest",
@@ -88,14 +78,19 @@
           "text": "Filmproduktion. Führt den Schein im Namen. Setzt Namen unter Verträge, Zeichen auf Briefköpfe, Bilder in Umlauf. Vervielfältigt, schneidet um, setzt erneut ein."
         },
         {
+          "titel": "Was die Firma tut",
+          "herkunft": "kanon",
+          "text": "Sie bringt Auftritte in Umlauf. Doubles treten auf, ein Auge hält fest, das Festgehaltene wird umgeschnitten und in die Vorführung gegeben."
+        },
+        {
           "titel": "Das Ziel der Scheinfirma",
           "herkunft": "kanon",
           "text": "Im Umlauf bleiben. Auch Bilder verlöschen. Ein Auftrag ist ein Auftritt, und wer auftritt, verlischt nicht."
         },
         {
-          "titel": "Die Kanäle auf den Scheiben",
+          "titel": "Die Vorführung",
           "herkunft": "vorschlag",
-          "text": "Die Kanäle laufen auf Scheiben und Wänden. Fällt der Strom aus, gehen sie schwarz, und für einen Moment sieht man durch das Glas."
+          "text": "Was auf Scheiben und Wänden läuft, das Band der Kanäle. Fällt das Aggregat aus, geht die Vorführung schwarz, und für einen Moment sieht man durch das Glas."
         },
         {
           "titel": "Weitere Konzerne",
@@ -111,17 +106,27 @@
         {
           "titel": "Die Puppe",
           "herkunft": "deck",
-          "text": "Ein schlafender Säugling mit einer Kamera auf dem Kopf und einem Rechner im Arm, umwickelt mit Kabeln. Sitzt am Eingang, verteilt die Aufträge des Tages. Wer sie fragt, warum, bekommt den Auftrag noch einmal."
+          "text": "Ein schlafender Säugling mit einem Auge auf dem Kopf und einem Magazin im Arm, umwickelt mit Kabeln. Sitzt am Eingang, druckt die Dispo des Tages. Wer sie fragt, warum, bekommt den Auftrag noch einmal."
+        },
+        {
+          "titel": "Die Dispo",
+          "herkunft": "kanon",
+          "text": "Der Zettel, den die Puppe jeden Morgen druckt: die Aufträge des Tages, wer wo auftritt."
         },
         {
           "titel": "Das Angebot der Puppe",
           "herkunft": "kanon",
-          "text": "Wer einen Auftrag annimmt, bekommt für einen Tag einen Körper: Gewicht, Schweiß, Flecken. Am Abend gibt man ihn zurück. Daher die Grüße: „Wie kommst du an?“ beim Übernehmen, „Wie ist es gelaufen?“ bei der Rückgabe."
+          "text": "Wer einen Auftrag annimmt, ist für einen Tag Double: ein Körper mit Gewicht, Schweiß, Flecken. Bei Drehschluss gibt man ihn zurück. Daher die Grüße: „Wie kommst du an?“ beim Übernehmen, „Wie ist es gelaufen?“ bei Drehschluss."
         },
         {
-          "titel": "Zählgeräte",
+          "titel": "Lichtmesser",
           "herkunft": "vorschlag",
-          "text": "Hängen seit kurzem an Scheiben und Eingängen, aufgestellt von den Erbauern. Sie nehmen jedes Gesicht, das vorbeigeht. Masken nehmen sie nicht. Die Puppe erfassen sie nicht."
+          "text": "Hängen seit kurzem an Scheiben und Eingängen, aufgestellt von den Erbauern. Sie messen jedes Gesicht, das vorbeigeht. Masken messen sie nicht. Die Puppe erfassen sie nicht."
+        },
+        {
+          "titel": "Saft und Aggregat",
+          "herkunft": "kanon",
+          "text": "Saft ist, was die Geräte am Laufen hält. Das Aggregat macht ihn. Fällt es aus, steht alles."
         },
         {
           "titel": "Masken",
@@ -131,7 +136,7 @@
         {
           "titel": "Abzeichen",
           "herkunft": "deck",
-          "text": "Gegenstände, an denen man eine Figur erkennt, auch wenn das Gesicht fehlt. Franks verspiegelte Schutzbrille, Kaishas Messingring mit Quaste."
+          "text": "Gegenstände, an denen man eine Position erkennt, gleich welches Double sie gerade trägt. Abzeichen gehören zur Position, Erkennungszeichen zur Figur."
         },
         {
           "titel": "Geräte, Implantate, Netz",
@@ -168,6 +173,11 @@
           "titel": "Slang, Flüche, weitere Grußformeln",
           "herkunft": null,
           "text": null
+        },
+        {
+          "titel": "Gerätekunde",
+          "herkunft": "kanon",
+          "text": "Magazin · Double · Dispo · Lichtmesser · Vorführung · Saft · Aggregat · Drehschluss · Auge · Auftritt · Manege · umschneiden. Die Dinge kommen vom Film und heißen hier so."
         }
       ]
     }
