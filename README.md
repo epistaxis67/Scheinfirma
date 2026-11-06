@@ -51,3 +51,7 @@ Was dauerhaft gelten soll, wird in `data/aufgaben.js` eingetragen und committet.
 ## Schriften
 
 JetBrains Mono, Space Grotesk und Spectral liegen in `assets/fonts/` (SIL Open Font License) und werden nicht mehr von Google geladen.
+
+## Werkstatt (Backend, Tab 08) und /figur
+
+Geführte Figuren-Erstellung ohne API-Kosten: Das Gespräch läuft in Claude Code mit dem Befehl `/figur` (Anleitung: `../.claude/skills/figur/SKILL.md`). Claude schreibt nach jeder Runde `data/werkstatt/sitzung.json`; der Tab „Werkstatt“ liest die Datei alle 2 Sekunden und zeigt Frage, Widersprüche, Protokoll und das Character Sheet. Die Sitzungsdatei ist per `.git/info/exclude` vom Repo ausgenommen, öffentlich bleibt der Tab leer. Protokolle je Figur: `../worldbook/protokolle/<id>.md`.

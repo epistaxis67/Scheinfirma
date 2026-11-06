@@ -177,10 +177,10 @@
 
   // ═════════════ BACKEND ═════════════
 
-  const TABS = [["workflow", "01 · Higgsfield-Workflow"], ["sheets", "02 · Character Sheets"], ["worldbook", "03 · Worldbook"], ["aufgaben", "04 · Aufgaben"], ["logo", "05 · Logo-Motion"], ["tool", "06 · Logo-Tool"], ["baukasten", "07 · Baukasten"], ["eingang", "08 · Eingang"]];
+  const TABS = [["workflow", "01 · Higgsfield-Workflow"], ["sheets", "02 · Character Sheets"], ["worldbook", "03 · Worldbook"], ["aufgaben", "04 · Aufgaben"], ["logo", "05 · Logo-Motion"], ["tool", "06 · Logo-Tool"], ["baukasten", "07 · Baukasten"], ["werkstatt", "08 · Werkstatt"], ["eingang", "09 · Eingang"]];
   function backend(tab) {
     tab = TABS.some((t) => t[0] === tab) ? tab : "workflow";
-    const body = { workflow: bWorkflow, sheets: bSheets, worldbook: bWorldbook, aufgaben: bAufgaben, logo: bLogo, tool: bTool, baukasten: () => SF.einreichen.view(), eingang: () => SF.einreichen.eingang() }[tab]();
+    const body = { workflow: bWorkflow, sheets: bSheets, worldbook: bWorldbook, aufgaben: bAufgaben, logo: bLogo, tool: bTool, baukasten: () => SF.einreichen.view(), werkstatt: () => SF.werkstatt.view(), eingang: () => SF.einreichen.eingang() }[tab]();
     return `<div class="backend">
       <p class="kick"><span class="blue">▚▚ BACKEND</span></p>
       <h1>Backend</h1>
@@ -539,10 +539,11 @@ Halbtotale, Handkamera, leichte Unschärfe im Vordergrund.</pre>
     bindPuppet();
     if (tab === "eingang") SF.einreichen.bindEingang(() => rerender("eingang"));
     if (tab === "baukasten") SF.einreichen.bind();
+    if (tab === "werkstatt") SF.werkstatt.bind();
   }
 
   // Figuren und Worldbook liegen als JSON vor (Austausch mit dem Einreichen-Formular)
-  const json = (f) => fetch(f + "?v=14", { cache: "no-cache" }).then((r) => { if (!r.ok) throw new Error(f); return r.json(); });
+  const json = (f) => fetch(f + "?v=15", { cache: "no-cache" }).then((r) => { if (!r.ok) throw new Error(f); return r.json(); });
   Promise.all([json("data/roster.json"), json("data/weltbuch.json")]).then(([r, w]) => {
     SF.roster = r.roster; SF.sorten = r.sorten;
     SF.weltbuch = w.weltbuch; SF.herkunft = w.herkunft;

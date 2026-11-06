@@ -543,3 +543,35 @@ body.vorschau::after { content: "VORSCHAU · ARBEITSKOPIE · NUR DIESER BROWSER"
 }
 @media (prefers-reduced-motion: reduce) { .slot img { animation: none; } .cs-log::after { animation: none; } }
 .cs { min-width: 0; } .cs-name input { width: 100%; min-width: 0; flex: 1 1 180px; } .cs-name .cs-kana { flex: 0 0 4.5em; }
+
+/* ── Werkstatt (Live-Ansicht /figur) ────────── */
+.ws { display: grid; grid-template-columns: minmax(280px, 380px) minmax(0, 1fr); gap: 20px; align-items: start; }
+.ws-panel { position: sticky; top: 12px; display: grid; gap: 14px; max-height: calc(100vh - 24px); overflow: auto; padding-right: 4px; }
+.ws-panel .lbl { font: 800 11px var(--mono); letter-spacing: .22em; color: var(--dim); }
+.ws-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px; }
+.ws-steps li { font: 600 9px var(--mono); letter-spacing: .12em; text-transform: uppercase; padding: 4px 6px; border: 1px solid var(--line); color: var(--dim); }
+.ws-steps li.done { color: var(--teal); border-color: rgba(79,224,198,.35); }
+.ws-steps li.on { color: var(--bg); background: var(--teal); border-color: var(--teal); box-shadow: 0 0 12px rgba(79,224,198,.4); }
+.ws-frage { border: 1px solid var(--symb); background: linear-gradient(160deg, rgba(88,101,255,.16), rgba(14,14,20,.9)); padding: 14px; display: grid; gap: 8px; }
+.ws-frage .lbl { color: var(--symb); } .ws-frage.idle { border-color: var(--line); background: var(--panel); }
+.ws-frage > p:first-of-type { margin: 0; font-size: 17px; }
+.ws-opt { display: grid; grid-template-columns: 26px 1fr; gap: 8px; text-align: left; background: rgba(7,7,10,.7); border: 1px solid var(--line); color: var(--text); padding: 9px 10px; cursor: pointer; font: 14px/1.45 var(--sans); }
+.ws-opt b { font: 800 14px var(--mono); color: var(--teal); }
+.ws-opt em { display: block; font: 11px var(--mono); color: var(--dim); font-style: normal; margin-top: 3px; }
+.ws-opt:hover, .ws-opt.hit { border-color: var(--teal); box-shadow: 0 0 12px rgba(79,224,198,.25); }
+.ws-block { border: 1px solid var(--line); background: var(--panel); padding: 10px 12px; }
+.ws-block summary { cursor: pointer; }
+.ws-konf { border-left: 2px solid var(--imag); padding: 4px 0 4px 10px; margin-top: 8px; }
+.ws-konf p { margin: 2px 0; font-size: 14px; }
+.ws-list { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6px; font-size: 13px; }
+.ws-prot .tag { margin: 0 6px 0 0; font-size: 8px; padding: 3px 5px; }
+.ws-name { align-items: baseline; }
+.ws-name .n { font: 700 clamp(28px, 4vw, 52px)/1 var(--sans); text-transform: uppercase; text-shadow: 2px 0 rgba(255,59,48,.55), -2px 0 rgba(79,224,198,.55); }
+.ws-name .k { font-size: clamp(22px, 3vw, 36px); color: var(--pink); text-shadow: 0 0 14px rgba(255,79,163,.5); }
+.ws-val { font-size: 14px; line-height: 1.5; } .ws-val ul { margin: 0; padding-left: 16px; }
+.ws-leer { font: 600 10px var(--mono); letter-spacing: .15em; color: #4a4a66; }
+.ws-sheet .slot { cursor: default; } .ws-sheet .sw.on b { bottom: -16px; }
+.ws-empty { border: 1px dashed var(--line); padding: 22px; max-width: 720px; }
+.ws-stamp { margin-top: 10px; }
+.tag.yellow { color: var(--yellow); }
+@media (max-width: 1000px) { .ws { grid-template-columns: 1fr; } .ws-panel { position: static; max-height: none; } }
