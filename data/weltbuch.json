@@ -1,5 +1,5 @@
 {
-  "_info": "WORLDBOOK — Lore der Scheinfirma. herkunft: deck = Pitch-Deck, manifest = aus dem Manifest, sheet = aus einem Character Sheet, vorschlag = neu geschrieben, noch nicht bestätigt, eingereicht = über das Formular eingereicht und im Backend angenommen. text: null = Leerstelle.",
+  "_info": "WORLDBOOK — Lore der Scheinfirma. herkunft: kanon = vom Team entschieden, deck = Pitch-Deck, manifest = aus dem Manifest, sheet = aus einem Character Sheet, vorschlag = neu geschrieben, noch nicht bestätigt, eingereicht = über das Formular eingereicht und im Backend angenommen. text: null = Leerstelle.",
   "weltbuch": [
     {
       "kapitel": "Die Zeit",
@@ -19,6 +19,11 @@
           "titel": "Die Bilder gehen voraus",
           "herkunft": "manifest",
           "text": "Bilder bewegen sich ohne die, nach denen sie gemacht wurden. Sie wechseln Namen, unterschreiben Verträge, sprechen aus fremden Mündern. Ein Bild, das lange genug zirkuliert, beginnt Befehle zu geben."
+        },
+        {
+          "titel": "Der Server",
+          "herkunft": "kanon",
+          "text": "Als die Speicher verloschen, sprangen einzelne Bilder auf den letzten Rechner, der noch lief: den, den die Puppe im Arm hält. Dort sind alle Figuren gelandet. Warum gerade sie, weiß keiner. Jede erzählt es anders."
         }
       ]
     },
@@ -83,6 +88,16 @@
           "text": "Filmproduktion. Führt den Schein im Namen. Setzt Namen unter Verträge, Zeichen auf Briefköpfe, Bilder in Umlauf. Vervielfältigt, schneidet um, setzt erneut ein."
         },
         {
+          "titel": "Das Ziel der Scheinfirma",
+          "herkunft": "kanon",
+          "text": "Im Umlauf bleiben. Auch Bilder verlöschen. Ein Auftrag ist ein Auftritt, und wer auftritt, verlischt nicht."
+        },
+        {
+          "titel": "Die Kanäle auf den Scheiben",
+          "herkunft": "vorschlag",
+          "text": "Die Kanäle laufen auf Scheiben und Wänden. Fällt der Strom aus, gehen sie schwarz, und für einen Moment sieht man durch das Glas."
+        },
+        {
           "titel": "Weitere Konzerne",
           "herkunft": null,
           "text": null
@@ -97,6 +112,16 @@
           "titel": "Die Puppe",
           "herkunft": "deck",
           "text": "Ein schlafender Säugling mit einer Kamera auf dem Kopf und einem Rechner im Arm, umwickelt mit Kabeln. Sitzt am Eingang, verteilt die Aufträge des Tages. Wer sie fragt, warum, bekommt den Auftrag noch einmal."
+        },
+        {
+          "titel": "Das Angebot der Puppe",
+          "herkunft": "kanon",
+          "text": "Wer einen Auftrag annimmt, bekommt für einen Tag einen Körper: Gewicht, Schweiß, Flecken. Am Abend gibt man ihn zurück. Daher die Grüße: „Wie kommst du an?“ beim Übernehmen, „Wie ist es gelaufen?“ bei der Rückgabe."
+        },
+        {
+          "titel": "Zählgeräte",
+          "herkunft": "vorschlag",
+          "text": "Hängen seit kurzem an Scheiben und Eingängen, aufgestellt von den Erbauern. Sie nehmen jedes Gesicht, das vorbeigeht. Masken nehmen sie nicht. Die Puppe erfassen sie nicht."
         },
         {
           "titel": "Masken",
@@ -148,6 +173,7 @@
     }
   ],
   "herkunft": {
+    "kanon": "Kanon",
     "deck": "Pitch-Deck",
     "manifest": "Manifest",
     "sheet": "Character Sheet",

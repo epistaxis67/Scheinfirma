@@ -543,7 +543,7 @@ Halbtotale, Handkamera, leichte Unschärfe im Vordergrund.</pre>
   }
 
   // Figuren und Worldbook liegen als JSON vor (Austausch mit dem Einreichen-Formular)
-  const json = (f) => fetch(f + "?v=15", { cache: "no-cache" }).then((r) => { if (!r.ok) throw new Error(f); return r.json(); });
+  const json = (f) => fetch(f + "?v=16", { cache: "no-cache" }).then((r) => { if (!r.ok) throw new Error(f); return r.json(); });
   Promise.all([json("data/roster.json"), json("data/weltbuch.json")]).then(([r, w]) => {
     SF.roster = r.roster; SF.sorten = r.sorten;
     SF.weltbuch = w.weltbuch; SF.herkunft = w.herkunft;

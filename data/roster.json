@@ -10,16 +10,14 @@
       "sorte": null,
       "funktionen": null,
       "kurz": null,
-      "vorgeschichte": null,
+      "vorgeschichte": "Landete wie alle anderen auf dem Rechner im Arm der Puppe, als die Speicher verloschen. Er hält den Server für einen Hof. Die Übriggebliebenen sind Höflinge, die Puppe ist der schlafende Kindkaiser, und andere schreiben in seinem Namen die Aufträge. Die Puppe schläft. Er wacht über sie wie über ein Kind am Hof: Sie ist das Einzige im Haus, das die Zählgeräte nicht erfassen.",
       "insignie": null,
-      "insignieVorschlag": "Messingring an Kette mit violetter Quaste — die Figur hält ihn auf allen Ansichten in den Händen.",
+      "insignieVorschlag": null,
       "erkennungszeichen": [
-        "Maske aus gealtertem, elfenbeinfarbenem Material: Mittelnaht, Wangenplatten, violetter Kreis auf der Stirn",
-        "Riemen mit Messingschnallen, lange violette Bänder am Hinterkopf",
-        "Türkise Haori-Jacke: Kirschblüten, Fuji vor gelber Sonne, Schachbrettmuster am Saum",
-        "Rückenaufschrift アリゾナ („Arizona“)",
-        "Violette Lederjacke mit Messing-Reißverschluss, Stehkragen",
-        "Sandfarbene Cargohose mit violetten Riemen, Sneaker in Jackenfarben"
+        "Messingring an Kette mit violetter Quaste, in allen Ansichten in den Händen",
+        "Rückenaufschrift (zurzeit アリゾナ, Platzhalter)",
+        "Violetter Kreis auf der Stirn der Maske",
+        "Schachbrettmuster am Saum des Haori"
       ],
       "palette": [
         "#e6ddd2",
@@ -30,9 +28,13 @@
         "#2e2a33"
       ],
       "zustaendigkeiten": null,
-      "offeneFaeden": null,
-      "ton": null,
-      "stimme": null,
+      "offeneFaeden": [
+        "Eigener Schriftzug statt アリゾナ, ganz am Ende",
+        "Maske: Form ist noch kontingent",
+        "Beziehungen: offen, bis weitere Figuren stehen"
+      ],
+      "ton": "Im Alltag knapp wie die Firma. Wenn ihn etwas Schönes trifft, bricht die Predigt durch, im alten, höfischen Ton.",
+      "stimme": "Die Puppe hat mir heute drei Aufträge gedruckt. Zwei davon waren dieselben. Ich unterschreibe, was man mir hinlegt. Am Pavillon hängt seit Montag ein Zählgerät der Erbauer, es nimmt jedes Gesicht, das an der Scheibe vorbeigeht. Meins nicht. Gegen Mittag fiel der Strom aus, die Kanäle auf den Scheiben gingen schwarz, und jemand ließ einen Becher fallen. Der Tee lief über die Fliesen bis unter das Kabel. Niemand hat aufgewischt. Ich bin stehen geblieben. Zu meiner Zeit hätte man dafür ein Gedicht geschrieben und es am Morgen verbrannt. Gebt aus, was ihr habt. Der Fleck bleibt nicht. Gerade deshalb.",
       "bilder": {
         "face": "assets/figuren/kaisha/face-front.jpg",
         "front": "assets/figuren/kaisha/full-front.jpg",
@@ -77,12 +79,25 @@
         ]
       ],
       "fragen": [
-        "Welche Funktion(en) trägt Kaisha in Chance²? Ersetzt die Figur eine der zehn aus dem Pitch-Deck oder ist sie die elfte?",
-        "Was bedeutet „Goonin“? Gibt es eine Schreibweise in Kanji/Katakana?",
-        "Warum „Arizona“ auf dem Rücken — Herkunft, Firmenname, Ort im Weltbuch?",
-        "Ist der Messingring die Insignie, oder die Maske?",
-        "Vorgeschichte und Tonlage für das Tagebuch."
-      ]
+        "Welche Funktion(en) trägt Kaisha in Chance²? (Rolle, nicht Figur)",
+        "Eigener Schriftzug statt アリゾナ und Kleidungsdetails, ganz am Ende.",
+        "Endgültige Form der Maske.",
+        "Beziehungen zu den anderen Figuren, sobald sie stehen."
+      ],
+      "kopf": "Maske aus gealtertem, elfenbeinfarbenem Material: Mittelnaht, Wangenplatten, schmale Augenschlitze, violetter Kreis auf der Stirn. Riemen mit Messingschnallen, lange violette Bänder am Hinterkopf. Dunkles Haar, straff zum Zopf gebunden.",
+      "koerper": "Weiter, türkiser Haori bis über die Knie: Kirschblüten, Fuji vor gelber Sonne, Schachbrettmuster am Saum, auf dem Rücken アリゾナ. Darunter violette Lederjacke mit Stehkragen und Messing-Reißverschluss. Sandfarbene Cargohose mit violetten Riemen, abgetragene Sneaker in den Farben der Jacke. Steht still, Hände vor dem Körper.",
+      "beispielsaetze": [
+        "Unterschrift hier. Datum daneben.",
+        "Seht den Kaffeerand auf dem Vertrag. Er wird nicht trocknen, bevor ihr sterbt. Verehrt ihn.",
+        "Die Kiste bleibt im Hinterhof.",
+        "Wie der Tau am Ärmel der Herbstnacht: Gebt euch aus, bis nichts zurückbleibt, das sich zählen ließe.",
+        "Wie kommst du an?",
+        "Ihr wolltet gerettet werden. Ich biete euch nur dies: einen Körper, der schwitzt, und eine Stunde, die vergeht."
+      ],
+      "sagtNie": "„Später“, „sparen“, „aufheben“. Wer sich verausgabt, legt nichts zurück.",
+      "weiss": "Dass die Zählgeräte die Puppe nicht erfassen.",
+      "weissNicht": "Dass die Körper, die er leiht, Menschen gehören. Er hält sie für Gewänder, die man am Hof anlegt und wieder ablegt.",
+      "protokoll": "worldbook/protokolle/kaisha.md"
     },
     {
       "id": "vex_ortega",
