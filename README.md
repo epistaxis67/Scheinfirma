@@ -42,8 +42,12 @@ Was dauerhaft gelten soll, wird in `data/aufgaben.js` eingetragen und committet.
 
 `sound.js` erzeugt den Soundtrack live im Browser (Web Audio): Drone, Bass-Puls, Arpeggio in A phrygisch, Datenrauschen. Schalter oben rechts, standardmäßig aus. Die Puppe löst beim Auftragziehen einen Glitch aus, Seitenwechsel einen kurzen Ton. Tempo, Tonleiter und Lautstärken stehen oben in der Datei.
 
-## Einreichen und Eingang
+## Baukasten und Eingang (Backend)
 
-- **Einreichen** (`#einreichen`, öffentlich): Figuren-Generator und Welt-Formular. Alle Felder freiwillig, Beiträge kommen in ein Paket, das als JSON-Datei oder Text ans Team geht. „Prompt für deine KI kopieren“ erzeugt einen Prompt mit Worldbook und Figuren; die Antwort der KI wird ins Formular zurückgefügt. Liegt `data/weltbibel.md` vor, wird sie automatisch mitgegeben.
-- **Eingang** (Backend, Tab 07): Pakete laden, Feld für Feld annehmen oder verwerfen. Angenommenes landet in einer Arbeitskopie (nur dieser Browser). `roster.json` / `weltbuch.json` herunterladen und in `data/` ersetzen, dann committen.
-- Code: `einreichen.js`. Format: `{ format: "scheinfirma.einreichung", version: 1, von, erstellt, figuren: [{ ziel, felder, anmerkung }], welt: [{ art, ziel, kapitel, titel, text, verweise, anmerkung }] }`.
+- **Baukasten** (Backend, Tab 07): Figur als Character Sheet (Bildplätze wie auf dem Sheet: Gesicht frontal/¾/Profil, Ganzkörper frontal/¾/Profil/Rücken/Profil 2, Full Sheet; dazu Kopf, Körper, Details, Palette) und ein Dossier (Stimme, Hintergrund, Wissen). Rolle (Funktion, Sorte, Abzeichen) ist bewusst nicht Teil der Figur. Dazu das Welt-Formular. Alles freiwillig; Beiträge kommen in ein Paket (JSON-Datei oder Text). Bilder werden im Browser auf max. 720 px verkleinert und ins Paket gelegt. „Prompt für deine KI kopieren“ erzeugt einen Prompt mit Worldbook und Figuren; liegt `data/weltbibel.md` vor, wird sie mitgegeben. `#einreichen` leitet hierher um.
+- **Eingang** (Tab 08): Pakete laden, Feld für Feld annehmen oder verwerfen. Angenommenes landet in einer Arbeitskopie (nur dieser Browser). `roster.json` / `weltbuch.json` herunterladen und in `data/` ersetzen; Bilder einzeln speichern und nach `assets/figuren/<id>/` legen.
+- Code: `einreichen.js`. Format: `{ format: "scheinfirma.einreichung", version: 1, von, erstellt, figuren: [{ ziel, felder, bilder, anmerkung }], welt: [{ art, ziel, kapitel, titel, text, verweise, anmerkung }] }`.
+
+## Schriften
+
+JetBrains Mono, Space Grotesk und Spectral liegen in `assets/fonts/` (SIL Open Font License) und werden nicht mehr von Google geladen.

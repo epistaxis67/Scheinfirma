@@ -25,7 +25,7 @@
   }));
 
   // ── Router ──
-  const routes = { lobby, manifest, werke, roster, figur, chronik, logbuch, log, backend, einreichen: (t) => SF.einreichen.view(t) };
+  const routes = { lobby, manifest, werke, roster, figur, chronik, logbuch, log, backend, einreichen: () => { location.replace("#backend/baukasten"); return ""; } };
   const alias = { tagebuecher: "logbuch", tagebuch: "log" };
   function go() {
     let [r, arg] = (location.hash.replace(/^#\/?/, "") || "lobby").split("/");
@@ -38,7 +38,6 @@
     });
     document.body.classList.remove("nav-open");
     if (r === "backend") bindBackend(arg);
-    if (r === "einreichen") SF.einreichen.bind(arg);
     window.scrollTo(0, 0);
     SF.sound.tick();
   }
@@ -178,10 +177,10 @@
 
   // ═════════════ BACKEND ═════════════
 
-  const TABS = [["workflow", "01 · Higgsfield-Workflow"], ["sheets", "02 · Character Sheets"], ["worldbook", "03 · Worldbook"], ["aufgaben", "04 · Aufgaben"], ["logo", "05 · Logo-Motion"], ["tool", "06 · Logo-Tool"], ["eingang", "07 · Eingang"]];
+  const TABS = [["workflow", "01 · Higgsfield-Workflow"], ["sheets", "02 · Character Sheets"], ["worldbook", "03 · Worldbook"], ["aufgaben", "04 · Aufgaben"], ["logo", "05 · Logo-Motion"], ["tool", "06 · Logo-Tool"], ["baukasten", "07 · Baukasten"], ["eingang", "08 · Eingang"]];
   function backend(tab) {
     tab = TABS.some((t) => t[0] === tab) ? tab : "workflow";
-    const body = { workflow: bWorkflow, sheets: bSheets, worldbook: bWorldbook, aufgaben: bAufgaben, logo: bLogo, tool: bTool, eingang: () => SF.einreichen.eingang() }[tab]();
+    const body = { workflow: bWorkflow, sheets: bSheets, worldbook: bWorldbook, aufgaben: bAufgaben, logo: bLogo, tool: bTool, baukasten: () => SF.einreichen.view(), eingang: () => SF.einreichen.eingang() }[tab]();
     return `<div class="backend">
       <p class="kick"><span class="blue">▚▚ BACKEND</span></p>
       <h1>Backend</h1>
@@ -539,15 +538,16 @@ Halbtotale, Handkamera, leichte Unschärfe im Vordergrund.</pre>
     });
     bindPuppet();
     if (tab === "eingang") SF.einreichen.bindEingang(() => rerender("eingang"));
+    if (tab === "baukasten") SF.einreichen.bind();
   }
 
   // Figuren und Worldbook liegen als JSON vor (Austausch mit dem Einreichen-Formular)
-  const json = (f) => fetch(f + "?v=13", { cache: "no-cache" }).then((r) => { if (!r.ok) throw new Error(f); return r.json(); });
+  const json = (f) => fetch(f + "?v=14", { cache: "no-cache" }).then((r) => { if (!r.ok) throw new Error(f); return r.json(); });
   Promise.all([json("data/roster.json"), json("data/weltbuch.json")]).then(([r, w]) => {
     SF.roster = r.roster; SF.sorten = r.sorten;
     SF.weltbuch = w.weltbuch; SF.herkunft = w.herkunft;
     SF.einreichen.init(r, w);
-    SF.einreichen.rerender = (t) => { const y = window.scrollY; view.innerHTML = SF.einreichen.view(t); SF.einreichen.bind(t); window.scrollTo(0, y); };
+    SF.einreichen.rerender = () => rerender("baukasten");
     go();
   }).catch((e) => { view.innerHTML = `<h1>Fehler</h1><p class="mono">Daten konnten nicht geladen werden (${esc(e.message)}).</p>`; });
 })();
