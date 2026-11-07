@@ -18,9 +18,9 @@ SF.aufgaben = [
 
   // ── Chance² · Schinkel Pavillon · vorher ──
   { id: "C-01", bereich: "chance2", phase: "vorher", titel: "Vereinbarung mit dem Schinkel Pavillon: Räume, Zeiten, Strom, Zugang", figur: "the_chair" },
-  { id: "C-02", bereich: "chance2", phase: "vorher", titel: "Mitwirkende über Arbeitsgelegenheiten gewinnen (Träger, Jobcenter)", figur: "vex_ortega" },
+  { id: "C-02", bereich: "chance2", phase: "vorher", titel: "Mitwirkende über Arbeitsgelegenheiten gewinnen (Träger, Jobcenter)", figur: "triage" },
   { id: "C-03", bereich: "chance2", phase: "vorher", titel: "Einwilligungen für Film und Foto, Datenschutz der Mitwirkenden", figur: "marisol_vane" },
-  { id: "C-04", bereich: "chance2", phase: "vorher", titel: "Drehplan für vier Tage, rückwärts vom fertigen Film", figur: "vex_ortega" },
+  { id: "C-04", bereich: "chance2", phase: "vorher", titel: "Drehplan für vier Tage, rückwärts vom fertigen Film", figur: "triage" },
   { id: "C-05", bereich: "chance2", phase: "vorher", titel: "Aufgabenpool für die vier Tage schreiben und Figuren zuordnen", figur: "salazar_prime" },
   { id: "C-06", bereich: "chance2", phase: "vorher", titel: "Abzeichen als Objekte im Raum: welche Figur trägt was am Schinkel Pavillon", figur: "halcyon_bo" },
   { id: "C-07", bereich: "chance2", phase: "vorher", titel: "Puppe bauen: Rechner, Kamera, Bildschirm/Chat, Kartendrucker", figur: "nix_farrow" },

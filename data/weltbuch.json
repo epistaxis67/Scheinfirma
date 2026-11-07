@@ -115,8 +115,13 @@
         },
         {
           "titel": "Das Angebot der Puppe",
-          "herkunft": "kanon",
-          "text": "Wer einen Auftrag annimmt, ist für einen Tag Double: ein Körper mit Gewicht, Schweiß, Flecken. Bei Drehschluss gibt man ihn zurück. Daher die Grüße: „Wie kommst du an?“ beim Übernehmen, „Wie ist es gelaufen?“ bei Drehschluss."
+          "herkunft": "vorschlag",
+          "text": "Wer einen Auftrag annimmt, ist für einen Tag Double: ein Körper mit Gewicht, Schweiß, Flecken. Am Abend gibt man ihn zurück, die Rückgabe. Daher die Grüße: „Wie kommst du an?“ beim Übernehmen, „Wie ist es gelaufen?“ bei der Rückgabe."
+        },
+        {
+          "titel": "Ohne Double",
+          "herkunft": "vorschlag",
+          "text": "Ohne Double sind die Figuren wie Geister. Durchscheinend, ohne Gewicht. Man sieht sie im Haus und auf den Scheiben, mal deutlich, mal nur als Flackern. Sie können nichts anfassen, nicht schwitzen, nicht bluten. Erst ein Double gibt ihnen das."
         },
         {
           "titel": "Lichtmesser",
@@ -176,8 +181,8 @@
         },
         {
           "titel": "Gerätekunde",
-          "herkunft": "kanon",
-          "text": "Magazin · Double · Dispo · Lichtmesser · Vorführung · Saft · Aggregat · Drehschluss · Auge · Auftritt · Manege · umschneiden. Die Dinge kommen vom Film und heißen hier so."
+          "herkunft": "vorschlag",
+          "text": "Magazin · Double · Dispo · Lichtmesser · Vorführung · Saft · Aggregat · Rückgabe · Auge · Auftritt · Manege · umschneiden. Die Dinge kommen vom Film und heißen hier so."
         }
       ]
     }

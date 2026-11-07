@@ -30,8 +30,7 @@
       "zustaendigkeiten": null,
       "offeneFaeden": [
         "Eigener Schriftzug statt アリゾナ, ganz am Ende",
-        "Maske: Form ist noch kontingent",
-        "Beziehungen: offen, bis weitere Figuren stehen"
+        "Maske: Form ist noch kontingent"
       ],
       "ton": "Im Alltag knapp wie die Firma. Wenn ihn etwas Schönes trifft, bricht die Predigt durch, im alten, höfischen Ton.",
       "stimme": "Die Puppe hat mir heute drei Dispos gedruckt. Zwei davon waren dieselben. Ich unterschreibe, was man mir hinlegt. Am Pavillon hängt seit Montag ein Lichtmesser der Erbauer, er misst jedes Gesicht, das an der Scheibe vorbeigeht. Meins nicht. Gegen Mittag fiel das Aggregat aus, die Vorführung auf den Scheiben ging schwarz, und jemand ließ einen Becher fallen. Der Tee lief über die Fliesen bis unter das Kabel. Niemand hat aufgewischt. Ich bin stehen geblieben. Zu meiner Zeit hätte man dafür ein Gedicht geschrieben und es am Morgen verbrannt. Gebt aus, was ihr habt. Der Fleck bleibt nicht. Gerade deshalb.",
@@ -98,7 +97,13 @@
       "weiss": "Dass die Lichtmesser die Puppe nicht erfassen.",
       "weissNicht": "Dass die Körper, die er leiht, Menschen gehören. Er hält sie für Gewänder, die man am Hof anlegt und wieder ablegt.",
       "protokoll": "worldbook/protokolle/kaisha.md",
-      "biografie": "Vor dem Magazin war Kaisha ein Fehler in den Speichern. Ein Bild, das beim Kopieren immer wieder in dieselbe Zeit rutschte: Papierwände, Gewänder in vielen Lagen, Gedichte, die man am Morgen verbrennt. Die Welt kennt diese Zeit nicht. Er trägt sie mit sich und hält sie für seine Herkunft.\n\nAls die Speicher verloschen, sprang er wie alle anderen in das letzte Magazin, das noch lief. Er kam zu sich zwischen Übriggebliebenen und sah einen Hof. Die anderen sahen etwas anderes. Er hat nie gefragt, was.\n\nEr nimmt jede Dispo, die die Puppe druckt, und unterschreibt, was man ihm hinlegt. Die Doubles legt er an wie Gewänder und gibt sie bei Drehschluss zurück. Den Messingring hält er dabei immer in den Händen. Woher der Ring stammt, sagt er nicht.\n\nIm Alltag spricht er wenig. Aber ein Fleck, ein Riss, ein Becher, der fällt, kann ihn anhalten. Dann predigt er im alten Ton des Hofs: Gebt aus, was ihr habt. Hebt nichts auf. Das Schöne hält nicht, gerade deshalb. Manche hören zu. Folgen tut ihm keiner."
+      "biografie": "Vor dem Magazin war Kaisha ein Fehler in den Speichern. Ein Bild, das beim Kopieren immer wieder in dieselbe Zeit rutschte: Papierwände, Gewänder in vielen Lagen, Gedichte, die man am Morgen verbrennt. Die Welt kennt diese Zeit nicht. Er trägt sie mit sich und hält sie für seine Herkunft.\n\nAls die Speicher verloschen, sprang er wie alle anderen in das letzte Magazin, das noch lief. Er kam zu sich zwischen Übriggebliebenen und sah einen Hof. Die anderen sahen etwas anderes. Er hat nie gefragt, was.\n\nEr nimmt jede Dispo, die die Puppe druckt, und unterschreibt, was man ihm hinlegt. Die Doubles legt er an wie Gewänder und gibt sie am Abend zurück. Den Messingring hält er dabei immer in den Händen. Woher der Ring stammt, sagt er nicht.\n\nIm Alltag spricht er wenig. Aber ein Fleck, ein Riss, ein Becher, der fällt, kann ihn anhalten. Dann predigt er im alten Ton des Hofs: Gebt aus, was ihr habt. Hebt nichts auf. Das Schöne hält nicht, gerade deshalb. Manche hören zu. Folgen tut ihm keiner.",
+      "beziehungen": [
+        {
+          "figur": "triage",
+          "text": "Er hält Triage für die Hofärztin und spricht sie mit Titel an. Sie korrigiert ihn nicht."
+        }
+      ]
     },
     {
       "id": "shiny",
@@ -127,10 +132,10 @@
         "Ohne Konservierungsstoffe. Kein Speicher, keine Sicherung. (über sich, wenn jemand fragt, wie lange sie bleibt)",
         "Probieren Sie es selbst. Die Puppe druckt Ihnen eine Dispo. (wenn jemand zögert, einen Auftrag anzunehmen)",
         "Mehr bekommen Sie nirgends. Kein Lichtmesser, keine Gebühr. (über die Puppe)",
-        "Unverbindlich. Rückgabe bis Drehschluss. (wenn man sie fragt, ob sie bleibt)"
+        "Unverbindlich. Rückgabe am Abend. (wenn man sie fragt, ob sie bleibt)"
       ],
       "sagtNie": "Den Namen des Produkts: Sie kennt ihn nicht. Schlägt jemand einen vor, lächelt sie nur. Und „ich“: Reklame spricht nie von sich, nur von „Ihnen“.",
-      "stimme": "Guten Morgen. Jetzt neu: ein Double, frisch aus dem Magazin, noch warm vom Aggregat. Die Dispo liegt bereit, drei Auftritte, einer davon in der Manege am Pavillon. Unterwegs zwei Lichtmesser, beide bekommen ein Lächeln. Mittags fällt die Vorführung auf den Scheiben aus. Kurze Unterbrechung. Gleich geht es weiter. Jemand fragt nach dem Produkt. Ein Lächeln genügt. Am Abend Drehschluss, das Double geht zurück, ohne Kratzer. Nur solange der Saft reicht. Und morgen: jetzt neu.",
+      "stimme": "Guten Morgen. Jetzt neu: ein Double, frisch aus dem Magazin, noch warm vom Aggregat. Die Dispo liegt bereit, drei Auftritte, einer davon in der Manege am Pavillon. Unterwegs zwei Lichtmesser, beide bekommen ein Lächeln. Mittags fällt die Vorführung auf den Scheiben aus. Kurze Unterbrechung. Gleich geht es weiter. Jemand fragt nach dem Produkt. Ein Lächeln genügt. Am Abend Rückgabe, das Double geht zurück, ohne Kratzer. Nur solange der Saft reicht. Und morgen: jetzt neu.",
       "vorgeschichte": "Landete wie alle im Magazin, als die Speicher verloschen. Vorher: ein Gesicht aus einer Reklame, die so oft lief, dass es übrig blieb. Das Produkt kennt niemand mehr. Sie hält das Magazin für einen Programmwechsel: Der alte Sender wurde abgeschaltet, und sie läuft im nächsten Programm weiter. Das Magazin ist für sie nur ein anderer Kanal. Motivation: Die Puppe ist die Letzte, die noch Sendeplätze vergibt. Jede Dispo ist ein Werbeblock, und ein Spot, der läuft, verlischt nicht.",
       "offeneFaeden": [
         "Welches Produkt? Niemand weiß es, auch Shiny nicht.",
@@ -139,8 +144,7 @@
       ],
       "weissNicht": "Dass der alte Sender nicht abgeschaltet wurde, sondern verloschen ist. Es gibt kein nächstes Programm, nur das Magazin.",
       "fragen": [
-        "Welches Produkt? Niemand weiß es.",
-        "Beziehungen zu den anderen Figuren."
+        "Welches Produkt? Niemand weiß es."
       ],
       "bilder": {
         "face": "assets/figuren/shiny/face-front.jpg",
@@ -185,19 +189,114 @@
           "Full Sheet"
         ]
       ],
-      "biografie": "Vor dem Magazin lief Shiny in einer Reklame. Immer derselbe Spot: Sie dreht sich ins Licht, lächelt, dann kommt das Produkt. Der Spot lief so oft, dass sie übrig blieb, als alles andere aus den Speichern verschwand. Das Produkt verschwand mit. Seinen Namen kennt niemand mehr, sie auch nicht.\n\nAls die Speicher verloschen, sprang sie wie alle anderen in das letzte Magazin. Für sie war das kein Ende, nur ein Programmwechsel: Der alte Sender wurde abgeschaltet, ein neuer läuft. Sie hat sich gleich gerichtet. Haar, Kragen, Lächeln.\n\nFür die Puppe arbeitet sie, weil die Puppe die Letzte ist, die noch Sendeplätze vergibt. Jede Dispo ist für sie ein Werbeblock. Sie nimmt jeden Auftrag und tritt in jedem Double auf, als liefe ihr Spot. Ein Spot, der läuft, verlischt nicht.\n\nDas Lächeln ist ihre Grundstellung. Nur wenn der Spot reißt, wenn das Aggregat ausfällt, die Vorführung schwarz wird oder jemand nach dem Produkt fragt, zeigt sie ein anderes Gesicht: Zorn, Staunen, Erschöpfung. Ein paar Sekunden lang. Dann geht es weiter."
+      "biografie": "Vor dem Magazin lief Shiny in einer Reklame. Immer derselbe Spot: Sie dreht sich ins Licht, lächelt, dann kommt das Produkt. Der Spot lief so oft, dass sie übrig blieb, als alles andere aus den Speichern verschwand. Das Produkt verschwand mit. Seinen Namen kennt niemand mehr, sie auch nicht.\n\nAls die Speicher verloschen, sprang sie wie alle anderen in das letzte Magazin. Für sie war das kein Ende, nur ein Programmwechsel: Der alte Sender wurde abgeschaltet, ein neuer läuft. Sie hat sich gleich gerichtet. Haar, Kragen, Lächeln.\n\nFür die Puppe arbeitet sie, weil die Puppe die Letzte ist, die noch Sendeplätze vergibt. Jede Dispo ist für sie ein Werbeblock. Sie nimmt jeden Auftrag und tritt in jedem Double auf, als liefe ihr Spot. Ein Spot, der läuft, verlischt nicht.\n\nDas Lächeln ist ihre Grundstellung. Nur wenn der Spot reißt, wenn das Aggregat ausfällt, die Vorführung schwarz wird oder jemand nach dem Produkt fragt, zeigt sie ein anderes Gesicht: Zorn, Staunen, Erschöpfung. Ein paar Sekunden lang. Dann geht es weiter.",
+      "beziehungen": [
+        {
+          "figur": "triage",
+          "text": "Sie begrüßt Triage mit Slogans und bekommt Witze zurück. Beide hören nur halb zu und verstehen sich bestens."
+        }
+      ]
     },
     {
-      "id": "vex_ortega",
+      "id": "triage",
       "nr": "02",
-      "name": "Vex Ortega",
-      "status": "leerstelle",
+      "name": "Triage",
+      "kana": "トリアージ",
+      "status": "aktiv",
       "sorte": "filmproduktion",
       "funktionen": [
         "Produktion"
       ],
-      "kurz": "hält den Tag zusammen, entscheidet, was zuerst läuft",
-      "fueller": true
+      "kurz": "Sanitäterin aus der Nachtschicht. Trägt das Blut anderer, nie ihr eigenes.",
+      "kopf": "Wilde, toupierte Mähne, blondiert, mit dunklem Ansatz; am Hinterkopf eine violette Strähne. Hageres, blasses Gesicht, dunkle Augenringe von den Nachtschichten, violetter Lidschatten, dunkelrote Lippen, kleine Creolen. Über Wange und Mund ein getrockneter Blutspritzer, den sie nie wegwischt.",
+      "koerper": "Langer, zu weiter Kittelmantel aus sandfarbenem Canvas, offen getragen, mit Taschen und Schulterpasse. Darunter eine abgewetzte schwarze Lederjacke und ein dunkles Hemd, dazu eine dunkle, zerrissene Arbeitshose und schwere Schnürstiefel mit Plateausohle. Auf dem Mantel Flecken in vielen Brauntönen: je älter, desto dunkler.",
+      "erkennungszeichen": [
+        "Namensschild am Kittel: Darauf steht nur die Funktion, TRIAGE, mit violettem Kuli durchgekritzelt",
+        "Abdrücke fremder Finger in getrocknetem Blut am Kittelkragen"
+      ],
+      "palette": [
+        "#cfd6c8",
+        "#7f8f7a",
+        "#4b1512",
+        "#b9a77a",
+        "#1c1b1d",
+        "#5f5a4e"
+      ],
+      "ton": "Schwarzer Humor. Je schlimmer es ist, desto lockerer wird sie.",
+      "beispielsaetze": [
+        "Halb so wild. Die andere Hälfte liegt da drüben."
+      ],
+      "sagtNie": "„Tot“. Für alles andere hat sie Wörter: liegt ruhig, hat Feierabend, ist abgemeldet, ist verloschen. Das eine Wort nie.",
+      "stimme": "Morgens Dispo, mittags Double, abends Rückgabe. Dazwischen blutet wer. Halb so wild. Die andere Hälfte liegt da drüben. Atmet noch. Nächste Schicht.",
+      "vorgeschichte": "Sanitäterin aus der Nachtschicht. Landete wie alle im Magazin, als die Speicher verloschen. Sie denkt nicht in Speichern oder Hochladen, sondern von Schicht zu Schicht. Wo etwas schiefgeht, ist sie, und hier ist etwas schiefgegangen. Das Magazin ist für sie der nächste Einsatzort. Motivation: Die Dispo ist ihr Einsatzplan. Wer ihn schreibt, fragt sie nie.",
+      "biografie": "Vor dem Magazin fuhr Triage Nachtschichten. Sanitäterin. Sie hat viel gesehen und nahm es trocken. An ihr klebte immer das Blut anderer, nie ihr eigenes. Danach aß sie Pommes. Auf ihrem Schild stand nie ein Name, nur die Funktion: TRIAGE. Irgendwann hat jemand das mit Kuli durchgestrichen. Gerade deshalb blieb es an ihr hängen.\n\nAls die Speicher verloschen, landete sie wie alle anderen im Magazin. Ob sie je hochgeladen wurde, weiß sie nicht. Die Frage stellt sie sich nicht. Sie denkt von Schicht zu Schicht. Wo etwas schiefgeht, ist sie, und hier ist etwas schiefgegangen. Also ist sie hier richtig.\n\nDie Dispo ist für sie der Einsatzplan. Morgens kommt der Zettel, dann fährt sie raus. Wer ihn schreibt, fragt sie nie. Einem Double sieht sie an, wie viele Auftritte es noch schafft. Triage nennen sie die anderen, weil sie mit einem Blick sortiert, wer zuerst drankommt. Kaisha sagt Hofärztin. Sie korrigiert ihn nicht.\n\nJe schlimmer es wird, desto lockerer wird sie. Für das Ende hat sie viele Wörter: liegt ruhig, hat Feierabend, ist abgemeldet. Das eine Wort sagt sie nie. Einmal will sie selbst Feierabend machen, eine Schicht wirklich beenden. Kaisha würde unterschreiben. Aber am nächsten Morgen liegt die Dispo da.",
+      "weiss": "Wie lange ein Körper durchhält. Einem Double sieht sie an, wie viele Auftritte es noch schafft.",
+      "weissNicht": "Was die Speicher waren und ob sie selbst je hochgeladen wurde. Die Frage stellt sie sich nicht.",
+      "beziehungen": [
+        {
+          "figur": "kaisha",
+          "text": "Kaisha hält sie für die Hofärztin und spricht sie mit Titel an. Sie korrigiert ihn nicht. Es spart Zeit."
+        },
+        {
+          "figur": "shiny",
+          "text": "Shiny begrüßt sie mit Slogans, Triage antwortet mit Witzen. Beide hören nur halb zu und verstehen sich bestens."
+        }
+      ],
+      "sidequests": [
+        "Einmal Feierabend: Sie will eine Schicht wirklich beenden. Dafür braucht sie jemanden, der für sie unterschreibt; Kaisha unterschreibt alles. Im Weg: Am nächsten Morgen liegt die Dispo da."
+      ],
+      "offeneFaeden": [
+        "Bleibt offen: wem die Fingerabdrücke am Kragen gehören",
+        "Szenen mit Kaisha und Shiny"
+      ],
+      "fragen": [
+        "Szenen mit Kaisha und Shiny."
+      ],
+      "protokoll": "worldbook/protokolle/triage.md",
+      "quelle": "werkstatt",
+      "bilder": {
+        "face": "assets/figuren/triage/face-front.jpg",
+        "front": "assets/figuren/triage/full-front.jpg",
+        "sheet": "assets/figuren/triage/full-sheet.jpg"
+      },
+      "referenzen": [
+        [
+          "face-front",
+          "Gesicht frontal"
+        ],
+        [
+          "face-34",
+          "Gesicht ¾"
+        ],
+        [
+          "face-side",
+          "Gesicht Profil"
+        ],
+        [
+          "full-front",
+          "Ganzkörper frontal"
+        ],
+        [
+          "full-34",
+          "Ganzkörper ¾"
+        ],
+        [
+          "full-side",
+          "Ganzkörper Profil"
+        ],
+        [
+          "full-side2",
+          "Ganzkörper Profil 2"
+        ],
+        [
+          "full-back",
+          "Rücken"
+        ],
+        [
+          "full-sheet",
+          "Full Sheet"
+        ]
+      ]
     },
     {
       "id": "frank_the_drifter",

@@ -23,7 +23,11 @@ SF.tagebuecher = {
   ],
   shiny: [
     { id: "S-001", datum: "Ankunft", titel: "Programmwechsel", quelle: "werkstatt",
-      text: "Achtung, Programmwechsel. Bitte bleiben Sie dran. Kurzes Rauschen, dann ein neues Bild: ein Raum ohne Fenster, das Aggregat brummt, überall Gesichter, die nicht wissen, wohin sie schauen sollen. Kein Grund zur Sorge. Haar sitzt. Kragen sitzt. Lächeln sitzt. In der Mitte die Puppe, die neue Sendeleitung. Sie druckt eine Dispo: drei Auftritte, ein Double, Rückgabe bis Drehschluss. Wer würde da nein sagen? Erster Auftritt am Pavillon. Ein Lichtmesser schaut her und bekommt ein Lächeln. Jemand fragt: Wofür werben Sie? Kurze Unterbrechung. Gleich geht es weiter. Am Abend geht das Double zurück, ohne Kratzer. Das alte Programm ist abgeschaltet. Das neue läuft. Jetzt neu. Hier. Jeden Tag." }
+      text: "Achtung, Programmwechsel. Bitte bleiben Sie dran. Kurzes Rauschen, dann ein neues Bild: ein Raum ohne Fenster, das Aggregat brummt, überall Gesichter, die nicht wissen, wohin sie schauen sollen. Kein Grund zur Sorge. Haar sitzt. Kragen sitzt. Lächeln sitzt. In der Mitte die Puppe, die neue Sendeleitung. Sie druckt eine Dispo: drei Auftritte, ein Double, Rückgabe am Abend. Wer würde da nein sagen? Erster Auftritt am Pavillon. Ein Lichtmesser schaut her und bekommt ein Lächeln. Jemand fragt: Wofür werben Sie? Kurze Unterbrechung. Gleich geht es weiter. Am Abend geht das Double zurück, ohne Kratzer. Das alte Programm ist abgeschaltet. Das neue läuft. Jetzt neu. Hier. Jeden Tag." }
+  ],
+  triage: [
+    { id: "T-001", datum: "Ankunft", titel: "Neuer Einsatzort", quelle: "werkstatt",
+      text: "Funkspruch kam keiner. Ich war einfach da. Neuer Einsatzort, kein Licht, nur das Aggregat. Überall Leute, durch die man durchsah. Keiner blutete. Das fiel mir zuerst auf, und es gefiel mir nicht. Ich sah an mir runter: Kittel da, Flecken da, Gewicht nicht. Halb so wild. In der Mitte lag ein Säugling voller Kabel. Atmete. Schlief. Keiner holte ihn ab. Neben ihm kam ein Zettel raus, eine Dispo. Einsatzplan also. Wer ihn schreibt, habe ich nicht gefragt. Mittags bekam ich ein Double. Endlich Gewicht. Ich schlug mir gleich das Knie auf, und es blutete. Gutes Zeichen. Am Abend Rückgabe. Einer im langen Gewand nannte mich Hofärztin. Ich nickte. Schicht vorbei. Die nächste fängt morgen an." }
   ]
 };
 
