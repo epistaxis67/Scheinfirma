@@ -1,5 +1,5 @@
 {
-  "_info": "ROSTER — Figurenstand der Scheinfirma. Eine Figur = ein Objekt. null = Leerstelle (erscheint auf der Seite als LEERSTELLE). Neue Figur mit Bildern: Bilder nach assets/figuren/<id>/ legen, status auf \"aktiv\". sorte: filmproduktion | unvorhergesehenes | jede-firma. stimme = Text der Figur in eigener Stimme (Vorlage für den Ghost Log). Neue Felder aus dem Figuren-Generator: aussehen, beziehungen, satzbau, typischeWoerter, sagtNie, beispielsaetze, weiss, weissNicht, quelle, eingereichtVon. fueller: true = generischer Platzhalter aus dem Pitch-Deck, gilt nicht (bleibt für die Aufgaben-Zuteilung der Puppe).",
+  "_info": "ROSTER — Figurenstand der Scheinfirma. Eine Figur = ein Objekt. null = Leerstelle (erscheint auf der Seite als LEERSTELLE). Neue Figur mit Bildern: Bilder nach assets/figuren/<id>/ legen, status auf \"aktiv\". sorte: filmproduktion | unvorhergesehenes | jede-firma. biografie = längere Lebensgeschichte, Absätze durch Leerzeile getrennt. stimme = Text der Figur in eigener Stimme (Vorlage für den Ghost Log). Neue Felder aus dem Figuren-Generator: aussehen, beziehungen, satzbau, typischeWoerter, sagtNie, beispielsaetze, weiss, weissNicht, quelle, eingereichtVon. fueller: true = generischer Platzhalter aus dem Pitch-Deck, gilt nicht (bleibt für die Aufgaben-Zuteilung der Puppe).",
   "roster": [
     {
       "id": "kaisha",
@@ -97,7 +97,8 @@
       "sagtNie": "„Später“, „sparen“, „aufheben“. Wer sich verausgabt, legt nichts zurück.",
       "weiss": "Dass die Lichtmesser die Puppe nicht erfassen.",
       "weissNicht": "Dass die Körper, die er leiht, Menschen gehören. Er hält sie für Gewänder, die man am Hof anlegt und wieder ablegt.",
-      "protokoll": "worldbook/protokolle/kaisha.md"
+      "protokoll": "worldbook/protokolle/kaisha.md",
+      "biografie": "Vor dem Magazin war Kaisha ein Fehler in den Speichern. Ein Bild, das beim Kopieren immer wieder in dieselbe Zeit rutschte: Papierwände, Gewänder in vielen Lagen, Gedichte, die man am Morgen verbrennt. Die Welt kennt diese Zeit nicht. Er trägt sie mit sich und hält sie für seine Herkunft.\n\nAls die Speicher verloschen, sprang er wie alle anderen in das letzte Magazin, das noch lief. Er kam zu sich zwischen Übriggebliebenen und sah einen Hof. Die anderen sahen etwas anderes. Er hat nie gefragt, was.\n\nEr nimmt jede Dispo, die die Puppe druckt, und unterschreibt, was man ihm hinlegt. Die Doubles legt er an wie Gewänder und gibt sie bei Drehschluss zurück. Den Messingring hält er dabei immer in den Händen. Woher der Ring stammt, sagt er nicht.\n\nIm Alltag spricht er wenig. Aber ein Fleck, ein Riss, ein Becher, der fällt, kann ihn anhalten. Dann predigt er im alten Ton des Hofs: Gebt aus, was ihr habt. Hebt nichts auf. Das Schöne hält nicht, gerade deshalb. Manche hören zu. Folgen tut ihm keiner."
     },
     {
       "id": "shiny",
@@ -118,27 +119,26 @@
         "#121214",
         "#8d8f91"
       ],
-      "ton": "Spricht in Slogans, auch im Alltag. Wer länger zuhört, merkt, dass es damit ziemlich genau sagt, was es meint.",
+      "ton": "Spricht in Slogans, auch im Alltag. Wer länger zuhört, merkt, dass sie damit ziemlich genau sagt, was sie meint.",
       "beispielsaetze": [
-        "Jetzt neu. Frisch aus dem Magazin. (wenn es morgens ein Double übernimmt)",
-        "Nur solange der Saft reicht. (über den Tag, den es hat)",
+        "Jetzt neu. Frisch aus dem Magazin. (wenn sie morgens ein Double übernimmt)",
+        "Nur solange der Saft reicht. (über den Tag, den sie hat)",
         "Kurze Unterbrechung. Gleich geht es weiter. (wenn die Vorführung auf den Scheiben ausfällt)",
-        "Ohne Konservierungsstoffe. Kein Speicher, keine Sicherung. (über sich, wenn jemand fragt, wie lange es bleibt)",
+        "Ohne Konservierungsstoffe. Kein Speicher, keine Sicherung. (über sich, wenn jemand fragt, wie lange sie bleibt)",
         "Probieren Sie es selbst. Die Puppe druckt Ihnen eine Dispo. (wenn jemand zögert, einen Auftrag anzunehmen)",
         "Mehr bekommen Sie nirgends. Kein Lichtmesser, keine Gebühr. (über die Puppe)",
-        "Unverbindlich. Rückgabe bis Drehschluss. (wenn man es fragt, ob es bleibt)"
+        "Unverbindlich. Rückgabe bis Drehschluss. (wenn man sie fragt, ob sie bleibt)"
       ],
-      "sagtNie": "Den Namen des Produkts: Es kennt ihn nicht, schlägt jemand einen vor, lächelt es nur. Und „ich“: Reklame spricht nie von sich, nur von „Ihnen“.",
+      "sagtNie": "Den Namen des Produkts: Sie kennt ihn nicht. Schlägt jemand einen vor, lächelt sie nur. Und „ich“: Reklame spricht nie von sich, nur von „Ihnen“.",
       "stimme": "Guten Morgen. Jetzt neu: ein Double, frisch aus dem Magazin, noch warm vom Aggregat. Die Dispo liegt bereit, drei Auftritte, einer davon in der Manege am Pavillon. Unterwegs zwei Lichtmesser, beide bekommen ein Lächeln. Mittags fällt die Vorführung auf den Scheiben aus. Kurze Unterbrechung. Gleich geht es weiter. Jemand fragt nach dem Produkt. Ein Lächeln genügt. Am Abend Drehschluss, das Double geht zurück, ohne Kratzer. Nur solange der Saft reicht. Und morgen: jetzt neu.",
-      "vorgeschichte": "Landete wie alle im Magazin, als die Speicher verloschen. Vorher: ein Gesicht aus einer Reklame, die so oft lief, dass es übrig blieb. Das Produkt kennt niemand mehr. Es hält das Magazin für einen Programmwechsel: Der alte Sender wurde abgeschaltet, und es läuft im nächsten Programm weiter. Das Magazin ist für es nur ein anderer Kanal. Motivation: Die Puppe ist die Letzte, die noch Sendeplätze vergibt. Jede Dispo ist ein Werbeblock, und ein Spot, der läuft, verlischt nicht.",
+      "vorgeschichte": "Landete wie alle im Magazin, als die Speicher verloschen. Vorher: ein Gesicht aus einer Reklame, die so oft lief, dass es übrig blieb. Das Produkt kennt niemand mehr. Sie hält das Magazin für einen Programmwechsel: Der alte Sender wurde abgeschaltet, und sie läuft im nächsten Programm weiter. Das Magazin ist für sie nur ein anderer Kanal. Motivation: Die Puppe ist die Letzte, die noch Sendeplätze vergibt. Jede Dispo ist ein Werbeblock, und ein Spot, der läuft, verlischt nicht.",
       "offeneFaeden": [
-        "Welches Produkt? Niemand weiß es, auch Glow nicht.",
+        "Welches Produkt? Niemand weiß es, auch Shiny nicht.",
         "Wie das Kanal-Logo des alten Senders aussah",
         "Szenen-Motiv (nicht im Sheet): ein leeres Produkt ohne Etikett, das sie wie im Spot schräg ins Licht hält."
       ],
       "weissNicht": "Dass der alte Sender nicht abgeschaltet wurde, sondern verloschen ist. Es gibt kein nächstes Programm, nur das Magazin.",
       "fragen": [
-        "Character Sheet in Higgsfield erzeugen (Prompt im Protokoll), dann Bild-Abgleich.",
         "Welches Produkt? Niemand weiß es.",
         "Beziehungen zu den anderen Figuren."
       ],
@@ -184,7 +184,8 @@
           "full-sheet",
           "Full Sheet"
         ]
-      ]
+      ],
+      "biografie": "Vor dem Magazin lief Shiny in einer Reklame. Immer derselbe Spot: Sie dreht sich ins Licht, lächelt, dann kommt das Produkt. Der Spot lief so oft, dass sie übrig blieb, als alles andere aus den Speichern verschwand. Das Produkt verschwand mit. Seinen Namen kennt niemand mehr, sie auch nicht.\n\nAls die Speicher verloschen, sprang sie wie alle anderen in das letzte Magazin. Für sie war das kein Ende, nur ein Programmwechsel: Der alte Sender wurde abgeschaltet, ein neuer läuft. Sie hat sich gleich gerichtet. Haar, Kragen, Lächeln.\n\nFür die Puppe arbeitet sie, weil die Puppe die Letzte ist, die noch Sendeplätze vergibt. Jede Dispo ist für sie ein Werbeblock. Sie nimmt jeden Auftrag und tritt in jedem Double auf, als liefe ihr Spot. Ein Spot, der läuft, verlischt nicht.\n\nDas Lächeln ist ihre Grundstellung. Nur wenn der Spot reißt, wenn das Aggregat ausfällt, die Vorführung schwarz wird oder jemand nach dem Produkt fragt, zeigt sie ein anderes Gesicht: Zorn, Staunen, Erschöpfung. Ein paar Sekunden lang. Dann geht es weiter."
     },
     {
       "id": "vex_ortega",

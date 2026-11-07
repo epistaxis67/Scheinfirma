@@ -1,5 +1,5 @@
 /* FIRMENGESCHICHTE + TAGEBÜCHER — werden vom Imaginator fortgeschrieben.
-   quelle: "imaginator" | "gruendung" | "muster" (Beispieltext aus dem Pitch-Deck)
+   quelle: "imaginator" | "gruendung" | "werkstatt" (aus /figur) | "muster" (Beispieltext aus dem Pitch-Deck)
    Einträge mit quelle "muster" erscheinen nur im Backend, nicht im Frontend.
    text: null = noch nicht geschrieben */
 window.SF = window.SF || {};
@@ -17,8 +17,14 @@ SF.chronik = [
 ];
 
 SF.tagebuecher = {
-  kaisha: [],
-  shiny: []
+  kaisha: [
+    { id: "K-001", datum: "Ankunft", titel: "Erwacht", quelle: "werkstatt",
+      text: "Erwacht. Kein Licht, nur das Summen des Aggregats. Um mich Gestalten, die sich ansehen, als suchten sie ihr eigenes Gesicht. Höflinge ohne Rang. Niemand kennt die Etikette. In der Mitte die Puppe. Sie schläft. Ein Kind auf dem Thron, und schon schreibt jemand in seinem Namen: Am Morgen lag eine Dispo vor mir. Ich habe unterschrieben. Am Mittag trug ich ein Double. Es saß schlecht an den Schultern, wie ein geliehenes Gewand. Am Abend gab ich es zurück. Auf dem Boden lag ein Blatt, nass von irgendwas, die Schrift lief aus. Ich habe lange davor gestanden. Zu Hause hätte man dafür ein Gedicht geschrieben. Hier gibt es kein Zuhause. Also schreibe ich es hier." }
+  ],
+  shiny: [
+    { id: "S-001", datum: "Ankunft", titel: "Programmwechsel", quelle: "werkstatt",
+      text: "Achtung, Programmwechsel. Bitte bleiben Sie dran. Kurzes Rauschen, dann ein neues Bild: ein Raum ohne Fenster, das Aggregat brummt, überall Gesichter, die nicht wissen, wohin sie schauen sollen. Kein Grund zur Sorge. Haar sitzt. Kragen sitzt. Lächeln sitzt. In der Mitte die Puppe, die neue Sendeleitung. Sie druckt eine Dispo: drei Auftritte, ein Double, Rückgabe bis Drehschluss. Wer würde da nein sagen? Erster Auftritt am Pavillon. Ein Lichtmesser schaut her und bekommt ein Lächeln. Jemand fragt: Wofür werben Sie? Kurze Unterbrechung. Gleich geht es weiter. Am Abend geht das Double zurück, ohne Kratzer. Das alte Programm ist abgeschaltet. Das neue läuft. Jetzt neu. Hier. Jeden Tag." }
+  ]
 };
 
 // Frontend zeigt nur, was keine Muster sind

@@ -29,6 +29,7 @@ window.SF = window.SF || {};
       { k: "stimme", l: "Text der Figur", t: "area", ph: "ein paar Sätze in ihrer eigenen Stimme, Ich-Form" }]],
     ["Hintergrund", [
       { k: "vorgeschichte", l: "Vorgeschichte", t: "area", ph: "woher sie kommt, was vorher war" },
+      { k: "biografie", l: "Biografie", t: "area", ph: "ihre Lebensgeschichte in ein paar Absätzen: vorher, Ankunft, Alltag in der Firma, was sie antreibt" },
       { k: "offeneFaeden", l: "Offene Fäden", t: "lines", ph: "Schulden, Fragen, Versprechen – eins pro Zeile" },
       { k: "beziehungen", l: "Beziehungen", t: "lines", ph: "Frank the Drifter: … – eine pro Zeile" }]],
     ["Wissen", [
@@ -116,7 +117,7 @@ window.SF = window.SF || {};
 ${kontext()}
 
 # AUFGABE
-${best ? `Ergänze die bestehende Figur „${best.name}“. Was über sie schon gilt:\n${JSON.stringify(best, ["name", "kana", "kopf", "koerper", "erkennungszeichen", "palette", "vorgeschichte", "stimme", "ton"], 2)}\n` : "Entwirf eine neue Figur für die Scheinfirma. Beschreibe die Figur, nicht ihre Aufgabe in der Firma.\n"}
+${best ? `Ergänze die bestehende Figur „${best.name}“. Was über sie schon gilt:\n${JSON.stringify(best, ["name", "kana", "kopf", "koerper", "erkennungszeichen", "palette", "vorgeschichte", "biografie", "stimme", "ton"], 2)}\n` : "Entwirf eine neue Figur für die Scheinfirma. Beschreibe die Figur, nicht ihre Aufgabe in der Firma.\n"}
 Schon ausgefüllt (übernehmen, nicht ändern):
 ${Object.keys(da).length ? JSON.stringify(da, null, 2) : "(noch nichts)"}
 

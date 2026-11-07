@@ -51,7 +51,7 @@ window.SF = window.SF || {};
       </div>
       <div class="cs-dossier">
         <fieldset><legend>Stimme</legend>${zone("Tonlage", f.ton)}${zone("Beispielsätze", f.beispielsaetze)}${zone("Sagt nie", f.sagtNie)}${zone("Text der Figur", f.stimme)}</fieldset>
-        <fieldset><legend>Hintergrund</legend>${zone("Vorgeschichte", f.vorgeschichte)}${zone("Offene Fäden", f.offeneFaeden)}${zone("Beziehungen", f.beziehungen)}</fieldset>
+        <fieldset><legend>Hintergrund</legend>${zone("Vorgeschichte", f.vorgeschichte)}${zone("Biografie", f.biografie)}${zone("Offene Fäden", f.offeneFaeden)}${zone("Beziehungen", f.beziehungen)}</fieldset>
         <fieldset><legend>Wissen</legend>${zone("Weiß", f.weiss)}${zone("Weiß nicht", f.weissNicht)}</fieldset>
       </div>
     </div>`;

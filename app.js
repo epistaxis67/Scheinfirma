@@ -131,7 +131,8 @@
           <dt>Ghost Log</dt><dd><a href="#log/${f.id}">${n} Eintr${n === 1 ? "ag" : "äge"} →</a></dd>
         </dl>
       </div>
-    </div>`;
+    </div>
+    ${f.biografie ? `<div class="log"><div class="ev"><div class="when">BIOGRAFIE</div>${f.biografie.split(/\n\s*\n/).map((p) => `<p class="prose">${esc(p)}</p>`).join("")}</div></div>` : ""}`;
   }
 
   function chronik() {
@@ -171,7 +172,7 @@
     <h1>GHOST LOG // ${esc(f.name)}</h1>
     <div class="bars"><i></i><i></i><i></i></div>
     ${eps.length ? `<div class="log">${eps.map((e) => `
-      <div class="ev"><div class="when">${esc(e.datum)}</div><p class="prose diary">${esc(e.text)}</p></div>`).join("")}</div>`
+      <div class="ev"><div class="when">${esc(e.datum)}</div>${e.titel ? `<h3 style="margin:6px 0 0">${esc(e.titel)}</h3>` : ""}<p class="prose diary">${esc(e.text)}</p></div>`).join("")}</div>`
       : `<p>${leer()}</p>`}`;
   }
 
@@ -543,7 +544,7 @@ Halbtotale, Handkamera, leichte Unschärfe im Vordergrund.</pre>
   }
 
   // Figuren und Worldbook liegen als JSON vor (Austausch mit dem Einreichen-Formular)
-  const json = (f) => fetch(f + "?v=18", { cache: "no-cache" }).then((r) => { if (!r.ok) throw new Error(f); return r.json(); });
+  const json = (f) => fetch(f + "?v=19", { cache: "no-cache" }).then((r) => { if (!r.ok) throw new Error(f); return r.json(); });
   Promise.all([json("data/roster.json"), json("data/weltbuch.json")]).then(([r, w]) => {
     SF.roster = r.roster; SF.sorten = r.sorten;
     SF.weltbuch = w.weltbuch; SF.herkunft = w.herkunft;
