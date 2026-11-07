@@ -104,18 +104,15 @@
       "nr": "12",
       "name": "Shiny",
       "kana": null,
-      "status": "leerstelle",
+      "status": "aktiv",
       "quelle": "werkstatt",
       "protokoll": "worldbook/protokolle/shiny.md",
-      "kopf": "Ein festgefrorenes Werbelächeln. Aus der Nähe sieht man auf der Haut das Druckraster eines alten Plakats: feine Punkte statt Poren.",
-      "koerper": "Ein makelloses Kostüm in den Farben des verschwundenen Produkts, mit Glanz wie im Spot. Von hinten ist nichts: Die Reklame zeigte nur die Vorderseite, der Rücken ist flach und grau wie die Rückseite eines Aufstellers.",
-      "erkennungszeichen": [
-        "Ein leeres Produkt in der Hand: Flasche oder Dose ohne Etikett, die es wie im Spot schräg ins Licht hält.",
-        "Flacher, grauer Rücken wie die Rückseite eines Aufstellers"
-      ],
+      "kopf": "Ein festgefrorenes Werbelächeln, rote Lippen, Perlenohrringe. Kupferrotes Haar in einer glänzenden Victory-Roll-Frisur, makellos wie im Spot. Aus der Nähe sieht man auf der Haut das Druckraster eines alten Plakats: feine Punkte statt Poren. Das Lächeln ist ihre Grundstellung. Andere Gesichter (Zorn, Staunen, Erschöpfung) zeigt sie nur, wenn der Spot reißt.",
+      "koerper": "Ein Etuikleid aus glänzendem Lack in Kobaltblau, den Farben des verschwundenen Produkts, mit weißem Bubikragen und rotem Gürtel mit Messingschnalle. Rote Pumps. Glanz wie im Spot.",
+      "erkennungszeichen": [],
       "palette": [
         "#1f4fd1",
-        "#c9cdd2",
+        "#b4562b",
         "#e3262f",
         "#f7f7f5",
         "#121214",
@@ -136,13 +133,57 @@
       "vorgeschichte": "Landete wie alle im Magazin, als die Speicher verloschen. Vorher: ein Gesicht aus einer Reklame, die so oft lief, dass es übrig blieb. Das Produkt kennt niemand mehr. Es hält das Magazin für einen Programmwechsel: Der alte Sender wurde abgeschaltet, und es läuft im nächsten Programm weiter. Das Magazin ist für es nur ein anderer Kanal. Motivation: Die Puppe ist die Letzte, die noch Sendeplätze vergibt. Jede Dispo ist ein Werbeblock, und ein Spot, der läuft, verlischt nicht.",
       "offeneFaeden": [
         "Welches Produkt? Niemand weiß es, auch Glow nicht.",
-        "Wie das Kanal-Logo des alten Senders aussah"
+        "Wie das Kanal-Logo des alten Senders aussah",
+        "Szenen-Motiv (nicht im Sheet): ein leeres Produkt ohne Etikett, das sie wie im Spot schräg ins Licht hält."
       ],
       "weissNicht": "Dass der alte Sender nicht abgeschaltet wurde, sondern verloschen ist. Es gibt kein nächstes Programm, nur das Magazin.",
       "fragen": [
         "Character Sheet in Higgsfield erzeugen (Prompt im Protokoll), dann Bild-Abgleich.",
         "Welches Produkt? Niemand weiß es.",
         "Beziehungen zu den anderen Figuren."
+      ],
+      "bilder": {
+        "face": "assets/figuren/shiny/face-front.jpg",
+        "front": "assets/figuren/shiny/full-front.jpg",
+        "sheet": "assets/figuren/shiny/full-sheet.jpg"
+      },
+      "referenzen": [
+        [
+          "face-front",
+          "Gesicht frontal"
+        ],
+        [
+          "face-34",
+          "Gesicht ¾"
+        ],
+        [
+          "face-side",
+          "Gesicht Profil"
+        ],
+        [
+          "full-front",
+          "Ganzkörper frontal"
+        ],
+        [
+          "full-34",
+          "Ganzkörper ¾"
+        ],
+        [
+          "full-side",
+          "Ganzkörper Profil"
+        ],
+        [
+          "full-side2",
+          "Ganzkörper Profil 2"
+        ],
+        [
+          "full-back",
+          "Rücken"
+        ],
+        [
+          "full-sheet",
+          "Full Sheet"
+        ]
       ]
     },
     {
