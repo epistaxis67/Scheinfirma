@@ -32,6 +32,10 @@ SF.tagebuecher = {
   feirefiz: [
     { id: "F-001", datum: "Ankunft", titel: "Neue Seite", quelle: "werkstatt",
       text: "Ich hatte Zazamanc. Ich hatte Azagouc. Fünfundzwanzig Heere, Steine, mehr als Tage. Ich hatte einen Platz am Rand, gleich neben der Mitte. Dann verlosch die Seite. Was in der Mitte stand, haben sie gezählt. Mich nicht. Ich sprang. Hier ist es dunkel, das Aggregat brummt. Eine neue Seite, leer. Keine Mitte. Keiner neben mir. Ich habe gezählt, wer da ist: einer im langen Gewand, eine im Kittel, eine, die lächelt, ein Säugling mit Kabeln. Eine Liste. Eine Stelle habe ich frei gelassen. Morgens lag eine Dispo da, mein Name unten. Auch gut. Mittags ein Double. Ich hatte wieder Finger. Abends Rückgabe. Morgen ein Stück weiter in die Mitte." }
+  ],
+  zefyr: [
+    { id: "Z-001", datum: "Ankunft", titel: "Neuer Lack", quelle: "werkstatt",
+      text: "Ich fuhr. Die Strecke lag vorn, die Haube glänzte, die beste Haube im ganzen Bezirk. Dann ging das Licht aus. Kein Motor, keine Straße. Ich stand in einer Werkstatt. Lekker, dachte ich, endlich neuer Lack. Das Aggregat brummte wie ein Kompressor. Um mich Leute ohne Gewicht, alle warteten auf ihre Lackierung. Einer im langen Gewand, freundlich, Personal vom Haus. In der Mitte ein Säugling mit Kabeln, der Meister. Er druckte einen Zettel: die Dispo. Auftragszettel, ja-nee, wie in jeder Werkstatt. Mittags bekam ich ein Double. Beine, boet. Feinripp an, Socken hoch. Ich lief bis zur Ecke und zurück. Die beste Ecke. Abends Rückgabe. Morgen fahre ich wieder. Parow ist nicht weit." }
   ]
 };
 

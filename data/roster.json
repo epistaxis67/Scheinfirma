@@ -106,6 +106,10 @@
         {
           "figur": "feirefiz",
           "text": "Er nennt Feirefiz „Majestät“, als Einziger. Dafür bekommt er Geschenke, die es nicht gibt. Beide wissen es und lassen es so."
+        },
+        {
+          "figur": "zefyr",
+          "text": "Hält Zefyr für Personal vom Hof und ist freundlich zu ihm. Versteht kein Wort und nickt."
         }
       ]
     },
@@ -202,6 +206,10 @@
         {
           "figur": "feirefiz",
           "text": "Feirefiz schaut ihr bei jedem Auftritt zu. Sie hält ihn für einen Kunden und lächelt."
+        },
+        {
+          "figur": "zefyr",
+          "text": "Zefyr fragt jeden Tag nach dem Produkt. Shiny lächelt. Er ist der treueste Kunde, den es je gab."
         }
       ]
     },
@@ -252,6 +260,10 @@
         {
           "figur": "feirefiz",
           "text": "Feirefiz kommt nie zu ihr, auch wenn er blutet. Sie sieht es und lässt ihn sitzen."
+        },
+        {
+          "figur": "zefyr",
+          "text": "Nimmt keine seiner Abkürzungen. Sieht nach seinen Klebeband-Kanten, wie man nach Verbänden sieht."
         }
       ],
       "sidequests": [
@@ -311,19 +323,120 @@
       ]
     },
     {
-      "id": "frank_the_drifter",
+      "id": "zefyr",
       "nr": "03",
-      "name": "Frank the Drifter",
-      "status": "leerstelle",
+      "name": "Zefyr",
+      "kana": "ゼファー",
+      "status": "aktiv",
       "sorte": "filmproduktion",
       "funktionen": [
         "Kamera",
         "Ton"
       ],
-      "kurz": "dreht, nimmt auf, geht dahin, wo etwas passiert",
-      "vorgeschichte": "Kam über die Brücke, mit dem Gerät und ohne Papiere. Schuldet Kestrel Rentals eine Kaution und drei Antworten.",
-      "insignie": "verspiegelte Schutzbrille",
-      "fueller": true
+      "kurz": "Airbrush von einer Motorhaube. Fuhr überall, wurde nie gezählt.",
+      "kopf": "Hageres, langes Gesicht, hohe Wangenknochen, dünner Schnurrbart, Ohrringe. Schwarzes, nasses Vokuhila mit fransigem Pony, lang im Nacken. Die Haut ist eine Xerox-Collage: graue Fotokopie-Streifen, mit Klebeband zusammengesetzt, die Kanten laufen über Stirn, Augen und Hals.",
+      "koerper": "Sehr hager, lange dünne Glieder, das Kinn oft gehoben. Weißes Feinripp-Unterhemd, glänzende rote Sporthose mit weißen Paspeln, weiße Tennissocken mit zwei schwarzen Streifen bis unters Knie, schwarze Badelatschen. Dünne Silberkette. Auch der Körper ist aus Kopie-Streifen geklebt.",
+      "erkennungszeichen": [
+        "Auf den Fingerknöcheln LEEF MOOI (Afrikaans: „leb schön“), handgestochen in Blau",
+        "Blaue Tätowierungen auf den Armen: Schlange, Anker, Herz, Sonne",
+        "Haut aus Fotokopie-Streifen mit sichtbaren Klebeband-Kanten"
+      ],
+      "palette": [
+        "#e7e3e0",
+        "#b0abad",
+        "#5a5659",
+        "#a63b3f",
+        "#626e94",
+        "#caa961"
+      ],
+      "ton": "Prahlt mit dem Billigen, als wäre es Gold. Jede Kleinigkeit ist das Beste, was es gibt.",
+      "beispielsaetze": [
+        "Feinripp, boet. Die beste. Dit asem.",
+        "Lekker. Drie Auftritte op die Dispo. Drie.",
+        "Die Socken waren mal weiß. Nou is hulle mooier.",
+        "Ja-nee. Net so."
+      ],
+      "sagtNie": "„billig“. Das Wort kennt er nicht.",
+      "stimme": "Kurze Sätze, Superlative nur für Kleinigkeiten. Mischt ständig Afrikaans ins Deutsche: boet, lekker, mooi, ja-nee, net so, kyk. Die anderen verstehen es halb.",
+      "vorgeschichte": "Airbrush auf der Motorhaube eines alten Zephyr. Fuhr jahrelang durch die Bezirke, wurde überall gesehen, nie gezählt. Ankunft: Er hält das Magazin für eine Werkstatt. Er ist nur zum Lackieren hier, bald geht es zurück auf die Straße. Motivation: Er will wieder fahren, zurück in seine Hood: Parow (er sagt: my buurt). Ein Double hat Beine, und jeder Auftrag führt ein Stück näher hin.",
+      "biografie": "Zefyr war ein Airbrush-Bild auf der Motorhaube eines alten Zephyr. Vokuhila, Schnurrbart, gebräunt im Sprühverlauf. Davon sieht man heute nichts mehr: Seine Haut ist aus Kopien geklebt. Der Wagen fuhr jahrelang durch die Bezirke, bis nach Parow und zurück. Jeder hat ihn gesehen. Gezählt hat ihn keiner.\n\nAls die Speicher verloschen, landete er wie alle im Magazin der Puppe. Er hält es für eine Werkstatt. Er ist nur zum Lackieren hier, bald geht es zurück auf die Straße. Dass er das Bild war und nicht der Fahrer, weiß er nicht.\n\nIn der Firma ist alles das Beste, was es gibt: Feinripp, Badelatschen, die Dispo. Er redet halb Afrikaans, und die anderen verstehen ihn halb. Shiny ist für ihn die beste Reklame, die es je gab, und jeden Tag fragt er sie nach dem Produkt. Kaisha hält ihn für Personal, er Kaisha auch.\n\nEr will wieder fahren, zurück in seine Hood. Ein Double hat Beine, und jeder Auftrag führt ein Stück näher hin. Nebenbei will er wissen, wofür Shiny wirbt, damit er es kaufen kann.",
+      "weiss": "Jede Strecke durch die Bezirke, jede Abkürzung, wo Lack und Sprit am wenigsten kosten.",
+      "weissNicht": "Dass er das Bild war. Er glaubt, er war der Fahrer.",
+      "beziehungen": [
+        {
+          "figur": "shiny",
+          "text": "Am nächsten. Beide liefen überall. Für ihn ist sie die beste Reklame, die es je gab, und er fragt sie jeden Tag nach dem Produkt."
+        },
+        {
+          "figur": "kaisha",
+          "text": "Kaisha hält das Magazin für einen Hof, Zefyr für eine Werkstatt. Jeder hält den anderen für Personal und ist freundlich zu ihm."
+        },
+        {
+          "figur": "feirefiz",
+          "text": "Beide wurden nie gezählt. Nennt ihn „Majestät, boet“ und will ihn einmal mitnehmen."
+        },
+        {
+          "figur": "triage",
+          "text": "Hält sie für eine Kollegin von der Nachtstrecke und bietet ihr jede Abkürzung an."
+        }
+      ],
+      "sidequests": [
+        "Shinys Produkt: Er will wissen, wofür sie wirbt, damit er es kaufen kann. Shiny nennt es nie."
+      ],
+      "szenen": [
+        {
+          "mit": "shiny",
+          "titel": "Jetzt neu",
+          "text": "Beide ohne Double. Die Vorführung zeigt kurz ihre alte Reklame. Er klatscht, die Hände gehen durcheinander durch. „Kyk, boet, wat is dit?“ Shiny: „Jetzt neu.“ Dann fällt das Aggregat aus."
+        }
+      ],
+      "offeneFaeden": [
+        "Szenen-Motiv: die alte Reklame auf den Scheiben, durch die seine klatschenden Hände gehen (Szene mit Shiny)"
+      ],
+      "quelle": "werkstatt",
+      "bilder": {
+        "face": "assets/figuren/zefyr/face-front.jpg",
+        "front": "assets/figuren/zefyr/full-front.jpg",
+        "sheet": "assets/figuren/zefyr/full-sheet.jpg"
+      },
+      "referenzen": [
+        [
+          "face-front",
+          "Gesicht frontal"
+        ],
+        [
+          "face-34",
+          "Gesicht ¾"
+        ],
+        [
+          "face-side",
+          "Gesicht Profil"
+        ],
+        [
+          "full-front",
+          "Ganzkörper frontal"
+        ],
+        [
+          "full-34",
+          "Ganzkörper ¾"
+        ],
+        [
+          "full-side",
+          "Ganzkörper Profil"
+        ],
+        [
+          "full-side2",
+          "Ganzkörper Profil 2"
+        ],
+        [
+          "full-back",
+          "Rücken"
+        ],
+        [
+          "full-sheet",
+          "Full Sheet"
+        ]
+      ]
     },
     {
       "id": "mother_solvent",
@@ -468,6 +581,10 @@
         {
           "figur": "triage",
           "text": "Triage sortiert, wer zuerst drankommt. Er geht nicht zu ihr, auch wenn er blutet. Er will nicht wieder hinten landen."
+        },
+        {
+          "figur": "zefyr",
+          "text": "Nimmt das „Majestät, boet“ an und zählt Zefyr in seine Liste, als Wagenlenker."
         }
       ],
       "sidequests": [
