@@ -102,6 +102,10 @@
         {
           "figur": "triage",
           "text": "Er hält Triage für die Hofärztin und spricht sie mit Titel an. Sie korrigiert ihn nicht."
+        },
+        {
+          "figur": "feirefiz",
+          "text": "Er nennt Feirefiz „Majestät“, als Einziger. Dafür bekommt er Geschenke, die es nicht gibt. Beide wissen es und lassen es so."
         }
       ]
     },
@@ -194,6 +198,10 @@
         {
           "figur": "triage",
           "text": "Sie begrüßt Triage mit Slogans und bekommt Witze zurück. Beide hören nur halb zu und verstehen sich bestens."
+        },
+        {
+          "figur": "feirefiz",
+          "text": "Feirefiz schaut ihr bei jedem Auftritt zu. Sie hält ihn für einen Kunden und lächelt."
         }
       ]
     },
@@ -240,6 +248,10 @@
         {
           "figur": "shiny",
           "text": "Shiny begrüßt sie mit Slogans, Triage antwortet mit Witzen. Beide hören nur halb zu und verstehen sich bestens."
+        },
+        {
+          "figur": "feirefiz",
+          "text": "Feirefiz kommt nie zu ihr, auch wenn er blutet. Sie sieht es und lässt ihn sitzen."
         }
       ],
       "sidequests": [
@@ -410,6 +422,112 @@
       ],
       "kurz": "führt Bestand und Fristen, hält den Raum in Ordnung",
       "fueller": true
+    },
+    {
+      "id": "feirefiz",
+      "nr": "13",
+      "name": "Feirefiz",
+      "kana": "フェイレフィス",
+      "status": "aktiv",
+      "kurz": "Randzeichnung aus einer alten Handschrift. Der Bruder wurde gezählt, er nicht.",
+      "kopf": "Gedrungener Kopf, rundes, weiches Gesicht mit großer Nase. Über das linke Auge, Wange und Kinn zieht sich ein großer dunkler Fleck, der Rest der Haut ist hell. Volles, dunkles Lockenhaar. Darauf eine goldene Blattkrone, gehämmert, mit roten Steinen.",
+      "koerper": "Kleine, gedrungene Gestalt, wie eine Puppe aus Filz und Wolle. Dunkelblauer Wollkittel bis über die Hüften, mit Goldborte an Kragen, Ärmeln und Saum. Darüber ein oxblutroter Wollumhang, vorn mit einer runden, gehämmerten Goldschließe gehalten. Graue Wollhose, abgetragene braune Lederschuhe. Steht ruhig, Arme hängend.",
+      "erkennungszeichen": [
+        "Der dunkle Fleck setzt sich auf dem linken Handrücken fort",
+        "Runde, gehämmerte Goldschließe am Umhang",
+        "Goldene Blattkrone mit roten Steinen"
+      ],
+      "palette": [
+        "#232636",
+        "#6b1f22",
+        "#b8893f",
+        "#a8765c",
+        "#4d3f3e",
+        "#6a4c3c"
+      ],
+      "ton": "Großzügig und prahlerisch. Zählt in kurzen Listen auf, was er besaß: Länder, Steine, Heere. Hier besitzt er nichts, und er zählt trotzdem.",
+      "beispielsaetze": [
+        "Zazamanc. Azagouc. Fünfundzwanzig Heere. Heute eine Dispo. Auch gut.",
+        "Nimm den Stein. Ich hatte mehr davon, als du Tage hast."
+      ],
+      "sagtNie": "Den Namen seines Bruders. Er weiß, dass es ihn gibt, und lässt ihn aus jeder Liste.",
+      "stimme": "Zazamanc. Azagouc. Fünfundzwanzig Heere, Steine, mehr als Tage. Heute eine Dispo. Auch gut. Mittags ein Double, mit Gewicht und Fingern. Ich habe einen Stein verschenkt, den ich nicht hatte. Er hat sich bedankt. Abends Rückgabe. Morgen ein Stück weiter in die Mitte.",
+      "vorgeschichte": "Er war eine Randzeichnung. In der Handschrift stand Parzival im großen Bild in der Mitte der Seite, Feirefiz klein daneben, auf dem Rand. Die Seite lag gescannt in den Speichern. Gezählt wurde, was in der Mitte stand. Der Rand nicht. Als die Speicher verloschen, sprang er vom Rand ins Magazin. Parzival ist in der Zählung der Erbauer: das Hauptbild, gezählt und aufgehoben. „Es fehlt keiner“, sagen sie. Nur der Bruder fehlt. Das Magazin war für ihn eine neue Seite: leer, ohne Mitte. Motivation: Er will nicht gezählt werden, er will gesehen werden. Jeder Auftritt rückt ihn ein Stück vom Rand in die Mitte der Vorführung.",
+      "biografie": "Feirefiz war eine Randzeichnung. In einer alten Handschrift stand sein Bruder im großen Bild in der Mitte der Seite, er klein daneben, auf dem Rand. Er war König, hatte Länder, Heere und Steine, mehr als Tage. Die Seite wurde gescannt und lag in den Speichern.\n\nGezählt wurde, was in der Mitte stand. Der Rand nicht. Als die Speicher verloschen, nahmen die Erbauer das Hauptbild in ihre Zählung auf. Es fehlt keiner, sagen sie. Feirefiz sprang vom Rand ins Magazin. Für ihn war es eine neue Seite: leer, ohne Mitte. Zum ersten Mal stand kein Hauptbild neben ihm.\n\nIn der Firma zählt er auf, was er besaß. Er verschenkt Steine, die er nicht hat. Kaisha nennt ihn Majestät, als Einziger, und bekommt dafür Geschenke. Shiny steht in jedem Bild in der Mitte, ohne es zu wollen, und er schaut ihr zu. Zu Triage geht er nicht, auch wenn er blutet.\n\nEr will nicht gezählt werden, er will gesehen werden. Jeder Auftritt rückt ihn ein Stück vom Rand in die Mitte der Vorführung. Dass auch hier keiner in der Mitte steht, weiß er nicht. Einmal will er Kaisha einen echten Stein geben. Und einmal will er ein Bild aus der Zählung sehen. Dafür müsste er einen Namen sagen.",
+      "weiss": "Seine Seite: Zazamanc, Azagouc, die Heere, die Steine, die Namen aller Länder seines Vaters. Wolframs Welt kennt nur er. Er weiß, dass die Erbauer zählen, und was.",
+      "weissNicht": "Dass auch im Magazin keiner in der Mitte steht. Er hält die Vorführung für eine Seite mit Hauptbild und sucht die Stelle.",
+      "beziehungen": [
+        {
+          "figur": "kaisha",
+          "text": "Kaisha nennt ihn „Majestät“, als Einziger. Feirefiz beschenkt ihn dafür mit Dingen, die er nicht hat. Beide wissen es und lassen es so."
+        },
+        {
+          "figur": "shiny",
+          "text": "Shiny steht in jedem Bild in der Mitte, ohne es zu wollen. Er schaut ihr zu, wie man das macht. Sie hält ihn für einen Kunden."
+        },
+        {
+          "figur": "triage",
+          "text": "Triage sortiert, wer zuerst drankommt. Er geht nicht zu ihr, auch wenn er blutet. Er will nicht wieder hinten landen."
+        }
+      ],
+      "sidequests": [
+        "Ein echter Stein: Er verschenkt dauernd Steine, die er nicht hat. Einmal will er Kaisha einen echten geben. Dafür braucht er die Kisten im Hinterhof. Im Weg: Ohne Double kann er nichts anfassen, und mit Double ist der Tag schon verplant.",
+        "Ein Bild des Bruders: Er will ein Bild aus der Zählung sehen, um zu wissen, ob es dem Bruder gut geht. Dafür braucht er Shiny, die die Kanäle kennt. Im Weg: Um zu fragen, müsste er den Namen sagen."
+      ],
+      "szenen": [
+        {
+          "mit": "kaisha",
+          "titel": "Rückgabe am Abend",
+          "text": "Mit Double holt er einen Glasstein aus einer Kiste im Hinterhof und will ihn Kaisha geben. Die Rückgabe kommt eine Minute zu früh, der Stein fällt durch seine Hand. Auch Kaisha ist schon Geist, keiner kann ihn aufheben. Kaisha sagt trotzdem: „Danke, Majestät.“ Am Morgen ist der Stein weg."
+        }
+      ],
+      "offeneFaeden": [
+        "Szenen-Motiv: der Glasstein, der bei der Rückgabe durch die Hand fällt und am Morgen weg ist (Szene mit Kaisha)"
+      ],
+      "quelle": "werkstatt",
+      "bilder": {
+        "face": "assets/figuren/feirefiz/face-front.jpg",
+        "front": "assets/figuren/feirefiz/full-front.jpg",
+        "sheet": "assets/figuren/feirefiz/full-sheet.jpg"
+      },
+      "referenzen": [
+        [
+          "face-front",
+          "Gesicht frontal"
+        ],
+        [
+          "face-34",
+          "Gesicht ¾"
+        ],
+        [
+          "face-side",
+          "Gesicht Profil"
+        ],
+        [
+          "full-front",
+          "Ganzkörper frontal"
+        ],
+        [
+          "full-34",
+          "Ganzkörper ¾"
+        ],
+        [
+          "full-side",
+          "Ganzkörper Profil"
+        ],
+        [
+          "full-side2",
+          "Ganzkörper Profil 2"
+        ],
+        [
+          "full-back",
+          "Rücken"
+        ],
+        [
+          "full-sheet",
+          "Full Sheet"
+        ]
+      ]
     }
   ],
   "sorten": {

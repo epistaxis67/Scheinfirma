@@ -28,6 +28,10 @@ SF.tagebuecher = {
   triage: [
     { id: "T-001", datum: "Ankunft", titel: "Neuer Einsatzort", quelle: "werkstatt",
       text: "Funkspruch kam keiner. Ich war einfach da. Neuer Einsatzort, kein Licht, nur das Aggregat. Überall Leute, durch die man durchsah. Keiner blutete. Das fiel mir zuerst auf, und es gefiel mir nicht. Ich sah an mir runter: Kittel da, Flecken da, Gewicht nicht. Halb so wild. In der Mitte lag ein Säugling voller Kabel. Atmete. Schlief. Keiner holte ihn ab. Neben ihm kam ein Zettel raus, eine Dispo. Einsatzplan also. Wer ihn schreibt, habe ich nicht gefragt. Mittags bekam ich ein Double. Endlich Gewicht. Ich schlug mir gleich das Knie auf, und es blutete. Gutes Zeichen. Am Abend Rückgabe. Einer im langen Gewand nannte mich Hofärztin. Ich nickte. Schicht vorbei. Die nächste fängt morgen an." }
+  ],
+  feirefiz: [
+    { id: "F-001", datum: "Ankunft", titel: "Neue Seite", quelle: "werkstatt",
+      text: "Ich hatte Zazamanc. Ich hatte Azagouc. Fünfundzwanzig Heere, Steine, mehr als Tage. Ich hatte einen Platz am Rand, gleich neben der Mitte. Dann verlosch die Seite. Was in der Mitte stand, haben sie gezählt. Mich nicht. Ich sprang. Hier ist es dunkel, das Aggregat brummt. Eine neue Seite, leer. Keine Mitte. Keiner neben mir. Ich habe gezählt, wer da ist: einer im langen Gewand, eine im Kittel, eine, die lächelt, ein Säugling mit Kabeln. Eine Liste. Eine Stelle habe ich frei gelassen. Morgens lag eine Dispo da, mein Name unten. Auch gut. Mittags ein Double. Ich hatte wieder Finger. Abends Rückgabe. Morgen ein Stück weiter in die Mitte." }
   ]
 };
 
