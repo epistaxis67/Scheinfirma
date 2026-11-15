@@ -13,6 +13,7 @@ Backend: Higgsfield-Workflow, Character Sheets, Worldbook, Aufgaben (mit der Pup
 | Manifest, Werke | `data/werke.js` | Manifest (aus `../Manifest/scheinfirma-manifest.md`), Werkverzeichnis |
 | Worldbook | `data/weltbuch.json` | Lore, mit Herkunft je Eintrag (Deck, Manifest, Sheet, Vorschlag, Eingereicht) |
 | Core Log, Ghost Logs | `data/chronik.js` | Prolog und Chronik der Firma, Ghost Log je Figur |
+| AGORA-Gästeliste | `data/agora.json` | Namen für das Kunstgespräch AGORA, dazu Gästezahl und Dauer (Backend, Tab 10) |
 | Aufgaben | `data/aufgaben.js` | allgemein und für Chance², im Backend Figuren zuteilbar |
 
 Ein Feld mit `null` erscheint auf der Seite als **DATEN AUSSTEHEND**.
@@ -55,3 +56,8 @@ JetBrains Mono, Space Grotesk und Spectral liegen in `assets/fonts/` (SIL Open F
 ## Werkstatt (Backend, Tab 08) und /figur
 
 Geführte Figuren-Erstellung ohne API-Kosten: Das Gespräch läuft in Claude Code mit dem Befehl `/figur` (Anleitung: `../.claude/skills/figur/SKILL.md`). Claude schreibt nach jeder Runde `data/werkstatt/sitzung.json`; der Tab „Werkstatt“ liest die Datei alle 2 Sekunden und zeigt Frage, Widersprüche, Protokoll und das Character Sheet. Die Sitzungsdatei ist per `.git/info/exclude` vom Repo ausgenommen, öffentlich bleibt der Tab leer. Protokolle je Figur: `../worldbook/protokolle/<id>.md`.
+
+## AGORA (Backend, Tab 10)
+
+Logo-Animationen für AGORA · Das Kunstgespräch (Überlauf, Explosion, 30 Sekunden, Gedränge, Stuhlkreis) mit Gästeliste, Redezeit-Rechner und Video-Export. Die feste Liste steht in `data/agora.json`; neue oder entfernte Namen bleiben zuerst im Browser. „agora.json herunterladen“, die Datei in `data/` ersetzen, committen und pushen, dann gilt die Liste für alle.
+`backend/agora.html` wird erzeugt: Vorlage und `build.py` liegen in `../Bilder/Logos/Agora/animation/` (`python3 build.py`).

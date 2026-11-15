@@ -42,6 +42,11 @@
     SF.sound.tick();
   }
   window.addEventListener("hashchange", go);
+  // Der AGORA-Rahmen meldet seine Höhe
+  window.addEventListener("message", (e) => {
+    const h = e.data && e.data.agoraH, f = document.querySelector(".agora-frame");
+    if (f && typeof h === "number" && e.source === f.contentWindow) f.style.height = Math.min(4000, Math.ceil(h)) + 2 + "px";
+  });
 
   // Sound-Schalter in der Kopfzeile
   $("#snd").addEventListener("click", () => {
@@ -178,10 +183,10 @@
 
   // ═════════════ BACKEND ═════════════
 
-  const TABS = [["workflow", "01 · Higgsfield-Workflow"], ["sheets", "02 · Character Sheets"], ["worldbook", "03 · Worldbook"], ["aufgaben", "04 · Aufgaben"], ["logo", "05 · Logo-Motion"], ["tool", "06 · Logo-Tool"], ["baukasten", "07 · Baukasten"], ["werkstatt", "08 · Werkstatt"], ["eingang", "09 · Eingang"]];
+  const TABS = [["workflow", "01 · Higgsfield-Workflow"], ["sheets", "02 · Character Sheets"], ["worldbook", "03 · Worldbook"], ["aufgaben", "04 · Aufgaben"], ["logo", "05 · Logo-Motion"], ["tool", "06 · Logo-Tool"], ["baukasten", "07 · Baukasten"], ["werkstatt", "08 · Werkstatt"], ["eingang", "09 · Eingang"], ["agora", "10 · Agora"]];
   function backend(tab) {
     tab = TABS.some((t) => t[0] === tab) ? tab : "workflow";
-    const body = { workflow: bWorkflow, sheets: bSheets, worldbook: bWorldbook, aufgaben: bAufgaben, logo: bLogo, tool: bTool, baukasten: () => SF.einreichen.view(), werkstatt: () => SF.werkstatt.view(), eingang: () => SF.einreichen.eingang() }[tab]();
+    const body = { workflow: bWorkflow, sheets: bSheets, worldbook: bWorldbook, aufgaben: bAufgaben, logo: bLogo, tool: bTool, baukasten: () => SF.einreichen.view(), werkstatt: () => SF.werkstatt.view(), eingang: () => SF.einreichen.eingang(), agora: bAgora }[tab]();
     return `<div class="backend">
       <p class="kick"><span class="blue">▚▚ BACKEND</span></p>
       <h1>Backend</h1>
@@ -371,6 +376,11 @@ Halbtotale, Handkamera, leichte Unschärfe im Vordergrund.</pre>
     return `
     <p class="lead">Entwürfe: Wie das Logo einen Clip eröffnet und beendet. Fünf Varianten laufen synchron, umschaltbar zwischen 9:16 (Reels) und 16:9. „DEIN CLIP“ ist ein Platzhalter.</p>
     <iframe class="logo-frame" src="backend/logo-varianten.html?embed&v=12" title="Logo-Varianten"></iframe>`;
+  }
+  function bAgora() {
+    return `
+    <p class="lead">AGORA · Das Kunstgespräch: so viele Gäste, dass jede Person nur noch Sekunden Redezeit hat. Fünf Logo-Animationen mit der offenen Gästeliste, dazu Redezeit-Rechner und Video-Export. Neue Namen bleiben zuerst in diesem Browser; für alle gilt, was in <code>data/agora.json</code> steht.</p>
+    <iframe class="logo-frame agora-frame" src="backend/agora.html?v=1" title="AGORA · Das Kunstgespräch"></iframe>`;
   }
   function bTool() {
     const url = new URL("logo-tool.html", location.href).href;

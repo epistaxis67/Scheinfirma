@@ -1,0 +1,635 @@
+<!doctype html><html lang='de'><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><script>window.AGORA_BACKEND = true;</script></head><body style='margin:0'><title>AGORA · Backend</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="../assets/fonts/fonts.css">
+<style>
+  /* Layout: Bühne (16:9) links, Gästeliste rechts; am Handy untereinander. Bewusst nur dunkel, wie die Scheinfirma-Seiten. */
+  :root {
+    --bg: #07070a; --panel: #111118; --line: #26263a; --txt: #e8e6ef; --dim: #8a879a; --red: #ff3b30;
+    --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+    --display: "Jost", Futura, "Futura PT", "Century Gothic", sans-serif;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body { background: var(--bg); color: var(--txt); font: 14px/1.5 var(--mono); }
+  main { max-width: 1280px; margin: 0 auto; padding-block: 28px 60px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+  h1 { font-size: 18px; letter-spacing: .2em; margin: 0 0 4px; font-weight: 600; }
+  h1 span { color: var(--red); }
+  .sub { color: var(--dim); font-size: 12px; margin: 0 0 22px; max-width: 70ch; }
+  .grid { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 24px; align-items: start; }
+  @media (max-width: 900px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+  .tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+  button, input { font: inherit; font-size: 13px; color: var(--txt); }
+  .tab, .ctl { background: var(--panel); border: 1px solid var(--line); padding: 8px 12px; letter-spacing: .08em; cursor: pointer; }
+  .tab[aria-selected="true"] { border-color: var(--red); background: var(--red); color: #fff; }
+  .tab:hover, .ctl:hover { border-color: var(--dim); }
+  button:focus-visible, input:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+  .stage { position: relative; background: #000; border: 1px solid var(--line); }
+  canvas { display: block; width: 100%; height: auto; max-height: 75vh; object-fit: contain; }
+  .export { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line); }
+  .export select { font: inherit; font-size: 13px; color: var(--txt); background: var(--panel); border: 1px solid var(--line); padding: 8px 10px; }
+  .rec { background: var(--red); border: 1px solid var(--red); color: #fff; padding: 8px 14px; letter-spacing: .08em; cursor: pointer; font: inherit; font-size: 13px; }
+  .rec:disabled, .ctl:disabled, .tab:disabled, .export select:disabled { opacity: .4; cursor: default; }
+  .recmsg { color: var(--dim); font-size: 12px; flex: 1 1 220px; margin: 0; font-variant-numeric: tabular-nums; }
+  .recmsg.err { color: var(--red); }
+  .under { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; margin-top: 10px; }
+  .desc { color: var(--dim); font-size: 12px; margin: 0; min-width: 0; flex: 1 1 260px; }
+  .ctls { display: flex; gap: 6px; }
+  aside { background: var(--panel); border: 1px solid var(--line); padding: 18px; display: grid; gap: 16px; min-width: 0; }
+  h2 { font-size: 13px; letter-spacing: .2em; margin: 0; font-weight: 600; }
+  .big { font-family: var(--display); font-weight: 800; font-size: 44px; line-height: 1; letter-spacing: -.01em; }
+  .big small { font-family: var(--mono); font-size: 12px; font-weight: 400; color: var(--dim); letter-spacing: .08em; margin-left: 6px; }
+  .label { color: var(--dim); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; display: block; margin-bottom: 6px; }
+  .row { display: flex; gap: 8px; align-items: center; }
+  input[type=text], input[type=number] { background: var(--bg); border: 1px solid var(--line); padding: 9px 10px; min-width: 0; flex: 1; }
+  input[type=number] { flex: 0 0 90px; }
+  input[type=range] { width: 100%; accent-color: var(--red); }
+  .add { background: var(--red); border: 1px solid var(--red); color: #fff; padding: 9px 14px; cursor: pointer; letter-spacing: .08em; }
+  .add:disabled { opacity: .4; cursor: default; }
+  .hint { color: var(--dim); font-size: 12px; margin: 0; }
+  .hint.err { color: var(--red); }
+  .math { font-size: 12px; color: var(--dim); font-variant-numeric: tabular-nums; }
+  .math b { color: var(--txt); font-weight: 600; }
+  ul.names { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; max-height: 320px; overflow: auto; }
+  ul.names li { display: inline-flex; align-items: center; gap: 4px; border: 1px solid var(--line); background: var(--bg); padding: 3px 4px 3px 9px; font-size: 12px; max-width: 100%; }
+  ul.names li span { overflow-wrap: anywhere; }
+  ul.names button { background: none; border: 0; color: var(--dim); cursor: pointer; padding: 0 5px; font-size: 14px; line-height: 1; }
+  ul.names button:hover { color: var(--red); }
+  .empty { color: var(--dim); font-size: 12px; border: 1px dashed var(--line); padding: 12px; margin: 0; }
+  .filebox { display: grid; gap: 10px; border-top: 1px solid var(--line); padding-top: 14px; }
+  hr { border: 0; border-top: 1px solid var(--line); margin: 0; }
+</style>
+
+<main>
+  <h1>AGORA <span>//</span> DAS KUNSTGESPRÄCH</h1>
+  <p class="sub">Logo-Animationen für ein Kunstgespräch mit so vielen Gästen, dass am Ende jede Person nur noch Sekunden Redezeit hat. Fünf Varianten, wie das Logo unter den Namen überläuft. Die Gästeliste ist offen: Jede eingetragene Person erscheint sofort in allen Varianten, der Rest wird mit N.&nbsp;N. aufgefüllt.</p>
+
+  <div class="grid">
+    <section aria-label="Animation">
+      <div class="tabs" role="tablist" id="tabs"></div>
+      <div class="stage"><canvas id="cv" aria-label="AGORA-Logo-Animation"></canvas></div>
+      <div class="under">
+        <p class="desc" id="desc"></p>
+        <div class="ctls">
+          <button class="ctl" id="play" type="button">PAUSE</button>
+          <button class="ctl" id="restart" type="button">NEU STARTEN</button>
+        </div>
+      </div>
+      <div class="export">
+        <label class="label" for="format" style="margin:0">Video</label>
+        <select id="format">
+          <option value="quer">Querformat 1920 × 1080</option>
+          <option value="hoch">Hochformat 1080 × 1920</option>
+          <option value="quadrat">Quadrat 1080 × 1080</option>
+        </select>
+        <button class="rec" id="rec" type="button">● AUFNEHMEN</button>
+        <button class="ctl" id="saveAgain" type="button" hidden>ERNEUT SPEICHERN</button>
+        <p class="recmsg" id="recmsg">Nimmt einen ganzen Durchlauf der gewählten Variante mit der aktuellen Gästeliste auf. Den Tab dabei offen lassen.</p>
+      </div>
+    </section>
+
+    <aside aria-label="Gästeliste">
+      <div>
+        <span class="label">Redezeit pro Person</span>
+        <div class="big" id="perPerson">30<small>SEK.</small></div>
+        <p class="math" id="math"></p>
+      </div>
+      <div>
+        <label class="label" for="gesamt">Gäste insgesamt</label>
+        <input type="range" id="gesamt" min="1" max="2000" step="1" value="240">
+      </div>
+      <div class="row">
+        <label class="label" for="dauer" style="margin:0;flex:1">Dauer in Minuten</label>
+        <input type="number" id="dauer" min="5" max="1440" step="5" value="120">
+      </div>
+      <hr>
+      <h2>GÄSTELISTE <span id="count" class="math"></span></h2>
+      <form id="addForm" class="row" autocomplete="off">
+        <input type="text" id="gast-name" maxlength="80" placeholder="Name eintragen" aria-label="Name eines Gastes">
+        <button class="add" id="addBtn" type="submit">+ EINLADEN</button>
+      </form>
+      <p class="hint" id="status">Liste wird geladen …</p>
+      <ul class="names" id="names"></ul>
+      <p class="empty" id="empty" hidden>Noch niemand eingetragen. Trag den ersten Gast ein. Bis dahin stehen alle Plätze als N.&nbsp;N. in der Animation.</p>
+      <div class="filebox" id="filebox" hidden>
+        <p class="hint" id="fileinfo"></p>
+        <div class="row" style="flex-wrap:wrap">
+          <button class="ctl" id="dlJson" type="button">AGORA.JSON HERUNTERLADEN</button>
+          <button class="ctl" id="resetLocal" type="button" hidden>ÄNDERUNGEN VERWERFEN</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<script>
+(() => {
+  const LOGO_D = "M6386 17119 c-9 -26 -26 -333 -26 -454 0 -66 -4 -185 -10 -265 -5 -80 -14 -237 -20 -350 -18 -363 -64 -1087 -100 -1600 -12 -162 -26 -367 -31 -455 -5 -88 -21 -315 -36 -505 -14 -190 -29 -417 -33 -505 -7 -173 -12 -190 -67 -238 -67 -59 -129 -167 -161 -282 -169 -602 -257 -788 -635 -1355 -287 -429 -533 -738 -851 -1067 -95 -99 -107 -106 -130 -70 -29 44 -161 628 -181 797 -4 30 -13 84 -21 120 -8 36 -33 195 -55 355 -41 303 -63 426 -106 585 -38 145 -46 138 -39 -35 3 -82 11 -400 16 -705 5 -305 14 -625 20 -710 9 -146 13 -196 40 -480 34 -365 37 -326 -31 -425 -210 -312 -281 -522 -282 -840 -1 -187 6 -239 74 -530 89 -379 115 -540 129 -810 33 -580 71 -773 238 -1190 95 -236 149 -385 248 -681 207 -619 299 -779 677 -1178 l142 -149 7 -171 c4 -94 15 -389 23 -656 9 -267 20 -546 26 -620 5 -74 13 -314 17 -533 6 -270 12 -401 19 -408 14 -14 30 38 38 126 3 33 12 116 20 185 8 69 20 179 25 245 6 66 15 163 20 215 5 52 14 149 20 215 27 300 106 951 122 1003 6 19 16 32 26 32 38 0 317 -311 551 -615 70 -91 158 -184 235 -248 239 -201 556 -222 825 -57 50 31 90 39 92 18 1 -7 0 -248 -1 -534 -1 -359 1 -524 8 -528 11 -6 14 3 45 124 20 78 61 325 78 470 12 108 92 514 129 655 102 390 93 334 106 642 8 190 -2 297 -52 592 -53 309 -64 415 -64 635 0 189 6 264 45 566 27 211 46 423 55 635 5 116 16 336 25 490 44 818 30 1095 -74 1420 -61 192 -173 501 -187 515 -12 13 -77 16 -402 22 -401 6 -662 21 -1107 64 -430 41 -463 42 -473 14 -15 -41 9 -130 128 -471 126 -360 164 -551 200 -994 24 -298 56 -542 75 -571 17 -26 33 -29 260 -49 254 -23 241 -13 269 -195 61 -387 27 -767 -89 -1005 -78 -161 -150 -221 -256 -213 -156 11 -270 176 -378 543 -11 39 -68 230 -125 425 -174 591 -191 675 -231 1150 -32 374 -62 526 -179 897 -151 480 -165 646 -80 903 83 248 233 439 759 964 402 401 523 496 631 496 188 0 133 -308 -130 -729 -153 -243 -153 -243 155 -106 504 225 1193 595 1355 729 46 38 52 54 69 210 46 413 23 851 -61 1149 -118 422 -422 782 -817 971 -114 54 -123 64 -132 146 -3 36 -10 90 -15 120 -5 30 -16 143 -25 250 -8 107 -20 220 -25 250 -5 30 -16 143 -25 250 -8 107 -20 220 -25 250 -5 30 -23 228 -40 440 -17 212 -35 408 -40 435 -5 28 -18 183 -30 345 -11 162 -43 592 -71 955 -27 363 -50 685 -50 715 0 59 -24 249 -33 258 -3 2 -8 -1 -10 -9z M9456 15013 c-23 -88 -57 -313 -62 -403 -7 -134 -169 -1645 -189 -1759 -8 -47 -24 -153 -35 -236 -34 -238 -60 -416 -71 -470 -18 -101 -39 -284 -33 -299 6 -16 25 -23 78 -28 55 -5 59 -31 21 -138 -42 -120 -136 -365 -260 -680 -115 -293 -222 -590 -300 -835 -31 -99 -79 -249 -106 -333 -213 -666 -232 -932 -104 -1464 149 -621 159 -860 65 -1581 -49 -383 -67 -864 -41 -1157 26 -301 30 -326 85 -563 53 -230 154 -487 334 -852 104 -210 355 -682 392 -735 9 -14 52 -83 95 -155 239 -400 456 -590 718 -629 205 -31 400 32 601 193 21 17 42 31 47 31 27 0 40 -112 68 -570 11 -171 30 -385 37 -409 13 -42 37 95 54 299 22 283 78 814 101 975 7 45 29 111 64 190 202 459 284 773 385 1495 59 418 147 715 348 1170 195 443 265 619 337 841 173 538 247 1097 201 1514 -33 290 -86 507 -241 990 -171 529 -217 685 -310 1050 -115 450 -124 486 -156 589 -31 102 -115 344 -163 470 -60 157 -197 418 -320 609 -160 250 -428 504 -629 596 -283 131 -568 112 -772 -53 -108 -86 -111 -83 -119 124 -12 306 -27 613 -51 1105 -13 275 -29 639 -33 808 -9 291 -19 372 -36 300z m810 -4691 c86 -62 173 -211 363 -617 351 -749 467 -1221 433 -1765 -36 -556 -131 -862 -490 -1574 -191 -378 -310 -650 -392 -896 -63 -190 -166 -330 -240 -330 -198 0 -329 403 -276 850 20 165 62 325 171 650 238 708 269 874 270 1435 0 412 -7 483 -95 1012 -71 434 -80 511 -80 700 1 218 36 380 103 480 59 86 158 109 233 55z M1333 14745 c-13 -46 -67 -367 -83 -495 -31 -246 -40 -317 -45 -340 -3 -14 -12 -104 -20 -200 -9 -96 -20 -200 -25 -230 -5 -30 -17 -131 -25 -225 -8 -93 -22 -219 -30 -280 -8 -60 -19 -153 -25 -205 -6 -52 -17 -144 -25 -205 -8 -60 -21 -162 -29 -225 -8 -63 -74 -455 -146 -870 -77 -440 -129 -765 -125 -780 19 -74 18 -81 -28 -178 -92 -196 -127 -414 -127 -796 0 -367 -24 -539 -140 -1026 -91 -379 -135 -618 -150 -825 -17 -239 -32 -406 -67 -720 -96 -862 -34 -1097 456 -1725 382 -489 483 -715 498 -1115 17 -466 -128 -919 -419 -1303 -166 -221 -170 -210 67 -195 90 6 176 8 190 5 48 -9 52 -32 59 -387 3 -181 17 -629 31 -995 13 -366 29 -788 34 -939 5 -150 13 -277 19 -283 20 -20 42 125 62 402 6 80 15 199 20 265 5 66 14 183 20 260 6 77 15 199 20 270 6 72 19 220 30 330 11 110 20 218 20 240 0 22 20 218 45 435 40 345 48 398 66 415 22 22 171 32 520 34 l175 1 31 33 c69 71 147 235 189 397 43 163 42 424 -1 671 -24 134 -16 140 167 147 141 5 165 -2 186 -55 55 -137 187 -800 232 -1163 12 -91 59 -294 82 -353 24 -62 31 -41 24 79 -5 65 -12 353 -16 639 -5 286 -14 589 -20 673 -6 85 -9 157 -5 160 16 16 45 -26 109 -154 201 -405 271 -668 238 -899 -17 -127 -17 -127 234 -100 329 34 699 65 856 72 207 8 203 5 195 114 -17 218 -136 451 -441 864 -316 428 -415 609 -630 1153 -132 333 -198 475 -370 794 -242 451 -311 645 -351 988 -9 73 -17 136 -20 140 -2 4 -13 95 -24 203 -11 108 -25 215 -30 239 -5 24 -17 81 -26 128 -9 47 -35 162 -57 255 -105 451 -124 599 -115 913 15 525 183 1160 420 1577 34 60 149 239 255 398 224 334 283 430 357 577 168 335 196 608 95 912 -46 139 -181 412 -215 434 -20 13 -41 13 -196 0 -223 -20 -480 -33 -795 -42 l-251 -6 -17 23 c-9 14 -16 44 -16 74 0 27 -5 84 -11 125 -5 41 -14 134 -20 205 -5 72 -14 184 -20 250 -10 128 -26 350 -59 820 -35 489 -39 525 -61 525 -18 0 -28 -83 -39 -310 -11 -233 -43 -755 -80 -1295 -11 -154 -29 -408 -39 -565 -11 -157 -25 -356 -32 -442 -11 -154 -11 -158 10 -184 12 -15 21 -33 21 -40 0 -28 -131 -177 -303 -346 -179 -176 -216 -202 -231 -163 -3 9 -3 233 0 498 4 324 1 707 -10 1167 -18 770 -20 1132 -7 1425 5 110 6 238 2 285 -7 85 -7 85 -18 45z m309 -5015 c8 -214 -9 -526 -47 -840 -52 -429 -56 -758 -15 -1105 21 -179 31 -297 55 -642 34 -479 54 -590 147 -811 45 -106 45 -122 3 -134 -50 -15 -408 -23 -432 -9 -27 14 -56 91 -85 223 -28 129 -30 495 -3 669 15 101 25 268 45 784 5 138 14 286 21 330 27 194 63 385 109 585 91 400 115 552 149 930 18 200 46 211 53 20z M14186 14483 c-43 -135 -71 -266 -116 -546 -27 -169 -56 -334 -64 -365 -8 -31 -20 -93 -27 -137 -21 -140 -120 -526 -176 -682 -23 -67 -21 -66 -615 -60 -440 5 -518 3 -529 -9 -9 -11 -7 -58 10 -211 11 -109 41 -450 66 -758 60 -752 62 -785 85 -1210 32 -592 47 -724 140 -1265 88 -515 110 -705 110 -970 0 -487 -123 -1204 -346 -2018 -245 -892 -259 -1071 -148 -1902 59 -443 79 -646 106 -1059 18 -276 26 -348 38 -364 24 -29 177 -36 752 -37 541 0 505 -6 494 83 -3 23 -13 166 -21 317 -30 524 -46 757 -75 1085 -72 792 -66 970 61 1780 103 663 113 677 123 175 13 -604 59 -1058 140 -1369 23 -88 225 -906 246 -1001 54 -231 69 -298 75 -330 3 -19 15 -73 26 -120 11 -47 27 -112 34 -145 62 -264 109 -443 122 -457 8 -9 31 -19 51 -23 53 -9 1232 -23 1262 -15 36 9 36 37 0 170 -17 63 -46 174 -65 245 -18 72 -38 146 -44 165 -6 19 -32 125 -57 235 -24 110 -51 220 -59 245 -8 25 -44 175 -81 335 -36 159 -68 293 -70 297 -3 5 -23 77 -44 161 -37 141 -56 213 -131 487 -27 98 -45 169 -119 475 -34 142 -96 435 -110 520 -5 33 -16 101 -25 150 -18 108 -27 166 -60 393 -28 197 -26 215 39 268 137 113 379 503 489 789 300 775 364 1487 220 2440 -141 940 -438 1638 -876 2062 -186 179 -475 315 -754 354 -47 7 -94 19 -105 29 l-20 16 22 264 c16 199 24 396 30 790 4 289 10 532 13 540 10 29 17 230 8 230 -5 0 -16 -21 -25 -47z m73 -4018 c290 -77 459 -414 502 -1001 23 -312 -3 -601 -73 -809 -112 -334 -250 -505 -408 -505 -76 0 -73 -16 -71 398 2 377 -2 475 -44 982 -30 361 -54 715 -57 834 -3 120 20 136 151 101z M17880 12690 c-140 -3 -263 -9 -272 -14 -10 -4 -22 -24 -27 -45 -10 -41 -88 -758 -126 -1171 -46 -489 -63 -687 -110 -1240 -22 -265 -144 -1373 -160 -1450 -7 -36 -16 -96 -20 -135 -4 -38 -13 -99 -20 -135 -7 -36 -16 -96 -20 -135 -8 -72 -31 -145 -46 -145 -21 0 -67 185 -84 340 -4 36 -13 97 -21 135 -8 39 -28 165 -45 280 -16 116 -32 217 -34 225 -2 8 -9 67 -15 130 -7 63 -16 133 -20 156 -5 22 -16 112 -25 200 -8 87 -20 182 -25 209 -5 28 -16 106 -24 175 -41 347 -110 741 -140 798 -20 38 -30 9 -23 -66 4 -31 11 -129 17 -217 6 -88 13 -167 16 -175 3 -8 10 -460 14 -1005 5 -544 13 -1046 19 -1115 6 -69 15 -199 21 -290 6 -91 15 -226 20 -300 5 -74 13 -193 16 -264 8 -156 14 -166 100 -166 78 0 94 -11 94 -63 0 -50 -27 -274 -34 -286 -3 -4 -19 -131 -36 -282 -17 -151 -37 -305 -45 -344 -7 -38 -23 -164 -34 -280 -12 -115 -37 -363 -56 -550 -20 -187 -35 -356 -35 -375 0 -19 -45 -431 -100 -915 -55 -484 -100 -902 -100 -930 0 -27 -7 -106 -15 -175 -13 -110 -13 -127 1 -147 l15 -23 622 2 622 3 11 25 c13 28 71 697 84 977 9 185 15 215 47 228 10 3 185 9 390 12 399 6 412 5 427 -44 3 -10 24 -270 46 -578 24 -313 47 -571 54 -585 l11 -25 167 -3 c141 -2 168 0 182 13 20 20 23 898 6 1740 -33 1652 -31 2099 10 2970 44 943 53 1989 25 3005 -8 294 -15 713 -15 930 0 376 -2 411 -34 735 -19 187 -38 348 -41 357 -4 10 -23 22 -43 28 -39 10 -729 11 -1192 0z m504 -2792 c12 -55 45 -681 51 -978 3 -107 7 -253 10 -325 2 -71 7 -303 10 -515 11 -803 15 -1010 25 -1175 32 -560 34 -626 16 -643 -25 -26 -466 -32 -486 -7 -14 17 0 308 21 420 5 28 16 131 25 229 8 99 17 183 19 186 2 4 9 56 15 116 5 60 14 141 20 179 5 39 17 126 25 195 9 69 20 154 25 190 5 36 12 92 15 125 3 33 10 92 15 130 5 39 16 133 25 210 8 77 20 178 26 225 5 47 16 157 24 245 7 88 18 198 24 245 6 47 17 216 26 375 16 294 31 504 41 563 6 37 21 42 28 10z";
+  const LW = 1942, LH = 1733;
+  const logoPath = new Path2D(LOGO_D);
+  const C = { bg: "#000", txt: "#e8e6ef", dim: "#8a879a", nn: "#5d5a6c", line: "#26263a", red: "#ff3b30" };
+  const FONT = '"Jost", Futura, "Futura PT", "Century Gothic", sans-serif';
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // ---------- Zustand ----------
+  let names = [];           // [{id, name}]
+  let totalTarget = 240, minutes = 120, uiSaved = false;
+  const BACKEND = !!window.AGORA_BACKEND;   // im Scheinfirma-Backend: Liste aus data/agora.json + Browser
+  try { const s = JSON.parse(localStorage.getItem("agora-ui") || "{}"); if (s.g) { totalTarget = s.g; uiSaved = true; } if (s.m) minutes = s.m; } catch (e) {}
+  const total = () => Math.max(totalTarget, names.length, 1);
+  const perPerson = () => (minutes * 60) / total();
+
+  // ---------- Zufall ----------
+  function rng(seed) { return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  let R = rng(1);
+  const rr = (a, b) => a + (b - a) * R();
+
+  function makePool() {
+    const arr = names.map(n => ({ t: n.name, real: true }));
+    const fill = total() - arr.length;
+    for (let i = 0; i < fill; i++) arr.push({ t: "N. N.", real: false });
+    for (let i = arr.length - 1; i > 0; i--) { const j = Math.floor(R() * (i + 1)); [arr[i], arr[j]] = [arr[j], arr[i]]; }
+    return arr;
+  }
+
+  // ---------- Bühne ----------
+  const cv = document.getElementById("cv");
+  const ctx = cv.getContext("2d");
+  let W = 0, H = 0, dpr = 1, L = null, K = 1, pts = [];
+
+  let recSize = null;
+  function layout() {
+    if (recSize) { dpr = 1; [W, H] = recSize; }
+    else { const r = cv.parentElement.getBoundingClientRect(); dpr = Math.min(2, window.devicePixelRatio || 1); W = Math.max(280, r.width - 2); H = W * 9 / 16; }
+    K = Math.sqrt(W * H) / 675;
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    const h = Math.min(H * 0.56, W * 0.84 * LH / LW), w = h * LW / LH;
+    L = { x: (W - w) / 2, y: (H - h * (1 + SUB_GAP + SUB_H)) / 2, w, h, sub: true };
+    samplePoints();
+  }
+  function logoTransform(c, box) { c.translate(box.x, box.y + box.h); const s = box.h / LH; c.scale(s * 0.1, -s * 0.1); }
+  function drawLogo(c, box, color, alpha = 1) { c.save(); c.globalAlpha = alpha; logoTransform(c, box); c.fillStyle = color; c.fill(logoPath); c.restore(); if (box.sub) drawSub(c, box, color, alpha); }
+  // Untertitel wie „FIRMA“ beim Scheinfirma-Logo: breit gesperrt, über die volle Logobreite verteilt
+  const SUB = "DAS KUNSTGESPRÄCH", SUB_GAP = 0.03, SUB_H = 0.085;
+  function drawSub(c, box, color, alpha = 1) {
+    const fs = box.h * SUB_H; c.save(); c.globalAlpha = alpha; c.fillStyle = color;
+    c.font = `800 ${fs}px ${FONT}`; c.textAlign = "left"; c.textBaseline = "alphabetic";
+    const chars = [...SUB], ws = chars.map(ch => ch === " " ? fs * 0.35 : c.measureText(ch).width);
+    const gap = (box.w - ws.reduce((a, b) => a + b, 0)) / (chars.length - 1);
+    let x = box.x; const y = box.y + box.h * (1 + SUB_GAP) + fs * 0.86;
+    chars.forEach((ch, i) => { if (ch !== " ") c.fillText(ch, x, y); x += ws[i] + gap; });
+    c.restore();
+  }
+  function clipLogo(c, box) { logoTransform(c, box); c.clip(logoPath); c.setTransform(dpr, 0, 0, dpr, 0, 0); }
+  function samplePoints() {
+    const o = document.createElement("canvas"); o.width = 240; o.height = Math.round(240 * LH / LW);
+    const c = o.getContext("2d"); drawLogo(c, { x: 0, y: 0, w: o.width, h: o.height, sub: false }, "#fff");
+    const d = c.getImageData(0, 0, o.width, o.height).data; pts = [];
+    for (let y = 0; y < o.height; y += 2) for (let x = 0; x < o.width; x += 2) if (d[(y * o.width + x) * 4 + 3] > 128) pts.push([x / o.width, y / o.height]);
+  }
+  const pt = () => { const p = pts[Math.floor(R() * pts.length)]; return [L.x + p[0] * L.w, L.y + p[1] * L.h]; };
+  function offscreen() { const o = document.createElement("canvas"); o.width = cv.width; o.height = cv.height; const c = o.getContext("2d"); c.setTransform(dpr, 0, 0, dpr, 0, 0); return [o, c]; }
+  const font = (px, w = 500) => `${w} ${px}px ${FONT}`;
+
+  function tag(c, item, x, y, size, rot) {
+    c.save(); c.translate(x, y); c.rotate(rot);
+    c.font = font(size, item.real ? 800 : 500);
+    const tw = c.measureText(item.t).width, px = size * 0.45, h = size * 1.5;
+    c.fillStyle = "#000"; c.fillRect(0, 0, tw + px * 2, h);
+    c.lineWidth = Math.max(1, size / 14); c.strokeStyle = item.real ? C.red : C.line; c.strokeRect(0, 0, tw + px * 2, h);
+    c.fillStyle = item.real ? C.txt : C.dim; c.textAlign = "left"; c.textBaseline = "middle"; c.fillText(item.t, px, h / 2 + size * 0.05);
+    c.restore();
+    return [tw + px * 2, h];
+  }
+  function word(c, item, x, y, size, rot, alpha = 1, colReal = C.txt, colNN = C.dim) {
+    c.save(); c.globalAlpha = alpha; c.translate(x, y); c.rotate(rot);
+    c.font = font(size, item.real ? 800 : 500); c.fillStyle = item.real ? colReal : colNN;
+    c.textAlign = "center"; c.textBaseline = "middle"; c.fillText(item.t, 0, 0); c.restore();
+  }
+  const ease = s => s < 0 ? 0 : s > 1 ? 1 : s * s * (3 - 2 * s);
+
+  // ---------- Varianten ----------
+  const V = {};
+
+  V.flut = {
+    label: "ÜBERLAUF", desc: "Namensschilder regnen auf die Bühne und stapeln sich, bis das Logo darunter verschwindet. Je mehr Gäste, desto schneller ist es zugeschüttet.",
+    init() {
+      this.pool = makePool(); this.i = 0; this.acc = 0; this.fall = []; this.done = -1;
+      [this.pile, this.pc] = offscreen();
+      this.bin = 6; this.h = new Float32Array(Math.ceil(W / this.bin) + 1);
+    },
+    step(t, dt) {
+      const rate = Math.min(420, 8 * Math.exp(0.62 * t)) * Math.max(0.6, K);
+      if (this.done < 0) { this.acc += rate * dt; while (this.acc >= 1) { this.acc--; this.spawn(); } }
+      ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
+      drawLogo(ctx, L, C.txt);
+      ctx.drawImage(this.pile, 0, 0, W, H);
+      for (const f of this.fall) {
+        if (!f.rest) {
+          f.vy += 900 * K * dt; f.y += f.vy * dt;
+          const b0 = Math.max(0, Math.floor(f.x / this.bin)), b1 = Math.min(this.h.length - 1, Math.ceil((f.x + f.w) / this.bin));
+          let top = 0; for (let b = b0; b <= b1; b++) top = Math.max(top, this.h[b]);
+          const floor = H - top;
+          if (f.y + f.hh >= floor) {
+            f.y = floor - f.hh; f.rest = true;
+            tag(this.pc, f.item, f.x, f.y, f.size, f.rot);
+            for (let b = b0; b <= b1; b++) this.h[b] = Math.max(this.h[b], H - f.y - f.hh * 0.25);
+          }
+        }
+        if (!f.rest) tag(ctx, f.item, f.x, f.y, f.size, f.rot);
+      }
+      this.fall = this.fall.filter(f => !f.rest);
+      let mn = Infinity; for (const v of this.h) mn = Math.min(mn, v);
+      if (this.done < 0 && (mn > H * 1.02 || t > 22)) this.done = t;
+      return this.done > 0 && t > this.done + 2.2;
+    },
+    spawn() {
+      const item = this.pool[this.i++ % this.pool.length];
+      const size = rr(11, item.real ? 30 : 24) * K; ctx.font = font(size, item.real ? 800 : 500);
+      const w = ctx.measureText(item.t).width + size * 0.9;
+      this.fall.push({ item, size, w, hh: size * 1.5, x: rr(-w * 0.3, W - w * 0.7), y: -size * 2, vy: rr(80, 260) * K, rot: rr(-0.08, 0.08), rest: false });
+    }
+  };
+
+  V.explosion = {
+    label: "EXPLOSION", desc: "Das Logo hält den Druck nicht aus: Es zittert, platzt und schleudert alle Namen über die Bühne. Danach sammeln sie sich wieder zum Logo.",
+    init() {
+      const pool = makePool(); const n = Math.min(900, Math.max(160, pool.length));
+      const cx = L.x + L.w / 2, cy = L.y + L.h / 2;
+      this.p = [];
+      for (let i = 0; i < n; i++) {
+        const item = pool[i % pool.length]; const [hx, hy] = pt();
+        const a = Math.atan2(hy - cy, hx - cx) + rr(-0.5, 0.5), sp = rr(150, 1100) * K;
+        this.p.push({ item, hx, hy, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - rr(0, 200) * K, size: rr(8, item.real ? 30 : 20) * K, rot: rr(-0.3, 0.3), vr: rr(-4, 4) });
+      }
+    },
+    pos(p, tau) { const k = 1.7, f = (1 - Math.exp(-k * tau)) / k; return [p.hx + p.vx * f, p.hy + p.vy * f + 40 * K * tau * tau * 0.5, p.rot + p.vr * f]; },
+    step(t) {
+      const B = 3.2, RET = 7.6, END = 10.4;
+      ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
+      if (t < B) {
+        const s = Math.pow(t / B, 3), j = s * 9 * K;
+        const box = { ...L, x: L.x + rr(-j, j), y: L.y + rr(-j, j) };
+        const sc = 1 + 0.025 * s * Math.sin(t * 40);
+        box.x -= (sc - 1) * L.w / 2; box.w *= sc; box.h *= sc; box.y -= (sc - 1) * L.h / 2;
+        drawLogo(ctx, box, s > 0.6 && Math.sin(t * 50) > 0 ? C.red : C.txt);
+        // Namen drücken von innen gegen die Kanten
+        const m = Math.floor(s * 60);
+        ctx.save(); clipLogo(ctx, box);
+        for (let i = 0; i < m; i++) { const p = this.p[i]; word(ctx, p.item, p.hx, p.hy, p.size * 0.6, p.rot, 1, "#000", "#000"); }
+        ctx.restore();
+      } else if (t < END) {
+        const tau = t - B;
+        const back = ease((t - RET) / (END - RET - 0.4));
+        if (tau < 0.7) drawLogo(ctx, { x: L.x - L.w * 0.25 * tau, y: L.y - L.h * 0.25 * tau, w: L.w * (1 + 0.5 * tau), h: L.h * (1 + 0.5 * tau) }, C.txt, 1 - tau / 0.7);
+        if (back > 0) drawLogo(ctx, L, C.txt, back * back);
+        for (const p of this.p) {
+          let [x, y, r] = this.pos(p, Math.min(tau, RET - B));
+          if (back > 0) { x += (p.hx - x) * back; y += (p.hy - y) * back; r *= 1 - back; }
+          word(ctx, p.item, x, y, p.size * (1 - 0.6 * back), r, 1 - back * back);
+        }
+        if (tau < 0.35) { ctx.fillStyle = `rgba(255,255,255,${(1 - tau / 0.35) * 0.9})`; ctx.fillRect(0, 0, W, H); }
+      } else drawLogo(ctx, L, C.txt);
+      return t > END + 1.2;
+    }
+  };
+
+  V.redezeit = {
+    label: "30 SEKUNDEN", desc: "Alle kommen dran, nacheinander. Jeder Name bekommt seinen Slot mit Countdown, und die Slots werden immer kürzer, bis die Namen nur noch flackern. Die Uhr zeigt, wie lang der Abend wirklich wäre.",
+    init() {
+      this.pool = makePool(); this.cum = [0]; let s = 0;
+      for (let i = 0; i < this.pool.length; i++) { s += Math.max(0.03, 1.5 * Math.pow(0.86, i)); this.cum.push(s); }
+      this.end = s; this.wall = this.pool.map(() => [rr(0, W), rr(0, H), rr(7, 13) * K, rr(-0.15, 0.15)]);
+    },
+    step(t) {
+      ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
+      const n = this.pool.length, per = perPerson();
+      if (t < this.end) {
+        let i = 0, lo = 0, hi = n - 1; while (lo <= hi) { const m = (lo + hi) >> 1; if (this.cum[m] <= t) { i = m; lo = m + 1; } else hi = m - 1; }
+        const frac = (t - this.cum[i]) / (this.cum[i + 1] - this.cum[i]);
+        // Wand der schon Abgehakten
+        for (let k = Math.max(0, i - 400); k < i; k++) { const w = this.wall[k]; word(ctx, this.pool[k], w[0], w[1], w[2], w[3], 0.35, C.dim, C.nn); }
+        drawLogo(ctx, { x: 18 * K, y: 16 * K, w: H * 0.16 * LW / LH, h: H * 0.16 }, C.txt);
+        const item = this.pool[i];
+        let size = H * 0.13; ctx.font = font(size, 800);
+        const tw = ctx.measureText(item.t).width; if (tw > W * 0.86) size *= W * 0.86 / tw;
+        ctx.fillStyle = "#000"; ctx.fillRect(0, H * 0.36, W, H * 0.34);
+        word(ctx, item, W / 2, H * 0.47, size, 0, 1, C.txt, C.txt);
+        const bw = W * 0.5, bx = (W - bw) / 2, by = H * 0.6;
+        ctx.fillStyle = C.line; ctx.fillRect(bx, by, bw, 4 * K);
+        ctx.fillStyle = C.red; ctx.fillRect(bx, by, bw * (1 - frac), 4 * K);
+        const left = Math.ceil(per * (1 - frac));
+        ctx.font = `600 ${13 * K}px "JetBrains Mono", monospace`; ctx.fillStyle = C.dim; ctx.textAlign = "center"; ctx.textBaseline = "top";
+        ctx.fillText(`REDEZEIT ${fmtSec(left)}`, W / 2, by + 12 * K);
+        ctx.textAlign = "right";
+        ctx.fillText(`REDNER ${i + 1} / ${n}`, W - 18 * K, 18 * K);
+        ctx.fillText(`UHR ${clock(i * per)}`, W - 18 * K, 38 * K);
+      } else {
+        const s = ease((t - this.end) / 0.8);
+        drawLogo(ctx, { x: L.x + L.w * 0.075, y: L.y - H * 0.06, w: L.w * 0.85, h: L.h * 0.85, sub: true }, C.txt, s);
+        ctx.globalAlpha = s; ctx.font = `600 ${15 * K}px "JetBrains Mono", monospace`; ctx.fillStyle = C.txt; ctx.textAlign = "center"; ctx.textBaseline = "top";
+        ctx.fillText(`${n} GÄSTE · ${minutes} MIN · ${fmtPer(per)} PRO PERSON`, W / 2, L.y + L.h * 0.85 * (1 + SUB_GAP + SUB_H) - H * 0.06 + 26 * K);
+        ctx.globalAlpha = 1;
+      }
+      return t > this.end + 4;
+    }
+  };
+
+  V.fuellung = {
+    label: "GEDRÄNGE", desc: "Die Buchstaben füllen sich mit Namen, bis kein Platz mehr ist. Dann quellen die Namen über den Rand, das Logo geht in der Menge unter und taucht am Ende wieder auf.",
+    init() { this.pool = makePool(); this.i = 0; this.acc = 0; [this.o, this.oc] = offscreen(); },
+    step(t, dt) {
+      const IN = 6.2, OUT = 9.2, END = 11.5;
+      ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
+      if (t < OUT) {
+        const inside = t < IN;
+        const rate = inside ? Math.min(900, 6 * Math.exp(0.85 * t)) : Math.min(1400, 300 * Math.exp(1.2 * (t - IN)));
+        this.acc += rate * dt;
+        const c = this.oc;
+        if (inside) { c.save(); clipLogo(c, L); }
+        while (this.acc >= 1) {
+          this.acc--; const item = this.pool[this.i++ % this.pool.length];
+          let x, y, size;
+          if (inside) { [x, y] = pt(); size = rr(6, item.real ? 18 : 12) * K; }
+          else { const near = R() < 0.6; [x, y] = near ? pt() : [rr(0, W), rr(0, H)]; if (near) { x += rr(-1, 1) * L.w * 0.35 * (t - IN); y += rr(-1, 1) * L.h * 0.3 * (t - IN); } size = rr(7, item.real ? 22 : 14) * K; }
+          word(c, item, x, y, size, R() < 0.2 ? -Math.PI / 2 : rr(-0.1, 0.1), 1, inside ? C.txt : C.red, inside ? "#bdbacb" : C.dim);
+        }
+        if (inside) c.restore();
+        drawLogo(ctx, L, C.txt, inside ? 0.1 : 0.1 * (1 - (t - IN) / (OUT - IN)));
+        ctx.drawImage(this.o, 0, 0, W, H);
+      } else {
+        const s = t - OUT;
+        if (s < 0.12) { ctx.fillStyle = C.red; ctx.fillRect(0, 0, W, H); }
+        drawLogo(ctx, L, C.txt);
+      }
+      return t > END;
+    }
+  };
+
+  function fmtSec(s) { const m = Math.floor(s / 60), r = Math.max(0, Math.round(s % 60)); return `${m}:${String(r).padStart(2, "0")}`; }
+  function fmtPer(s) { return s >= 120 ? `${(s / 60).toFixed(s % 60 ? 1 : 0).replace(".", ",")} MIN.` : s >= 10 ? `${Math.round(s)} SEK.` : `${s.toFixed(1).replace(".", ",")} SEK.`; }
+  function clock(sec) { const start = 19 * 3600, x = start + sec; const h = Math.floor(x / 3600) % 24, m = Math.floor(x % 3600 / 60); return `${String(h).padStart(2, "0")}:${String(m).padStart(2, "0")}`; }
+
+  // ---------- Steuerung ----------
+  V.stuhlkreis = {
+    label: "STUHLKREIS", desc: "Alle sitzen im Kreis um das Logo. Für jeden neuen Gast rückt ein Stuhl dazu, ist der Kreis voll, beginnt dahinter der nächste. Die Kamera zoomt mit heraus, bis aus dem Stuhlkreis ein Amphitheater wird.",
+    init() {
+      this.pool = makePool();
+      // Welt-Einheiten: innerer Kreis, Ringabstand, Abstand der Stühle auf dem Kreis
+      const R0 = 300, DR = 170, SP = 74;
+      this.seats = []; let ring = 0;
+      while (this.seats.length < this.pool.length) {
+        const r = R0 + ring * DR, cap = Math.floor(2 * Math.PI * r / SP), off = ring * 0.37;
+        for (let j = 0; j < cap && this.seats.length < this.pool.length; j++) this.seats.push({ r, a: off + 2 * Math.PI * j / cap - Math.PI / 2, ring });
+        ring++;
+      }
+      this.pool.forEach((item, i) => { this.seats[i].item = item; this.seats[i].born = -1; });
+      this.T = 11; this.cam = 1; this.endAt = -1;
+    },
+    step(t, dt) {
+      const N = this.seats.length;
+      const n = Math.min(N, Math.floor(8 * Math.pow(Math.max(1, N / 8), Math.min(1, t / this.T))));
+      for (let i = 0; i < n; i++) if (this.seats[i].born < 0) this.seats[i].born = t;
+      if (n >= N && this.endAt < 0) this.endAt = t;
+      const outer = (n ? this.seats[n - 1].r : 300) + 150;
+      const target = Math.min(W, H) * 0.47 / outer;
+      this.cam += (target - this.cam) * Math.min(1, dt * 3);
+      const cam = this.cam;
+
+      ctx.fillStyle = C.bg; ctx.fillRect(0, 0, W, H);
+      ctx.save(); ctx.translate(W / 2, H / 2); ctx.scale(cam, cam);
+      // Lockup in der Mitte
+      const lw = 380, lh = lw * LH / LW;
+      drawLogo(ctx, { x: -lw / 2, y: -lh * (1 + SUB_GAP + SUB_H) / 2, w: lw, h: lh, sub: true }, C.txt);
+      const showText = 12 * cam > 2.2, cs = 26;
+      for (let i = 0; i < n; i++) {
+        const s = this.seats[i], k = ease((t - s.born) / 0.5);
+        const r = s.r + (1 - k) * 120;
+        ctx.save(); ctx.globalAlpha = k; ctx.rotate(s.a); ctx.translate(r, 0);
+        // Stuhl: Sitzfläche zur Mitte, Lehne außen
+        ctx.fillStyle = s.item.real ? C.red : "#3a3848";
+        ctx.fillRect(-cs / 2, -cs / 2, cs, cs);
+        ctx.fillStyle = s.item.real ? C.txt : C.dim;
+        ctx.fillRect(cs / 2 + 3, -cs / 2 - 2, 6, cs + 4);
+        if (showText) {
+          ctx.font = font(13, s.item.real ? 800 : 500); ctx.fillStyle = s.item.real ? C.txt : C.dim; ctx.textBaseline = "middle";
+          const flip = Math.cos(s.a) < 0;
+          if (flip) { ctx.rotate(Math.PI); ctx.textAlign = "right"; ctx.fillText(s.item.t, -cs / 2 - 18, 0); }
+          else { ctx.textAlign = "left"; ctx.fillText(s.item.t, cs / 2 + 18, 0); }
+        }
+        ctx.restore();
+      }
+      ctx.restore();
+      const rings = n ? this.seats[n - 1].ring + 1 : 0;
+      ctx.font = `600 ${12 * K}px "JetBrains Mono", monospace`; ctx.fillStyle = C.dim; ctx.textAlign = "left"; ctx.textBaseline = "bottom";
+      ctx.fillText(`${n} STÜHLE · ${rings} ${rings === 1 ? "REIHE" : "REIHEN"} · ${fmtPer(perPerson())} PRO PERSON`, 18 * K, H - 16 * K);
+      return this.endAt >= 0 && t > this.endAt + 3;
+    }
+  };
+
+  const order = ["flut", "explosion", "redezeit", "fuellung", "stuhlkreis"];
+  let cur = "flut", t = 0, last = 0, playing = !reduce, cycle = 0;
+  try { const s = localStorage.getItem("agora-variant"); if (V[s]) cur = s; } catch (e) {}
+  const tabs = document.getElementById("tabs");
+  for (const k of order) {
+    const b = document.createElement("button"); b.className = "tab"; b.type = "button"; b.role = "tab"; b.id = "tab-" + k;
+    b.textContent = V[k].label; b.onclick = () => select(k); tabs.appendChild(b);
+  }
+  function select(k) {
+    cur = k; try { localStorage.setItem("agora-variant", k); } catch (e) {}
+    for (const b of tabs.children) b.setAttribute("aria-selected", b.id === "tab-" + k);
+    document.getElementById("desc").textContent = V[k].desc;
+    restart();
+  }
+  function restart() { R = rng(++cycle * 7919); t = 0; V[cur].init(); if (!playing) frame(true); }
+  const playBtn = document.getElementById("play");
+  playBtn.onclick = () => { playing = !playing; playBtn.textContent = playing ? "PAUSE" : "ABSPIELEN"; last = performance.now(); if (playing) requestAnimationFrame(loop); };
+  playBtn.textContent = playing ? "PAUSE" : "ABSPIELEN";
+  document.getElementById("restart").onclick = restart;
+
+  function frame(still) {
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    if (still) { // ruhendes Standbild: ein paar Sekunden vorspulen
+      const target = cur === "redezeit" ? 3 : cur === "explosion" ? 5 : 7;
+      for (let s = 0; s < target; s += 1 / 30) V[cur].step(s, 1 / 30);
+      t = target; return;
+    }
+    if (V[cur].step(t, 1 / 60)) restart();
+  }
+  function loop(now) {
+    if (!playing) return;
+    const dt = Math.min(0.1, (now - last) / 1000); last = now; t += dt;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const ended = V[cur].step(t, dt);
+    if (recStop) {
+      $("recmsg").textContent = `Aufnahme läuft … ${Math.floor(t)} s. Den Tab offen lassen.`;
+      if (ended) { const s = recStop; recStop = null; s(); return; }
+    } else if (ended) restart();
+    requestAnimationFrame(loop);
+  }
+
+  // ---------- Video-Export ----------
+  const FORMATS = { quer: [1920, 1080], hoch: [1080, 1920], quadrat: [1080, 1080] };
+  let recStop = null, lastVideo = null;
+  function recMsg(text, err) { const m = $("recmsg"); m.textContent = text; m.className = "recmsg" + (err ? " err" : ""); }
+  function lockForRec(on) { for (const id of ["rec", "format", "play", "restart", "gesamt", "dauer"]) $(id).disabled = on; for (const b of tabs.children) b.disabled = on; }
+  async function record() {
+    const mime = ["video/mp4;codecs=avc1.640028", "video/mp4;codecs=avc1", "video/mp4", "video/webm;codecs=vp9", "video/webm"]
+      .find(m => window.MediaRecorder && MediaRecorder.isTypeSupported(m));
+    if (!cv.captureStream || !mime) { recMsg("Dieser Browser kann keine Videos aufnehmen. Am besten Chrome oder Safari nehmen.", true); return; }
+    const fmt = $("format").value;
+    lockForRec(true); $("saveAgain").hidden = true;
+    recSize = FORMATS[fmt]; layout();
+    R = rng(++cycle * 7919); t = 0; V[cur].init();
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0); V[cur].step(0, 0);
+    const rec = new MediaRecorder(cv.captureStream(30), { mimeType: mime, videoBitsPerSecond: 12e6 });
+    const chunks = []; rec.ondataavailable = e => { if (e.data.size) chunks.push(e.data); };
+    const stopped = new Promise(r => rec.onstop = r);
+    rec.start(250);
+    const wasPlaying = playing; playing = true; playBtn.textContent = "PAUSE";
+    await new Promise(res => { recStop = () => { setTimeout(() => rec.stop(), 300); res(); }; last = performance.now(); requestAnimationFrame(loop); });
+    await stopped;
+    recSize = null; layout(); lockForRec(false);
+    playing = wasPlaying; playBtn.textContent = playing ? "PAUSE" : "ABSPIELEN";
+    restart(); if (playing) { last = performance.now(); requestAnimationFrame(loop); }
+    const ext = mime.startsWith("video/mp4") ? "mp4" : "webm";
+    lastVideo = { blob: new Blob(chunks, { type: mime.split(";")[0] }), name: `agora-${V[cur].label.toLowerCase().replace(/[^a-z0-9äöü]+/g, "-")}-${fmt}.${ext}` };
+    saveVideo();
+  }
+  async function saveVideo() {
+    if (!lastVideo) return;
+    const mb = (lastVideo.blob.size / 1048576).toFixed(1).replace(".", ",");
+    let dl = null; try { dl = await window.claude?.use?.("downloads"); } catch (e) {}
+    if (!dl) {
+      if (window.claude) { recMsg("Speichern geht in dieser Ansicht nicht. Öffne die Seite in claude.ai im Browser.", true); return; }
+      const a = document.createElement("a"); a.href = URL.createObjectURL(lastVideo.blob); a.download = lastVideo.name; a.click();
+      recMsg(`${lastVideo.name} (${mb} MB) gespeichert.`); return;
+    }
+    recMsg(`${lastVideo.name} (${mb} MB) ist fertig. Bitte das Speichern bestätigen.`);
+    try { await dl.save({ filename: lastVideo.name, data: lastVideo.blob }); recMsg(`${lastVideo.name} (${mb} MB) gespeichert.`); $("saveAgain").hidden = true; }
+    catch (e) {
+      $("saveAgain").hidden = false;
+      if (e?.code === "declined") recMsg("Nicht gespeichert. Du kannst es erneut versuchen.");
+      else if (e?.code === "rate_limited") recMsg("Es ist schon ein Speichern-Dialog offen. Kurz warten, dann erneut speichern.", true);
+      else recMsg("Speichern hat nicht geklappt. Erneut versuchen oder die Seite im Browser öffnen.", true);
+    }
+  }
+  document.getElementById("rec").onclick = record;
+  document.getElementById("saveAgain").onclick = saveVideo;
+
+  // ---------- Gästeliste & Rechnung ----------
+  const $ = id => document.getElementById(id);
+  const gesamt = $("gesamt"), dauer = $("dauer");
+  gesamt.value = totalTarget; dauer.value = minutes;
+  function saveUI() { try { localStorage.setItem("agora-ui", JSON.stringify({ g: totalTarget, m: minutes })); } catch (e) {} }
+  function renderMath() {
+    gesamt.min = Math.max(1, names.length);
+    if (+gesamt.value < names.length) gesamt.value = names.length;
+    const n = total(), p = perPerson();
+    const [num, unit] = fmtPer(p).split(" ");
+    $("perPerson").innerHTML = ""; $("perPerson").append(num); const sm = document.createElement("small"); sm.textContent = unit; $("perPerson").append(sm);
+    $("math").innerHTML = `<b>${n}</b> Gäste · <b>${minutes}</b> Min. · davon <b>${names.length}</b> mit Namen, <b>${n - names.length}</b> als N.&nbsp;N.`;
+    $("count").textContent = names.length ? `(${names.length})` : "";
+  }
+  let rebuildT = 0;
+  function poolChanged() { renderMath(); clearTimeout(rebuildT); rebuildT = setTimeout(() => { if (!recSize && (cur !== "flut" || t < 1)) restart(); }, 400); }
+  gesamt.oninput = () => { totalTarget = +gesamt.value; saveUI(); poolChanged(); };
+  dauer.oninput = () => { const v = +dauer.value; if (v > 0) { minutes = v; saveUI(); renderMath(); } };
+
+  let db = null, canWrite = true;
+  const list = $("names"), status = $("status");
+  function renderNames() {
+    list.innerHTML = "";
+    for (const n of names) {
+      const li = document.createElement("li"); const sp = document.createElement("span"); sp.textContent = n.name; li.append(sp);
+      if (canWrite) { const x = document.createElement("button"); x.type = "button"; x.textContent = "×"; x.setAttribute("aria-label", n.name + " entfernen"); x.onclick = () => removeName(n); li.append(x); }
+      list.append(li);
+    }
+    $("empty").hidden = names.length > 0;
+    renderMath();
+  }
+  function setStatus(msg, err) { status.textContent = msg; status.className = "hint" + (err ? " err" : ""); status.hidden = !msg; }
+
+  $("addForm").addEventListener("submit", async e => {
+    e.preventDefault();
+    const inp = $("gast-name"); const v = inp.value.replace(/\s+/g, " ").trim();
+    if (!v) return;
+    if (names.some(n => n.name.toLowerCase() === v.toLowerCase())) { setStatus(`${v} steht schon auf der Liste.`, true); return; }
+    inp.value = "";
+    if (!db) { names.push({ id: "local-" + Date.now(), name: v }); renderNames(); poolChanged(); if (BACKEND) saveLocal(); return; }
+    $("addBtn").disabled = true;
+    try { await db.collection("gaeste").add({ name: v, t: Date.now() }); setStatus(""); }
+    catch (err) {
+      inp.value = v;
+      if (err && err.code === "invalid_argument") { canWrite = false; lockInputs(); setStatus("Du kannst die Liste ansehen, aber nicht ändern. Bitte die Person, die sie geteilt hat, um Bearbeitungsrechte.", true); }
+      else if (err && err.code === "quota_exceeded") setStatus("Die Liste ist voll. Erst Namen entfernen, dann neue eintragen.", true);
+      else setStatus("Eintragen hat nicht geklappt. Versuch es gleich noch einmal.", true);
+    } finally { $("addBtn").disabled = !canWrite; }
+  });
+  async function removeName(n) {
+    if (!db) { names = names.filter(x => x !== n); renderNames(); poolChanged(); if (BACKEND) saveLocal(); return; }
+    try { await db.collection("gaeste").doc(n.id).delete(); }
+    catch (err) { setStatus("Entfernen hat nicht geklappt.", true); }
+  }
+  function lockInputs() { $("gast-name").disabled = true; $("addBtn").disabled = true; renderNames(); }
+
+  // ---------- Backend: feste Liste in data/agora.json, Änderungen im Browser ----------
+  const LKEY = "scheinfirma.agora.v1";
+  let fileNames = [];
+  async function connectFile() {
+    let meta = {};
+    try { const r = await fetch("../data/agora.json?t=" + Date.now()); if (!r.ok) throw 0; meta = await r.json(); }
+    catch (e) { setStatus("data/agora.json konnte nicht geladen werden. Einträge bleiben nur in diesem Browser.", true); }
+    fileNames = (Array.isArray(meta.gaeste) ? meta.gaeste : []).map(x => String(x).replace(/\s+/g, " ").trim().slice(0, 80)).filter(Boolean);
+    if (!uiSaved) { if (meta.gesamt > 0) totalTarget = meta.gesamt; if (meta.minuten > 0) minutes = meta.minuten; gesamt.value = totalTarget; dauer.value = minutes; }
+    let local = null; try { local = JSON.parse(localStorage.getItem(LKEY)); } catch (e) {}
+    names = (Array.isArray(local) ? local : fileNames).map((n, i) => ({ id: "n" + i, name: n }));
+    if (status.className === "hint") setStatus("");
+    renderNames(); poolChanged(); updateFileBox();
+  }
+  function saveLocal() { try { localStorage.setItem(LKEY, JSON.stringify(names.map(n => n.name))); } catch (e) {} updateFileBox(); }
+  function updateFileBox() {
+    $("filebox").hidden = false;
+    const now = names.map(n => n.name), add = now.filter(n => !fileNames.includes(n)).length, rem = fileNames.filter(n => !now.includes(n)).length;
+    const changed = add || rem;
+    $("fileinfo").textContent = changed
+      ? `Nur in diesem Browser: ${add} neu, ${rem} entfernt. Damit es für alle gilt: agora.json herunterladen, in website/data/ ersetzen und committen.`
+      : `Stand wie data/agora.json (${fileNames.length} ${fileNames.length === 1 ? "Name" : "Namen"}). Neue Einträge bleiben erst einmal in diesem Browser.`;
+    $("resetLocal").hidden = !changed;
+  }
+  if (BACKEND) {
+    $("dlJson").onclick = () => {
+      const json = JSON.stringify({ gaeste: names.map(n => n.name), gesamt: totalTarget, minuten: minutes }, null, 2) + "\n";
+      const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([json], { type: "application/json" })); a.download = "agora.json"; a.click();
+    };
+    $("resetLocal").onclick = () => { try { localStorage.removeItem(LKEY); } catch (e) {} names = fileNames.map((n, i) => ({ id: "n" + i, name: n })); renderNames(); poolChanged(); updateFileBox(); };
+    // Höhe an das Backend melden, damit der Rahmen mitwächst
+    const report = () => parent.postMessage({ agoraH: document.documentElement.scrollHeight }, "*");
+    new ResizeObserver(report).observe(document.body); addEventListener("load", report);
+  }
+
+  async function connect() {
+    if (BACKEND) return connectFile();
+    let user = null;
+    try { [db, user] = await Promise.all([window.claude?.use?.("db"), window.claude?.use?.("user")]); } catch (e) { db = null; }
+    if (!db) { setStatus("Die Liste wird hier nicht gespeichert: Einträge gelten nur, solange diese Seite offen ist."); renderNames(); return; }
+    try { const c = await user?.can?.("data.write"); if (c === false) { canWrite = false; lockInputs(); setStatus("Nur ansehen: Du kannst keine Gäste eintragen."); } } catch (e) {}
+    let timer = setTimeout(() => setStatus("Die Liste ist gerade nicht erreichbar. Sie lädt, sobald die Verbindung steht.", true), 10000);
+    db.collection("gaeste").orderBy("t").onSnapshot(snap => {
+      names = snap.docs.map(d => ({ id: d.id, name: String(d.data().name || "").slice(0, 80) })).filter(n => n.name);
+      if (!snap.metadata.fromCache) { clearTimeout(timer); if (canWrite) setStatus(""); }
+      renderNames(); poolChanged();
+    }, err => { clearTimeout(timer); setStatus("Die Liste konnte nicht geladen werden.", true); });
+  }
+
+  // ---------- Start ----------
+  let resizeT = 0;
+  addEventListener("resize", () => { clearTimeout(resizeT); resizeT = setTimeout(() => { if (recSize) return; layout(); restart(); }, 150); });
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
+    layout(); renderMath(); select(cur);
+    last = performance.now(); if (playing) requestAnimationFrame(loop);
+    connect();
+  });
+})();
+</script>
+</body></html>
