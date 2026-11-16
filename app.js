@@ -380,7 +380,7 @@ Halbtotale, Handkamera, leichte Unschärfe im Vordergrund.</pre>
   function bAgora() {
     return `
     <p class="lead">AGORA · Das Kunstgespräch: so viele Gäste, dass jede Person nur noch Sekunden Redezeit hat. Fünf Logo-Animationen mit der offenen Gästeliste, dazu Redezeit-Rechner und Video-Export. Neue Namen bleiben zuerst in diesem Browser; für alle gilt, was in <code>data/agora.json</code> steht.</p>
-    <iframe class="logo-frame agora-frame" src="backend/agora.html?v=1" title="AGORA · Das Kunstgespräch"></iframe>`;
+    <iframe class="logo-frame agora-frame" src="backend/agora.html?v=2" title="AGORA · Das Kunstgespräch"></iframe>`;
   }
   function bTool() {
     const url = new URL("logo-tool.html", location.href).href;
@@ -556,7 +556,7 @@ Halbtotale, Handkamera, leichte Unschärfe im Vordergrund.</pre>
   // Figuren und Worldbook liegen als JSON vor (Austausch mit dem Einreichen-Formular)
   const json = (f) => fetch(f + "?v=20", { cache: "no-cache" }).then((r) => { if (!r.ok) throw new Error(f); return r.json(); });
   Promise.all([json("data/roster.json"), json("data/weltbuch.json")]).then(([r, w]) => {
-    SF.roster = r.roster; SF.sorten = r.sorten;
+    SF.roster = r.roster.slice().sort((x, y) => (x.status === "aktiv" ? 0 : 1) - (y.status === "aktiv" ? 0 : 1) || String(x.nr).localeCompare(String(y.nr), "de", { numeric: true })); SF.sorten = r.sorten; // aktive Figuren zuerst
     SF.weltbuch = w.weltbuch; SF.herkunft = w.herkunft;
     SF.einreichen.init(r, w);
     SF.einreichen.rerender = () => rerender("baukasten");

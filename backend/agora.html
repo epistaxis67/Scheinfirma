@@ -422,7 +422,7 @@
       ctx.restore();
       const rings = n ? this.seats[n - 1].ring + 1 : 0;
       ctx.font = `600 ${12 * K}px "JetBrains Mono", monospace`; ctx.fillStyle = C.dim; ctx.textAlign = "left"; ctx.textBaseline = "bottom";
-      ctx.fillText(`${n} STÜHLE · ${rings} ${rings === 1 ? "REIHE" : "REIHEN"} · ${fmtPer(perPerson())} PRO PERSON`, 18 * K, H - 16 * K);
+      ctx.fillText(`${n} STÜHLE · ${rings} ${rings === 1 ? "REIHE" : "REIHEN"}`, 18 * K, H - 16 * K);
       return this.endAt >= 0 && t > this.endAt + 3;
     }
   };
